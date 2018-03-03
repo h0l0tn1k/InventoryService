@@ -1,12 +1,10 @@
 package cz.siemens.inventory.rest.controllers;
 
 import cz.siemens.inventory.dao.GenericDao;
-import cz.siemens.inventory.entity.Project;
+import cz.siemens.inventory.entity.LoginUserScd;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,26 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_PROJECTS)
-public class ProjectsOwnersController {
+@RequestMapping(ApiUris.ROOT_URI_LOGIN_USER_SCD)
+public class LoginUserScdController {
 
-    final static Logger logger = LoggerFactory.getLogger(ProjectsOwnersController.class);
+    //final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
 
     @Autowired
-    private GenericDao<Project> projectsDao;
-
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<Project> findAllProjects(){
-        logger.debug("rest findAllProjects() called");
-        return projectsDao.readAll();
-    }
+    private GenericDao<LoginUserScd> userDao;
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Project findById(@PathVariable("id") Long id) throws Exception {
-        logger.debug("rest findById({id}) called", id);
-
+    public final LoginUserScd findById(@PathVariable("id") Long id) throws Exception {
         try {
-            return projectsDao.read(id);
+            return userDao.read(id);
         } catch(Exception ex) {
             throw new ResourceNotFoundException();
         }
@@ -42,23 +32,18 @@ public class ProjectsOwnersController {
     @RequestMapping(value = "/create", method= RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final Project createProject(@RequestBody Project project) throws Exception {
-        logger.debug("rest createProject({0}) called", project.toString());
-
+    public final void create(@RequestBody LoginUserScd user) throws Exception {
         try {
-            projectsDao.create(project);
-            return project;
+            userDao.create(user);
         } catch(Exception ex) {
             throw new ResourceAlreadyExistsException();
         }
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void delete(@PathVariable("id") Long id) throws Exception {
-        logger.debug("rest delete({id}) called", id);
-
+    public final void remove(@PathVariable("id") Long id) throws Exception {
         try {
-            projectsDao.delete(projectsDao.read(id));
+            userDao.delete(userDao.read(id));
         } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }

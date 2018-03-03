@@ -10,11 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_COMPANYOWNERS)
+@RequestMapping(ApiUris.ROOT_URI_COMPANY_OWNERS)
 public class CompanyOwnersController {
 
     final static Logger logger = LoggerFactory.getLogger(CompanyOwnersController.class);
@@ -38,18 +37,6 @@ public class CompanyOwnersController {
             throw new ResourceNotFoundException();
         }
     }
-/*
-    @RequestMapping(value="/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompanyOwner findByName(@PathVariable("name") String name) throws Exception {
-        logger.debug("rest findByName({id}) called", name);
-
-        //TODO: fix encoding
-        try {
-            return companyOwnerDao.findByName(name);
-        } catch(Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }*/
 
     @RequestMapping(value = "/create", method= RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -76,3 +63,12 @@ public class CompanyOwnersController {
         }
     }
 }
+/*
+public class CompanyOwnersController extends GenericController<CompanyOwner, Long> {
+
+    @Autowired
+    public CompanyOwnersController(CompanyOwnerDaoImpl repository) {
+        super(repository);
+    }
+}
+*/

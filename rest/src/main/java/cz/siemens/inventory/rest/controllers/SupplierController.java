@@ -1,7 +1,7 @@
 package cz.siemens.inventory.rest.controllers;
 
 import cz.siemens.inventory.dao.GenericDao;
-import cz.siemens.inventory.entity.Project;
+import cz.siemens.inventory.entity.Supplier;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
@@ -14,26 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_PROJECTS)
-public class ProjectsOwnersController {
+@RequestMapping(ApiUris.ROOT_URI_SUPPLIERS)
+public class SupplierController {
 
-    final static Logger logger = LoggerFactory.getLogger(ProjectsOwnersController.class);
+    //final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
 
     @Autowired
-    private GenericDao<Project> projectsDao;
+    private GenericDao<Supplier> supplierDao;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<Project> findAllProjects(){
-        logger.debug("rest findAllProjects() called");
-        return projectsDao.readAll();
+    public final List<Supplier> findAll(){
+        return supplierDao.readAll();
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Project findById(@PathVariable("id") Long id) throws Exception {
-        logger.debug("rest findById({id}) called", id);
-
+    public final Supplier findById(@PathVariable("id") Long id) throws Exception {
         try {
-            return projectsDao.read(id);
+            return supplierDao.read(id);
         } catch(Exception ex) {
             throw new ResourceNotFoundException();
         }
@@ -42,23 +39,18 @@ public class ProjectsOwnersController {
     @RequestMapping(value = "/create", method= RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final Project createProject(@RequestBody Project project) throws Exception {
-        logger.debug("rest createProject({0}) called", project.toString());
-
+    public final void create(@RequestBody Supplier supplier) throws Exception {
         try {
-            projectsDao.create(project);
-            return project;
+            supplierDao.create(supplier);
         } catch(Exception ex) {
             throw new ResourceAlreadyExistsException();
         }
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void delete(@PathVariable("id") Long id) throws Exception {
-        logger.debug("rest delete({id}) called", id);
-
+    public final void remove(@PathVariable("id") Long id) throws Exception {
         try {
-            projectsDao.delete(projectsDao.read(id));
+            supplierDao.delete(supplierDao.read(id));
         } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
