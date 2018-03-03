@@ -1,7 +1,6 @@
 package cz.siemens.inventory.rest.controllers;
 
 import cz.siemens.inventory.dao.CompanyOwnerDao;
-import cz.siemens.inventory.dao.GenericDao;
 import cz.siemens.inventory.entity.CompanyOwner;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
@@ -15,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_COMPANYOWNERS)
-public class CompanyOwnersController {
+@RequestMapping(ApiUris.ROOT_URI_PROJECTS)
+public class ProjectsOwnersController {
 
-    final static Logger logger = LoggerFactory.getLogger(CompanyOwnersController.class);
+    final static Logger logger = LoggerFactory.getLogger(ProjectsOwnersController.class);
 
     @Autowired
-    private CompanyOwnerDao companyOwnerDao = new GenericDao<CompanyOwner>();
+    private ProjectsDao projectsDao;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<CompanyOwner> findAllCompanyOwners(){

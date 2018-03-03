@@ -8,26 +8,26 @@ import java.util.List;
 public interface CompanyOwnerDao {
 
     /**
-     * Removes machine an existing machine
+     * Removes an existing company owner
      * @param companyOwner
      */
     public void remove(CompanyOwner companyOwner);
 
     /**
-     * Adds a new machine
+     * Adds a new company owner
      * @param companyOwner
-     * @return id of created machine
+     * @return id of created company owner
      */
     public Long add(CompanyOwner companyOwner);
 
     /**
-     * Updates an existing machine
+     * Updates an existing company owner
      * @param companyOwner
      */
     public void update(CompanyOwner companyOwner);
 
     /**
-     * @return list of all machines
+     * @return list of all company owners
      */
     public List<CompanyOwner> findAll();
 

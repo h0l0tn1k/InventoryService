@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "company_owners")
-public class CompanyOwner implements Serializable {
+public class CompanyOwner implements Serializable, PersistableEntity {
 
 	private static final long serialVersionUID = -3307622710029349065L;
 
@@ -31,5 +31,20 @@ public class CompanyOwner implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || !(o instanceof CompanyOwner)) return false;
+		CompanyOwner companyOwner = (CompanyOwner) o;
+
+		return getName().equals(companyOwner.getName());
+	}
+	@Override
+	public int hashCode() {
+		int result = 31 * getName().hashCode();
+		result = 31 * result + getName().hashCode();
+		return result;
 	}
 }

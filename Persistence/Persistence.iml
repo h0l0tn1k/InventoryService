@@ -9,7 +9,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
         <datasource-mapping>
-          <factory-entry name="default" />
+          <factory-entry name="default" value="b13be129-31d1-4248-9739-ada2a770c235" />
           <factory-entry name="entityManagerFactory" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
