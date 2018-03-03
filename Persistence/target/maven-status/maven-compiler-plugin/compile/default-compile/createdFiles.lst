@@ -1,0 +1,4 @@
+cz\siemens\inventory\dao\CompanyOwnerDao.class
+cz\siemens\inventory\entity\CompanyOwner.class
+cz\siemens\inventory\dao\CompanyOwnerDaoImpl.class
+cz\siemens\inventory\ApplicationContext.class
