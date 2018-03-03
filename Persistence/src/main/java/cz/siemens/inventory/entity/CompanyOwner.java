@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "company_owners")
-public class CompanyOwner implements Serializable, PersistableEntity {
+public class CompanyOwner implements Serializable {
 
 	private static final long serialVersionUID = -3307622710029349065L;
 

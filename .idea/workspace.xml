@@ -7,39 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d05ac983-3a84-43a2-87d3-e1bb46e09227" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/GenericDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDaoImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/ApplianceRevision.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/Department.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/Device.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/DeviceState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/DeviceType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/InventoryRecord.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/LoginUserScd.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/PersistableEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/Project.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/Supplier.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/exceptions/ResourceAlreadyExistsException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/exceptions/ResourceNotFoundException.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDao.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDao.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Persistence/target/classes/cz/siemens/inventory/dao/CompanyOwnerDaoImpl.class" afterPath="$PROJECT_DIR$/Persistence/target/classes/cz/siemens/inventory/dao/CompanyOwnerDaoImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Persistence/target/classes/cz/siemens/inventory/entity/CompanyOwner.class" afterPath="$PROJECT_DIR$/Persistence/target/classes/cz/siemens/inventory/entity/CompanyOwner.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/target/VaadinSiemens-Rest-1.0/WEB-INF/classes/cz/siemens/inventory/rest/ApiUris.class" afterPath="$PROJECT_DIR$/rest/target/VaadinSiemens-Rest-1.0/WEB-INF/classes/cz/siemens/inventory/rest/ApiUris.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/target/VaadinSiemens-Rest-1.0/WEB-INF/classes/cz/siemens/inventory/rest/controllers/CompanyOwnersController.class" afterPath="$PROJECT_DIR$/rest/target/VaadinSiemens-Rest-1.0/WEB-INF/classes/cz/siemens/inventory/rest/controllers/CompanyOwnersController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/target/VaadinSiemens-Rest-1.0/WEB-INF/lib/persistence-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/rest/target/VaadinSiemens-Rest-1.0/WEB-INF/lib/persistence-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/target/classes/cz/siemens/inventory/rest/ApiUris.class" afterPath="$PROJECT_DIR$/rest/target/classes/cz/siemens/inventory/rest/ApiUris.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/target/classes/cz/siemens/inventory/rest/controllers/CompanyOwnersController.class" afterPath="$PROJECT_DIR$/rest/target/classes/cz/siemens/inventory/rest/controllers/CompanyOwnersController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/rest_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/rest_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Persistence/Persistence.iml" afterPath="$PROJECT_DIR$/Persistence/Persistence.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDao.java" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDaoImpl.java" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDaoImpl.java" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDaoImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/CompanyOwner.java" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/CompanyOwner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/pom.xml" afterPath="$PROJECT_DIR$/rest/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/rest.iml" afterPath="$PROJECT_DIR$/rest/rest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/ApiUris.java" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/ApiUris.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -69,8 +49,8 @@
       <file leaf-file-name="CompanyOwner.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/CompanyOwner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="12" column="55" lean-forward="true" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
+            <state relative-caret-position="102">
+              <caret line="7" column="49" lean-forward="false" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -79,8 +59,8 @@
       <file leaf-file-name="CompanyOwnersController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="23" column="75" lean-forward="false" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="75" />
+            <state relative-caret-position="17">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -92,20 +72,8 @@
         <entry file="file://$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+              <caret line="11" column="49" lean-forward="false" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProjectsDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -113,30 +81,22 @@
       <file leaf-file-name="ProjectsDaoImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompanyOwnerDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDao.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#433#434#0" expanded="true" />
+                <element signature="e#469#470#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompanyOwnerDaoImpl.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CompanyOwnerDaoImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state relative-caret-position="102">
+              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#252#253#0" expanded="true" />
@@ -146,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenericDao.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GenericDao.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/GenericDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="198">
+              <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#450#451#0" expanded="true" />
@@ -222,15 +182,15 @@
         <option value="$PROJECT_DIR$/rest/src/main/resources/webSecurityConfig.xml" />
         <option value="$PROJECT_DIR$/rest/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/ApiUris.java" />
-        <option value="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java" />
-        <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDaoImpl.java" />
         <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDao.java" />
         <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDao.java" />
         <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/PersistableEntity.java" />
-        <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/CompanyOwner.java" />
-        <option value="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java" />
         <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDaoImpl.java" />
         <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/GenericDao.java" />
+        <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDaoImpl.java" />
+        <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/CompanyOwner.java" />
+        <option value="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java" />
+        <option value="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java" />
       </list>
     </option>
   </component>
@@ -618,15 +578,16 @@
       <option name="presentableId" value="Default" />
       <updated>1520087705532</updated>
       <workItem from="1520087709702" duration="7469000" />
-      <workItem from="1520095885149" duration="4419000" />
+      <workItem from="1520095885149" duration="4955000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11888000" />
+    <option name="totallyTimeSpent" value="12424000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42709312" sideWeight="0.246875" order="7" side_tool="true" content_ui="tabs" />
@@ -638,7 +599,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42709312" sideWeight="0.753125" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42709312" sideWeight="0.753125" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37723425" sideWeight="0.475" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -650,9 +611,10 @@
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32925683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -661,7 +623,6 @@
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -675,7 +636,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java</url>
-          <line>27</line>
+          <line>26</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -693,7 +654,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java</url>
-          <line>48</line>
+          <line>47</line>
           <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
@@ -1041,42 +1002,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/PersistableEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1095,40 +1020,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="23" column="75" lean-forward="false" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#252#253#0" expanded="true" />
-            <element signature="e#293#294#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/CompanyOwner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="12" column="55" lean-forward="true" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/GenericDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="198">
+          <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#450#451#0" expanded="true" />
@@ -1139,6 +1034,72 @@
             <element signature="e#769#770#0" expanded="true" />
             <element signature="e#1085#1086#0" expanded="true" />
             <element signature="e#1137#1138#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#433#434#0" expanded="true" />
+            <element signature="e#469#470#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/CompanyOwner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="49" lean-forward="false" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/ProjectsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="49" lean-forward="false" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyOwnerDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#252#253#0" expanded="true" />
+            <element signature="e#293#294#0" expanded="true" />
           </folding>
         </state>
       </provider>

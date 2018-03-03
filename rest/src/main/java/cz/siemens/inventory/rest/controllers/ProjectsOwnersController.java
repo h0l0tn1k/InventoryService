@@ -1,7 +1,7 @@
 package cz.siemens.inventory.rest.controllers;
 
-import cz.siemens.inventory.dao.CompanyOwnerDao;
-import cz.siemens.inventory.entity.CompanyOwner;
+import cz.siemens.inventory.dao.GenericDao;
+import cz.siemens.inventory.entity.Project;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
@@ -20,46 +20,34 @@ public class ProjectsOwnersController {
     final static Logger logger = LoggerFactory.getLogger(ProjectsOwnersController.class);
 
     @Autowired
-    private ProjectsDao projectsDao;
+    private GenericDao<Project> projectsDao;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<CompanyOwner> findAllCompanyOwners(){
+    public final List<Project> findAllCompanyOwners(){
         logger.debug("rest findAllCompanyOwners() called");
-        return companyOwnerDao.findAll();
+        return projectsDao.readAll();
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompanyOwner findById(@PathVariable("id") Long id) throws Exception {
+    public final Project findById(@PathVariable("id") Long id) throws Exception {
         logger.debug("rest findById({id}) called", id);
 
         try {
-            return companyOwnerDao.findById(id);
+            return projectsDao.read(id);
         } catch(Exception ex) {
             throw new ResourceNotFoundException();
         }
     }
-/*
-    @RequestMapping(value="/name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompanyOwner findByName(@PathVariable("name") String name) throws Exception {
-        logger.debug("rest findByName({id}) called", name);
-
-        //TODO: fix encoding
-        try {
-            return companyOwnerDao.findByName(name);
-        } catch(Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }*/
 
     @RequestMapping(value = "/create", method= RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final CompanyOwner createCompanyOwner(@RequestBody CompanyOwner companyOwner) throws Exception {
-        logger.debug("rest createMachine({0}) called", companyOwner.toString());
+    public final Project createCompanyOwner(@RequestBody Project project) throws Exception {
+        logger.debug("rest createMachine({0}) called", project.toString());
 
         try {
-            companyOwnerDao.add(companyOwner);
-            return companyOwner;
+            projectsDao.create(project);
+            return project;
         } catch(Exception ex) {
             throw new ResourceAlreadyExistsException();
         }
@@ -70,7 +58,7 @@ public class ProjectsOwnersController {
         logger.debug("rest remove({id}) called", id);
 
         try {
-            companyOwnerDao.remove(companyOwnerDao.findById(id));
+            projectsDao.delete(projectsDao.read(id));
         } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }

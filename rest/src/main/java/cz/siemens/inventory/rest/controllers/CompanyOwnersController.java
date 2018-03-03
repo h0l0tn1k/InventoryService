@@ -1,6 +1,5 @@
 package cz.siemens.inventory.rest.controllers;
 
-import cz.siemens.inventory.dao.CompanyOwnerDao;
 import cz.siemens.inventory.dao.GenericDao;
 import cz.siemens.inventory.entity.CompanyOwner;
 import cz.siemens.inventory.rest.ApiUris;
@@ -21,12 +20,12 @@ public class CompanyOwnersController {
     final static Logger logger = LoggerFactory.getLogger(CompanyOwnersController.class);
 
     @Autowired
-    private CompanyOwnerDao companyOwnerDao = new GenericDao<CompanyOwner>();
+    private GenericDao<CompanyOwner> companyOwnerDao;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<CompanyOwner> findAllCompanyOwners(){
         logger.debug("rest findAllCompanyOwners() called");
-        return companyOwnerDao.findAll();
+        return companyOwnerDao.readAll();
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,7 +33,7 @@ public class CompanyOwnersController {
         logger.debug("rest findById({id}) called", id);
 
         try {
-            return companyOwnerDao.findById(id);
+            return companyOwnerDao.read(id);
         } catch(Exception ex) {
             throw new ResourceNotFoundException();
         }
@@ -59,7 +58,7 @@ public class CompanyOwnersController {
         logger.debug("rest createMachine({0}) called", companyOwner.toString());
 
         try {
-            companyOwnerDao.add(companyOwner);
+            companyOwnerDao.create(companyOwner);
             return companyOwner;
         } catch(Exception ex) {
             throw new ResourceAlreadyExistsException();
@@ -71,7 +70,7 @@ public class CompanyOwnersController {
         logger.debug("rest remove({id}) called", id);
 
         try {
-            companyOwnerDao.remove(companyOwnerDao.findById(id));
+            companyOwnerDao.delete(companyOwnerDao.read(id));
         } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
