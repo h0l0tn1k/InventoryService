@@ -9,16 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginUserScdDaoImpl extends LoginUserScdDao {
 
     public LoginUserScd authenticate(String email, String password) {
-        LoginUserScd user = em.createQuery("SELECT user FROM LoginUserScd user where email=:email", LoginUserScd.class)
-                .setParameter("email", email).getSingleResult();
-        if(user == null) {
-            return null;
-        }
-
-        if(user.getGid().equals(password)) {
-            return user;
-        }
-
-        return null;
+        return em.createQuery("SELECT user FROM LoginUserScd user where email=:email and gid=:password", LoginUserScd.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getSingleResult();
     }
 }

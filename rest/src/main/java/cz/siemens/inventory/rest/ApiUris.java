@@ -12,4 +12,5 @@ public abstract class ApiUris {
     public static final String ROOT_URI_PROJECTS = "/projects";
     public static final String ROOT_URI_SUPPLIERS = "/suppliers";
     public static final String ROOT_URI_USERS = "/users";
+    public static final String ROOT_URI_LOGIN = "/login";
 }
