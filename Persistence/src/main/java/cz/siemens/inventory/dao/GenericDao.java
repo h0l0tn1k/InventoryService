@@ -1,5 +1,7 @@
 package cz.siemens.inventory.dao;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
@@ -7,6 +9,7 @@ import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.List;
 
+@Transactional
 public class GenericDao<E extends Serializable> {
 
     private Class<E> entityClass;

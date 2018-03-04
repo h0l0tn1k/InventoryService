@@ -3,6 +3,7 @@ package cz.siemens.inventory.rest.controllers;
 import cz.siemens.inventory.dao.GenericDao;
 import cz.siemens.inventory.entity.ApplianceRevision;
 import cz.siemens.inventory.rest.ApiUris;
+import cz.siemens.inventory.rest.exceptions.InvalidParameterException;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,18 @@ public class ApplianceRevisionController {
             return applianceRevisionDao.read(id);
         } catch(Exception ex) {
             throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value = "/update", method= RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final ApplianceRevision update(@RequestBody ApplianceRevision applianceRevision) throws Exception {
+        try {
+            applianceRevisionDao.update(applianceRevision);
+            return applianceRevisionDao.read(applianceRevision.getId());
+        }catch (Exception ex) {
+            throw new InvalidParameterException();
         }
     }
 

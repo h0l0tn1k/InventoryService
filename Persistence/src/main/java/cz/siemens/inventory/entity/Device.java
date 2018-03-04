@@ -1,5 +1,11 @@
 package cz.siemens.inventory.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import cz.siemens.inventory.dao.DeviceDaoImpl;
+import cz.siemens.inventory.dao.GenericDao;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
@@ -13,6 +19,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "objects")
 public class Device implements Serializable {
 
@@ -251,8 +258,8 @@ public class Device implements Serializable {
 			revision.setDevice(this);
 			this.setLastRevision(revision);
 			//todo: fix
-//			GenericDao<Device> deviceDao = GenericDao.createGenericDao(Device.class);
-//			deviceDao.update(this);
+			GenericDao<Device> deviceDao = new DeviceDaoImpl();
+			deviceDao.update(this);
 		}
 		LocalDate lastRevDate = revision.getLastRevision();
 		return lastRevDate;
