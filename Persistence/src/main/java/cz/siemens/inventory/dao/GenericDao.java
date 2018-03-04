@@ -15,7 +15,7 @@ public class GenericDao<E extends Serializable> {
     private Class<E> entityClass;
 
     @PersistenceContext
-    private EntityManager em;
+    protected EntityManager em;
 
     protected GenericDao(Class<E> entityClass) {
         this.entityClass = entityClass;
