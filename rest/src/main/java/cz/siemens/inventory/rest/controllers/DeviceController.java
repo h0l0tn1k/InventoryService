@@ -1,6 +1,6 @@
 package cz.siemens.inventory.rest.controllers;
 
-import cz.siemens.inventory.dao.GenericDao;
+import cz.siemens.inventory.dao.DeviceDaoImpl;
 import cz.siemens.inventory.entity.Device;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
@@ -18,7 +18,7 @@ public class DeviceController {
     //final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
 
     @Autowired
-    private GenericDao<Device> deviceDao;
+    private DeviceDaoImpl deviceDao;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<Device> findAll(){
@@ -29,6 +29,24 @@ public class DeviceController {
     public final Device findById(@PathVariable("id") Long id) throws Exception {
         try {
             return deviceDao.read(id);
+        } catch(Exception ex) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value="/barcode/{barcodeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Device findByBarcodeId(@PathVariable("barcodeId") String barcodeId) throws Exception {
+        try {
+            return deviceDao.findDeviceByBarcodeId(barcodeId);
+        } catch(Exception ex) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value="/serialno/{serialno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Device findBySerialNo(@PathVariable("serialno") String serialNo) throws Exception {
+        try {
+            return deviceDao.findDeviceBySerialNo(serialNo);
         } catch(Exception ex) {
             throw new ResourceNotFoundException();
         }
