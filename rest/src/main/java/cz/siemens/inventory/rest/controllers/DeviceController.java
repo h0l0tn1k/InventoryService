@@ -44,9 +44,18 @@ public class DeviceController {
     }
 
     @RequestMapping(value="/serialno/{serialno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Device findBySerialNo(@PathVariable("serialno") String serialNo) throws Exception {
+    public final Device findByDeviceSerialNo(@PathVariable("serialno") String serialNo) throws Exception {
         try {
             return deviceDao.findDeviceBySerialNo(serialNo);
+        } catch(Exception ex) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value="/serialno/like/{serialno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<Device> findDevicesBySerialNo(@PathVariable("serialno") String serialNo) throws Exception {
+        try {
+            return deviceDao.findDevicesBySerialNo(serialNo);
         } catch(Exception ex) {
             throw new ResourceNotFoundException();
         }

@@ -4,6 +4,8 @@ import cz.siemens.inventory.entity.Device;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Repository
 public class DeviceDaoImpl extends GenericDao<Device> {
@@ -21,4 +23,10 @@ public class DeviceDaoImpl extends GenericDao<Device> {
         return em.createQuery("SELECT d FROM Device d WHERE d.serialNumber LIKE :serialNo", Device.class)
                 .setParameter("serialNo", serialNo).getSingleResult();
     }
+
+    public List<Device> findDevicesBySerialNo(String serialNo) {
+        return em.createQuery("SELECT d FROM Device d WHERE lower(d.serialNumber) LIKE :serialNo", Device.class)
+                .setParameter("serialNo", "%" + serialNo.toLowerCase() + "%").getResultList();
+    }
+
 }
