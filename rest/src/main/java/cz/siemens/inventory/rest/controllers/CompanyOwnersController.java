@@ -5,6 +5,7 @@ import cz.siemens.inventory.entity.CompanyOwner;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class CompanyOwnersController {
 
         try {
             return companyOwnerDao.read(id);
-        } catch(Exception ex) {
+        }catch(ObjectNotFoundException ex) {
             throw new ResourceNotFoundException();
         }
     }
@@ -63,12 +64,3 @@ public class CompanyOwnersController {
         }
     }
 }
-/*
-public class CompanyOwnersController extends GenericController<CompanyOwner, Long> {
-
-    @Autowired
-    public CompanyOwnersController(CompanyOwnerDaoImpl repository) {
-        super(repository);
-    }
-}
-*/

@@ -5,6 +5,7 @@ import cz.siemens.inventory.entity.Department;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class DepartmentController {
     public final Department findById(@PathVariable("id") Long id) throws Exception {
         try {
             return departmentDao.read(id);
-        } catch(Exception ex) {
+        }catch(ObjectNotFoundException ex) {
             throw new ResourceNotFoundException();
         }
     }

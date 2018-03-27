@@ -1,5 +1,6 @@
 package cz.siemens.inventory.dao;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -42,8 +43,12 @@ public class GenericDao<E extends Serializable> {
         return em.createQuery(criteria).getResultList();
     }
 
-    public E read(Long id) {
-        return em.find(getEntityClass(), id);
+    public E read(Long id) throws Exception {
+        E entity = em.find(getEntityClass(), id);
+
+        if(entity == null) throw new ObjectNotFoundException(id, getEntityClass().toString());
+
+        return entity;
     }
 
     private Class<E> getEntityClass() {

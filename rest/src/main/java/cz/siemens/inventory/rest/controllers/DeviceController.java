@@ -5,6 +5,7 @@ import cz.siemens.inventory.entity.Device;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class DeviceController {
     public final Device findById(@PathVariable("id") Long id) throws Exception {
         try {
             return deviceDao.read(id);
-        } catch(Exception ex) {
+        }catch(ObjectNotFoundException ex) {
             throw new ResourceNotFoundException();
         }
     }
@@ -38,16 +39,17 @@ public class DeviceController {
     public final Device findByBarcodeId(@PathVariable("barcodeId") String barcodeId) throws Exception {
         try {
             return deviceDao.findDeviceByBarcodeId(barcodeId);
-        } catch(Exception ex) {
+        }catch(ObjectNotFoundException ex) {
             throw new ResourceNotFoundException();
         }
     }
 
     @RequestMapping(value="/serialno/{serialno}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Device findByDeviceSerialNo(@PathVariable("serialno") String serialNo) throws Exception {
+
         try {
             return deviceDao.findDeviceBySerialNo(serialNo);
-        } catch(Exception ex) {
+        }catch(ObjectNotFoundException ex) {
             throw new ResourceNotFoundException();
         }
     }
