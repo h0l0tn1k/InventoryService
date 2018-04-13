@@ -7,28 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d05ac983-3a84-43a2-87d3-e1bb46e09227" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/persistence_war.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/persistence_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/PersistenceApplicationContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Persistence/src/main/resources/META-INF/log4j.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/rest_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/rest_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Persistence/Persistence.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Persistence/persistence.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Persistence/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Persistence/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/ApplicationContext.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/CompanyDaoGen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/GenericDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/GenericDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Persistence/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Persistence/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VaadinSiemensService.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SiemensInventoryService.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest/rest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/rest/rest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/CompanyOwnersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/GenericController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/GenericController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ProjectsOwnersController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -70,11 +50,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="persistence.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="persistence.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Persistence/src/main/resources/META-INF/persistence.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="84" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
+            <state relative-caret-position="357">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="6" lean-forward="true" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -155,7 +144,6 @@
         <option value="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/controllers/ApplianceRevisionController.java" />
         <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/ApplianceRevision.java" />
         <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/Device.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/dao/LoginUserScdDao.java" />
         <option value="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/exceptions/UnauthorizedException.java" />
         <option value="$PROJECT_DIR$/rest/src/main/java/cz/siemens/inventory/rest/ApiUris.java" />
@@ -181,6 +169,7 @@
         <option value="$PROJECT_DIR$/Persistence/pom.xml" />
         <option value="$PROJECT_DIR$/rest/src/main/resources/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/Persistence/src/main/resources/META-INF/persistence.xml" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -283,120 +272,6 @@
               <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
               <item name="Persistence" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="VaadinSiemens-Rest-1.0" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="VaadinSiemens-Rest-1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="VaadinSiemens-Rest-1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="VaadinSiemens-Rest-1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VaadinSiemensService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VaadinSiemensService" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="VaadinSiemens-Rest-1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="cz" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -660,7 +535,7 @@
       <workItem from="1522151743639" duration="3184000" />
       <workItem from="1522225542290" duration="260000" />
       <workItem from="1522241988455" duration="817000" />
-      <workItem from="1523633379860" duration="5242000" />
+      <workItem from="1523633379860" duration="5423000" />
     </task>
     <servers />
   </component>
@@ -670,7 +545,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51484000" />
+    <option name="totallyTimeSpent" value="51665000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3832" y="-8" width="1936" height="1176" extended-state="6" />
@@ -697,9 +572,9 @@
       <window_info anchor="bottom" id="Run" order="4" sideWeight="0.71510416" weight="0.32851636" />
       <window_info anchor="bottom" id="Version Control" order="19" />
       <window_info anchor="bottom" id="Spring" order="20" weight="0.32947975" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="21" visible="true" weight="0.32851636" />
+      <window_info anchor="bottom" id="Terminal" order="21" visible="true" weight="0.32851636" />
       <window_info id="Persistence" order="14" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.25266525" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.25266525" />
       <window_info anchor="right" id="Bean Validation" order="16" />
       <window_info id="Web" order="15" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="17" />
@@ -781,13 +656,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rest/src/main/webapp/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="45" column="38" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Persistence/src/main/java/cz/siemens/inventory/entity/Device.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -1119,8 +987,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Persistence/src/main/resources/META-INF/persistence.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="84" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
+        <state relative-caret-position="357">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="6" lean-forward="true" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
         </state>
       </provider>
     </entry>
