@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="VaadinSiemensService:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="VaadinSiemensService-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="VaadinSiemensService:war exploded" />
-    </root>
-  </artifact>
-</component>
