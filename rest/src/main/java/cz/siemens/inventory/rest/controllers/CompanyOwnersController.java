@@ -17,20 +17,20 @@ import java.util.List;
 @RequestMapping(ApiUris.ROOT_URI_COMPANY_OWNERS)
 public class CompanyOwnersController {
 
-    final static Logger logger = LoggerFactory.getLogger(CompanyOwnersController.class);
+    //final static Logger logger = LoggerFactory.getLogger(CompanyOwnersController.class);
 
     @Autowired
     private GenericDao<CompanyOwner> companyOwnerDao;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<CompanyOwner> findAllCompanyOwners(){
-        logger.debug("rest findAllCompanyOwners() called");
+        //logger.debug("rest findAllCompanyOwners() called");
         return companyOwnerDao.readAll();
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final CompanyOwner findById(@PathVariable("id") Long id) throws Exception {
-        logger.debug("rest findById({id}) called", id);
+        //logger.debug("rest findById({id}) called", id);
 
         try {
             return companyOwnerDao.read(id);
@@ -43,7 +43,7 @@ public class CompanyOwnersController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public final CompanyOwner createCompanyOwner(@RequestBody CompanyOwner companyOwner) throws Exception {
-        logger.debug("rest createMachine({0}) called", companyOwner.toString());
+        //logger.debug("rest createMachine({0}) called", companyOwner.toString());
 
         try {
             companyOwnerDao.create(companyOwner);
@@ -55,7 +55,7 @@ public class CompanyOwnersController {
 
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void remove(@PathVariable("id") Long id) throws Exception {
-        logger.debug("rest remove({id}) called", id);
+        //logger.debug("rest remove({id}) called", id);
 
         try {
             companyOwnerDao.delete(companyOwnerDao.read(id));

@@ -13,7 +13,7 @@ import java.util.List;
 
 public abstract class GenericController<E extends Object, ID extends Serializable> {
 
-    private Logger logger = LoggerFactory.getLogger(GenericController.class);
+    //private Logger logger = LoggerFactory.getLogger(GenericController.class);
     private CrudRepository<E, ID> repository;
 
     protected GenericController(CrudRepository<E, ID> repo) {
@@ -33,7 +33,7 @@ public abstract class GenericController<E extends Object, ID extends Serializabl
 
     @RequestMapping(method=RequestMethod.POST, consumes={MediaType.APPLICATION_JSON_VALUE})
     public void create(@RequestBody E entity) {
-        logger.debug("create() with body {} of type {}", entity, entity.getClass());
+        //logger.debug("create() with body {} of type {}", entity, entity.getClass());
 
         this.repository.save(entity);
     }
@@ -50,12 +50,12 @@ public abstract class GenericController<E extends Object, ID extends Serializabl
             BeanUtils.copyProperties(entityFromDb, entity);
         }
         catch (Exception e) {
-            logger.warn("while copying properties", e);
+            //logger.warn("while copying properties", e);
             //throw Throwables.propagate(e);
             throw e;
         }
 
-        logger.debug("merged entity: {}", entityFromDb);
+        //logger.debug("merged entity: {}", entityFromDb);
 
         this.repository.save(entityFromDb);
     }

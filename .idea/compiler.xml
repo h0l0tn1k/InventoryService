@@ -6,14 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Persistence" />
+        <module name="persistence" />
         <module name="rest" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Persistence" target="1.8" />
+      <module name="persistence" target="1.8" />
       <module name="rest" target="1.8" />
-      <module name="VaadinSiemensService" target="1.5" />
+      <module name="SiemensInventoryService" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

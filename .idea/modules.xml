@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Persistence/Persistence.iml" filepath="$PROJECT_DIR$/Persistence/Persistence.iml" />
-      <module fileurl="file://$PROJECT_DIR$/VaadinSiemensService.iml" filepath="$PROJECT_DIR$/VaadinSiemensService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SiemensInventoryService.iml" filepath="$PROJECT_DIR$/SiemensInventoryService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Persistence/persistence.iml" filepath="$PROJECT_DIR$/Persistence/persistence.iml" />
       <module fileurl="file://$PROJECT_DIR$/rest/rest.iml" filepath="$PROJECT_DIR$/rest/rest.iml" />
     </modules>
   </component>
