@@ -8,8 +8,11 @@
     <artifactId>inventory-service</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <name>Siemens Inventory Service</name>
+
     <modules>
         <module>rest</module>
     </modules>
+
 
 </project>
