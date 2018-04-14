@@ -41,6 +41,16 @@ public class InventoryRecordController {
         }
     }
 
+    @RequestMapping(value="/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void update(@RequestBody InventoryRecord inventoryRecord) throws Exception {
+        logger.info("update({inventoryRecord}) called", inventoryRecord.toString());
+        try {
+            inventoryRecordDao.update(inventoryRecord);
+        } catch(Exception ex) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
     @RequestMapping(value = "/create", method= RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
