@@ -5,6 +5,8 @@ import cz.siemens.inventory.entity.User;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,18 +17,23 @@ import java.util.List;
 @RequestMapping(ApiUris.ROOT_URI_USERS)
 public class UserController {
 
-    //final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    private GenericDao<User> userDao;
+    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
 
     @Autowired
-    private GenericDao<User> userDao;
+    public UserController(GenericDao<User> userDao) {
+        this.userDao = userDao;
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<User> findAll(){
+        logger.info("findAll()");
         return userDao.readAll();
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final User findById(@PathVariable("id") Long id) throws Exception {
+        logger.info("findById({id})", id);
         try {
             return userDao.read(id);
         } catch(Exception ex) {
@@ -38,6 +45,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public final void create(@RequestBody User user) throws Exception {
+        logger.info("create({user})", user.toString());
         try {
             userDao.create(user);
         } catch(Exception ex) {
@@ -47,6 +55,7 @@ public class UserController {
 
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void remove(@PathVariable("id") Long id) throws Exception {
+        logger.info("remove({id})", id);
         try {
             userDao.delete(userDao.read(id));
         } catch (Exception ex) {

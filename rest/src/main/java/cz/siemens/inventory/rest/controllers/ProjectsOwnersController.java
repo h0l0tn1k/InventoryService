@@ -17,20 +17,23 @@ import java.util.List;
 @RequestMapping(ApiUris.ROOT_URI_PROJECTS)
 public class ProjectsOwnersController {
 
-    //final static Logger logger = LoggerFactory.getLogger(ProjectsOwnersController.class);
+    private GenericDao<Project> projectsDao;
+    final static Logger logger = LoggerFactory.getLogger(ProjectsOwnersController.class);
 
     @Autowired
-    private GenericDao<Project> projectsDao;
+    public ProjectsOwnersController(GenericDao<Project> projectsDao) {
+        this.projectsDao = projectsDao;
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<Project> findAllProjects(){
-        //logger.debug("rest findAllProjects() called");
+        logger.info("findAllProjects() called");
         return projectsDao.readAll();
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Project findById(@PathVariable("id") Long id) throws Exception {
-        //logger.debug("rest findById({id}) called", id);
+        logger.info("findById({id}) called", id);
 
         try {
             return projectsDao.read(id);
@@ -43,7 +46,7 @@ public class ProjectsOwnersController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public final Project createProject(@RequestBody Project project) throws Exception {
-        //logger.debug("rest createProject({0}) called", project.toString());
+        logger.info("createProject({0}) called", project.toString());
 
         try {
             projectsDao.create(project);
@@ -55,7 +58,7 @@ public class ProjectsOwnersController {
 
     @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void delete(@PathVariable("id") Long id) throws Exception {
-        //logger.debug("rest delete({id}) called", id);
+        logger.info("delete({id}) called", id);
 
         try {
             projectsDao.delete(projectsDao.read(id));

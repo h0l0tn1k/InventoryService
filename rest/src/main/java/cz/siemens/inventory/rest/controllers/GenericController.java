@@ -13,7 +13,7 @@ import java.util.List;
 
 public abstract class GenericController<E extends Object, ID extends Serializable> {
 
-    //private Logger logger = LoggerFactory.getLogger(GenericController.class);
+    private Logger logger = LoggerFactory.getLogger(GenericController.class);
     private CrudRepository<E, ID> repository;
 
     protected GenericController(CrudRepository<E, ID> repo) {
