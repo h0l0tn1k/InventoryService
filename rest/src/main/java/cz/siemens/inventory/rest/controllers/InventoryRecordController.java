@@ -1,6 +1,7 @@
 package cz.siemens.inventory.rest.controllers;
 
 import cz.siemens.inventory.dao.GenericDao;
+import cz.siemens.inventory.dao.InventoryRecordDaoImpl;
 import cz.siemens.inventory.entity.InventoryRecord;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
@@ -17,11 +18,11 @@ import java.util.List;
 @RequestMapping(ApiUris.ROOT_URI_INVENTORY_RECORD)
 public class InventoryRecordController {
 
-    private GenericDao<InventoryRecord> inventoryRecordDao;
+    private InventoryRecordDaoImpl inventoryRecordDao;
     final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
 
     @Autowired
-    public InventoryRecordController(GenericDao<InventoryRecord> inventoryRecordDao) {
+    public InventoryRecordController(InventoryRecordDaoImpl inventoryRecordDao) {
         this.inventoryRecordDao = inventoryRecordDao;
     }
 
@@ -29,6 +30,18 @@ public class InventoryRecordController {
     public final List<InventoryRecord> findAll(){
         logger.info("findAll() called");
         return inventoryRecordDao.readAll();
+    }
+
+    @RequestMapping(value="/checked", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<InventoryRecord> findAllChecked(){
+        logger.info("findAllChecked() called");
+        return inventoryRecordDao.findAllChecked();
+    }
+
+    @RequestMapping(value="/unchecked", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<InventoryRecord> findAllUnChecked(){
+        logger.info("findAllUnChecked() called");
+        return inventoryRecordDao.findAllUnChecked();
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,10 +54,12 @@ public class InventoryRecordController {
         }
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void update(@RequestBody InventoryRecord inventoryRecord) throws Exception {
-        logger.info("update({inventoryRecord}) called", inventoryRecord.toString());
+    @RequestMapping(value="/{id}/{checked}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void updateChecked(@PathVariable("id") Long id, @PathVariable("checked") Boolean checked) throws Exception {
+        logger.info("updateChecked({id}) called", id);
         try {
+            InventoryRecord inventoryRecord = findById(id);
+            inventoryRecord.setRegistered(checked);
             inventoryRecordDao.update(inventoryRecord);
         } catch(Exception ex) {
             throw new ResourceNotFoundException();
