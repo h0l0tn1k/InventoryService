@@ -1,6 +1,7 @@
 package cz.siemens.inventory.rest.controllers;
 
-import cz.siemens.inventory.dao.LoginUserScdDao;
+import cz.siemens.inventory.dao.GenericDao;
+import cz.siemens.inventory.dao.LoginUserScdDaoImpl;
 import cz.siemens.inventory.entity.LoginUserScd;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.UnauthorizedException;
@@ -18,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(ApiUris.ROOT_URI_LOGIN)
 public class AuthenticationController {
 
-    private LoginUserScdDao userDao;
+    private LoginUserScdDaoImpl userDao;
     final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
 
     @Autowired
-    public AuthenticationController(LoginUserScdDao userDao) {
+    public AuthenticationController(LoginUserScdDaoImpl userDao) {
         this.userDao = userDao;
     }
 

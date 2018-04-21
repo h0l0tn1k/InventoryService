@@ -29,4 +29,9 @@ public class DeviceDaoImpl extends GenericDao<Device> {
                 .setParameter("serialNo", "%" + serialNo.toLowerCase() + "%").getResultList();
     }
 
+//  TODO :
+//    public List<Device> findDevicesByOwner(String owner) {
+//        return em.createQuery("SELECT d FROM Device d WHERE d.owner")
+//    }
+
 }

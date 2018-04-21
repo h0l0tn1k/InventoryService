@@ -52,8 +52,15 @@ public class Device implements Serializable {
 	private Project project;
 
 	@ManyToOne
+	@JoinColumn(name = "owner_id", referencedColumnName = "id")
+	private UserScd owner;
+
+	@ManyToOne
 	@JoinColumn(name = "holder_id", referencedColumnName = "id")
-	private User owner;
+	private UserScd holder;
+
+	@Column(name = "default_location")
+	private String defaultLocation;
 
 	@Column(name = "date_add")
 	@Type(type = "timestamp")
@@ -69,6 +76,9 @@ public class Device implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceRevision", cascade = CascadeType.ALL)
 	private ApplianceRevision lastRevision;
 
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceCallibration", cascade = CascadeType.ALL)
+	private ApplianceCallibration deviceCallibration;
+
 	public Device() {
 		InventoryRecord inventoryRecord = new InventoryRecord();
 		inventoryRecord.setDeviceInventory(this);
@@ -77,6 +87,10 @@ public class Device implements Serializable {
 		ApplianceRevision revision = new ApplianceRevision();
 		revision.setDevice(this);
 		this.setLastRevision(revision);
+
+		ApplianceCallibration callibration = new ApplianceCallibration();
+		callibration.setDevice(this);
+		this.setLastCallibration(callibration);
 	}
 
 	public long getId() {
@@ -135,12 +149,32 @@ public class Device implements Serializable {
 		this.project = project;
 	}
 
-	public User getOwner() {
+	public UserScd getOwner() {
 		return owner;
 	}
 
-	public void setOwner(User owner) {
+	public void setOwner(UserScd owner) {
 		this.owner = owner;
+	}
+
+	public UserScd getHolder()
+	{
+		return holder;
+	}
+
+	public void setHolder(UserScd holder)
+	{
+		this.holder = holder;
+	}
+
+	public String getDefaultLocation()
+	{
+		return defaultLocation;
+	}
+
+	public void setDefaultLocation(String defaultLocation)
+	{
+		this.defaultLocation = defaultLocation;
 	}
 
 	public Date getAddDate() {
@@ -175,6 +209,16 @@ public class Device implements Serializable {
 		this.lastRevision = lastRevision;
 	}
 
+	public ApplianceCallibration getLastCallibration()
+	{
+		return deviceCallibration;
+	}
+
+	public void setLastCallibration(ApplianceCallibration lastCallibration)
+	{
+		this.deviceCallibration = lastCallibration;
+	}
+
 	/********** VLASTNI GETTRY ************/
 
 	public String getObjectTypeName() {
@@ -183,6 +227,11 @@ public class Device implements Serializable {
 
 	public String getObjectTypeVersion() {
 		return objectType != null ? objectType.getVersion() : undefStr;
+	}
+
+	public String getTypeAndVersionName()
+	{
+		return objectType != null ? objectType.getTypeAndVersionName() : undefStr;
 	}
 
 	public String getCompanyOwnerName() {
@@ -201,9 +250,7 @@ public class Device implements Serializable {
 		return owner != null ? owner.getName() : undefStr;
 	}
 	
-	public String getHolderName() {
-		return "< Test Testoj >";
-	}
+	public String getHolderName() { return holder != null ? holder.getName() : undefStr; }
 
 	public String getDateString() {
 		return new SimpleDateFormat("yyyy-MM-dd").format(getAddDate());
@@ -305,6 +352,82 @@ public class Device implements Serializable {
 			LocalDate currentDate = LocalDate.now();
 			LocalDate newDate = lastDate.plusYears(period);
 			if(newDate.isBefore(currentDate)) {
+				return "0";
+			}
+			long daysBetween = Duration.between(currentDate.atStartOfDay(), newDate.atStartOfDay()).toDays();
+			return Long.toString(daysBetween);
+		}
+		return "";
+	}
+
+	/********** LOGIKA PRO KALIBRACE ************/
+
+	public LocalDate getLastCallibrationDate()
+	{
+		ApplianceCallibration callibration = getLastCallibration();
+		if (callibration == null)
+		{
+			callibration = new ApplianceCallibration();
+			callibration.setDevice(this);
+			this.setLastCallibration(callibration);
+			GenericDao<Device> deviceDao = new DeviceDaoImpl();
+			deviceDao.update(this);
+		}
+		LocalDate lastRevDate = callibration.getLastCallibration();
+		return lastRevDate;
+	}
+
+	public String getLastCallibrationDateString()
+	{
+		LocalDate lastCalDate = getLastCallibrationDate();
+		return lastCalDate == null ? "" : lastCalDate.toString();
+	}
+
+	public void setLastCallibrationDate(LocalDate newCalDate)
+	{
+		ApplianceCallibration callibration = getLastCallibration();
+		callibration.setLastCallibration(newCalDate);
+	}
+
+	public double getCallibrationPeriod()
+	{
+		ApplianceCallibration callibration = getLastCallibration();
+		if (callibration != null)
+			return callibration.getInterval();
+		else
+			return 0;
+	}
+
+	public String getCallibrationPeriodString()
+	{
+		int callibration = (int) getCallibrationPeriod();
+		if (callibration == 0)
+			return "<TBD>";
+		else
+		{
+			String result = Integer.toString(callibration) + " year";
+			if (callibration > 1)
+				result += "s";
+			return result;
+		}
+	}
+
+	public void setCallibrationPeriod(double interval)
+	{
+		ApplianceCallibration callibration = getLastCallibration();
+		callibration.setInterval((byte) interval);
+	}
+
+	public String getLeftDaysCountCallibration()
+	{
+		LocalDate lastDate = getLastCallibrationDate();
+		long period = (long) getCallibrationPeriod();
+		if (lastDate != null && period > 0)
+		{
+			LocalDate currentDate = LocalDate.now();
+			LocalDate newDate = lastDate.plusYears(period);
+			if (newDate.isBefore(currentDate))
+			{
 				return "0";
 			}
 			long daysBetween = Duration.between(currentDate.atStartOfDay(), newDate.atStartOfDay()).toDays();

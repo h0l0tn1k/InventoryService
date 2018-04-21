@@ -6,7 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
-public class LoginUserScdDaoImpl extends LoginUserScdDao {
+public class LoginUserScdDaoImpl extends GenericDao<LoginUserScd> {
+
+    protected LoginUserScdDaoImpl() {
+        super(LoginUserScd.class);
+    }
 
     public LoginUserScd authenticate(String email, String password) {
         return em.createQuery("SELECT user FROM LoginUserScd user where email=:email and gid=:password", LoginUserScd.class)
