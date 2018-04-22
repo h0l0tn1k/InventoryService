@@ -1,8 +1,8 @@
 package cz.siemens.inventory.rest.controllers;
 
-import cz.siemens.inventory.dao.GenericDao;
-import cz.siemens.inventory.dao.LoginUserScdDaoImpl;
+import cz.siemens.inventory.dao.UserScdDaoImpl;
 import cz.siemens.inventory.entity.LoginUserScd;
+import cz.siemens.inventory.entity.UserScd;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.UnauthorizedException;
 import org.slf4j.Logger;
@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(ApiUris.ROOT_URI_LOGIN)
 public class AuthenticationController {
 
-    private LoginUserScdDaoImpl userDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    private UserScdDaoImpl userDao;
+    final static Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
-    public AuthenticationController(LoginUserScdDaoImpl userDao) {
+    public AuthenticationController(UserScdDaoImpl userDao) {
         this.userDao = userDao;
     }
 
     //TODO: NOT SAFE, JUST FOR TESTING
     @RequestMapping(value="/{email}/{password}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final LoginUserScd findById(@PathVariable("email") String email,
-                                       @PathVariable("password") String password) throws Exception {
+    public final UserScd findById(@PathVariable("email") String email,
+                                  @PathVariable("password") String password) throws Exception {
         try {
             return userDao.authenticate(email, password);
         } catch(Exception ex) {

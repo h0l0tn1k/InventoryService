@@ -19,7 +19,7 @@ import java.util.List;
 public class ApplianceRevisionController {
 
     private GenericDao<ApplianceRevision> applianceRevisionDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    final static Logger logger = LoggerFactory.getLogger(ApplianceRevisionController.class);
 
     @Autowired
     public ApplianceRevisionController(GenericDao<ApplianceRevision> applianceRevisionDao) {

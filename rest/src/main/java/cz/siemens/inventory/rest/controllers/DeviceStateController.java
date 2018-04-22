@@ -18,7 +18,7 @@ import java.util.List;
 public class DeviceStateController {
 
     private GenericDao<DeviceState> deviceStateDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    final static Logger logger = LoggerFactory.getLogger(DeviceStateController.class);
 
     @Autowired
     public DeviceStateController(GenericDao<DeviceState> deviceStateDao) {

@@ -19,7 +19,7 @@ import java.util.List;
 public class InventoryRecordController {
 
     private InventoryRecordDaoImpl inventoryRecordDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    final static Logger logger = LoggerFactory.getLogger(InventoryRecordController.class);
 
     @Autowired
     public InventoryRecordController(InventoryRecordDaoImpl inventoryRecordDao) {

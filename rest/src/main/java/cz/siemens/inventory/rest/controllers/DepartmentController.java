@@ -19,7 +19,7 @@ import java.util.List;
 public class DepartmentController {
 
     private GenericDao<Department> departmentDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    final static Logger logger = LoggerFactory.getLogger(DepartmentController.class);
 
     @Autowired
     public DepartmentController(GenericDao<Department> departmentDao) {
