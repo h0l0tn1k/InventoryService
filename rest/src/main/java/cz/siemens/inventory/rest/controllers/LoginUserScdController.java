@@ -1,7 +1,10 @@
 package cz.siemens.inventory.rest.controllers;
 
+import cz.siemens.inventory.dao.DeviceDaoImpl;
 import cz.siemens.inventory.dao.GenericDao;
+import cz.siemens.inventory.entity.Device;
 import cz.siemens.inventory.entity.LoginUserScd;
+import cz.siemens.inventory.entity.UserScd;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
@@ -11,20 +14,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(ApiUris.ROOT_URI_LOGIN_USER_SCD)
 public class LoginUserScdController {
 
-    private GenericDao<LoginUserScd> userDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    private GenericDao<UserScd> userDao;
+    final static Logger logger = LoggerFactory.getLogger(LoginUserScdController.class);
 
     @Autowired
-    public LoginUserScdController(GenericDao<LoginUserScd> userDao) {
+    public LoginUserScdController(GenericDao<UserScd> userDao) {
         this.userDao = userDao;
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final LoginUserScd findById(@PathVariable("id") Long id) throws Exception {
+    public final UserScd findById(@PathVariable("id") Long id) throws Exception {
         logger.info("findById({id}) called", id);
         try {
             return userDao.read(id);
@@ -36,7 +41,7 @@ public class LoginUserScdController {
     @RequestMapping(value = "/create", method= RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final void create(@RequestBody LoginUserScd user) throws Exception {
+    public final void create(@RequestBody UserScd user) throws Exception {
         logger.info("create({user}) called", user.toString());
         try {
             userDao.create(user);

@@ -1,7 +1,10 @@
 package cz.siemens.inventory.rest.controllers;
 
 import cz.siemens.inventory.dao.DeviceDaoImpl;
+import cz.siemens.inventory.dao.UserScdDaoImpl;
 import cz.siemens.inventory.entity.Device;
+import cz.siemens.inventory.entity.LoginUserScd;
+import cz.siemens.inventory.entity.UserScd;
 import cz.siemens.inventory.rest.ApiUris;
 import cz.siemens.inventory.rest.exceptions.ResourceAlreadyExistsException;
 import cz.siemens.inventory.rest.exceptions.ResourceNotFoundException;
@@ -19,11 +22,13 @@ import java.util.List;
 public class DeviceController {
 
     private DeviceDaoImpl deviceDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    private UserScdDaoImpl userScdDao;
+    final static Logger logger = LoggerFactory.getLogger(DeviceController.class);
 
     @Autowired
-    public DeviceController(DeviceDaoImpl deviceDao) {
+    public DeviceController(DeviceDaoImpl deviceDao, UserScdDaoImpl userScdDao) {
         this.deviceDao = deviceDao;
+        this.userScdDao = userScdDao;
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -85,7 +90,7 @@ public class DeviceController {
         }
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
     public final void remove(@PathVariable("id") Long id) throws Exception {
         logger.info("remove({id}) called", id);
         try {
@@ -93,5 +98,29 @@ public class DeviceController {
         } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
+    }
+
+    @RequestMapping(value="/{deviceId}/holder/{holderScdId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Device updateHolderId(@PathVariable("deviceId") Long deviceId, @PathVariable("holderScdId") Long holderScdId) throws Exception {
+        logger.info("updateHolderId({deviceId},{holderScdId}) called", deviceId, holderScdId);
+        try {
+            Device dev = deviceDao.read(deviceId);
+            if(holderScdId <= 0) {
+                dev.setHolder(null);
+            } else {
+                UserScd UserScd = userScdDao.getByScdId(holderScdId);
+                dev.setHolder(UserScd);
+            }
+            deviceDao.update(dev);
+            return dev;
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value="/borrowed-by/{scdId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<Device> getBorrowedDevicesByScdId(@PathVariable("scdId") Long scdId) {
+        logger.info("getBorrowedDevicesByScdId({scdId})", scdId);
+        return deviceDao.findDevicesByHolder(scdId);
     }
 }

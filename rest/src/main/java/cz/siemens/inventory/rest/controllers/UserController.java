@@ -18,7 +18,7 @@ import java.util.List;
 public class UserController {
 
     private GenericDao<User> userDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+    final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     public UserController(GenericDao<User> userDao) {
