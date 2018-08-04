@@ -27,7 +27,6 @@ public class GenericDao<E extends Serializable> {
     }
 
     public void create(E entity) {
-        //todo: validate
         em.persist(entity);
     }
 
@@ -43,7 +42,7 @@ public class GenericDao<E extends Serializable> {
         return em.createQuery(criteria).getResultList();
     }
 
-    public E read(Long id) throws Exception {
+    public E read(Long id) {
         E entity = em.find(getEntityClass(), id);
 
         if(entity == null) throw new ObjectNotFoundException(id, getEntityClass().toString());

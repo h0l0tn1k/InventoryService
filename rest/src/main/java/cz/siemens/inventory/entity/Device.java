@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cz.siemens.inventory.dao.DeviceDaoImpl;
 import cz.siemens.inventory.dao.GenericDao;
+import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
@@ -12,10 +13,12 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.*;
 
+@Data
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "objects")
@@ -63,12 +66,14 @@ public class Device implements Serializable {
 	private String defaultLocation;
 
 	@Column(name = "date_add")
-	@Type(type = "timestamp")
-	private Date addDate;
+	private OffsetDateTime addDate;
 
 	@ManyToOne
-	@JoinColumn(name = "status", referencedColumnName = "id")
+	@JoinColumn(name = "state", referencedColumnName = "id")
 	private DeviceState deviceState;
+
+	@Column(name = "comment")
+	private String comment;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceInventory", cascade = CascadeType.ALL)
 	private InventoryRecord inventoryRecord;
@@ -76,8 +81,8 @@ public class Device implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceRevision", cascade = CascadeType.ALL)
 	private ApplianceRevision lastRevision;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceCallibration", cascade = CascadeType.ALL)
-	private ApplianceCallibration deviceCallibration;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceCalibration", cascade = CascadeType.ALL)
+	private ApplianceCalibration deviceCalibration;
 
 	public Device() {
 		InventoryRecord inventoryRecord = new InventoryRecord();
@@ -88,145 +93,9 @@ public class Device implements Serializable {
 		revision.setDevice(this);
 		this.setLastRevision(revision);
 
-		ApplianceCallibration callibration = new ApplianceCallibration();
-		callibration.setDevice(this);
-		this.setLastCallibration(callibration);
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public DeviceType getObjectType() {
-		return objectType;
-	}
-
-	public void setObjectType(DeviceType objectType) {
-		this.objectType = objectType;
-	}
-
-	public String getSerialNumber() {
-		return serialNumber;
-	}
-
-	public void setSerialNumber(String serialNumber) {
-		this.serialNumber = serialNumber;
-	}
-
-	public String getBarcodeNumber() {
-		return barcodeNumber == null ? "" : barcodeNumber;
-	}
-
-	public void setBarcodeNumber(String barcodeNumber) {
-		this.barcodeNumber = barcodeNumber;
-	}
-
-	public CompanyOwner getCompanyOwner() {
-		return companyOwner;
-	}
-
-	public void setCompanyOwner(CompanyOwner companyOwner) {
-		this.companyOwner = companyOwner;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
-	public UserScd getOwner() {
-		return owner;
-	}
-
-	public void setOwner(UserScd owner) {
-		this.owner = owner;
-	}
-
-	public UserScd getHolder()
-	{
-		return holder;
-	}
-
-	public void setHolder(UserScd holder)
-	{
-		this.holder = holder;
-	}
-
-	public String getDefaultLocation()
-	{
-		return defaultLocation;
-	}
-
-	public void setDefaultLocation(String defaultLocation)
-	{
-		this.defaultLocation = defaultLocation;
-	}
-
-	public Date getAddDate() {
-		return addDate;
-	}
-
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
-
-	public DeviceState getDeviceState() {
-		return deviceState;
-	}
-
-	public void setDeviceState(DeviceState deviceState) {
-		this.deviceState = deviceState;
-	}
-
-	public InventoryRecord getInventoryRecord() {
-		return inventoryRecord;
-	}
-
-	public void setInventoryRecord(InventoryRecord inventoryRecord) {
-		this.inventoryRecord = inventoryRecord;
-	}
-
-	public ApplianceRevision getLastRevision() {
-		return lastRevision;
-	}
-
-	public void setLastRevision(ApplianceRevision lastRevision) {
-		this.lastRevision = lastRevision;
-	}
-
-	public ApplianceCallibration getLastCallibration()
-	{
-		return deviceCallibration;
-	}
-
-	public void setLastCallibration(ApplianceCallibration lastCallibration)
-	{
-		this.deviceCallibration = lastCallibration;
-	}
-
-	/********** VLASTNI GETTRY ************/
-
-	public String getObjectTypeName() {
-		return objectType != null ? objectType.getObjectTypeName() : undefStr;
-	}
-
-	public String getObjectTypeVersion() {
-		return objectType != null ? objectType.getVersion() : undefStr;
+		ApplianceCalibration calibration = new ApplianceCalibration();
+		calibration.setDevice(this);
+		this.setDeviceCalibration(calibration);
 	}
 
 	public String getTypeAndVersionName()
@@ -234,205 +103,4 @@ public class Device implements Serializable {
 		return objectType != null ? objectType.getTypeAndVersionName() : undefStr;
 	}
 
-	public String getCompanyOwnerName() {
-		return companyOwner != null ? companyOwner.getName() : undefStr;
-	}
-
-	public String getDepartmentName() {
-		return department != null ? department.getName() : undefStr;
-	}
-
-	public String getProjectName() {
-		return project != null ? project.getName() : undefStr;
-	}
-
-	public String getOwnerName() {
-		return owner != null ? owner.getName() : undefStr;
-	}
-	
-	public String getHolderName() { return holder != null ? holder.getName() : undefStr; }
-
-	public String getDateString() {
-		return new SimpleDateFormat("yyyy-MM-dd").format(getAddDate());
-	}
-
-	public LocalDate getLocalDate() {
-		if (addDate != null) {
-			return addDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		} else {
-			return LocalDate.now();
-		}
-	}
-
-	public void setLocalDate(LocalDate localDate) {
-		this.addDate = java.sql.Date.valueOf(localDate);
-	}
-
-	public String getDeviceStateName() {
-		return deviceState != null ? deviceState.getName() : undefStr;
-	}
-
-	/********** LOGIKA PRO INVENTURY ************/
-
-	public String getInventoryState() {
-		InventoryRecord record = getInventoryRecord();
-		if (record == null) {
-			record = new InventoryRecord();
-			record.setRegistered(false);
-			record.setDeviceInventory(this);
-			this.setInventoryRecord(record);
-			//todo: fix
-//			GenericDao<Device> deviceDao = GenericDao.createGenericDao(Device.class);
-//			deviceDao.update(this);
-		}
-//todo: fixxx
-		return "";
-		// Nastavi spravny symbol pro zobrazeni do tabulky
-//		if (record.isRegistered())
-//			return VaadinIcons.CHECK.getHtml();
-//		else
-//			return VaadinIcons.CLOSE.getHtml();
-	}
-
-	/********** LOGIKA PRO ELEKTROREVIZE ************/
-
-	public LocalDate getLastRevisionDate() {
-		ApplianceRevision revision = getLastRevision();
-		if (revision == null) {
-			revision = new ApplianceRevision();
-			revision.setDevice(this);
-			this.setLastRevision(revision);
-			//todo: fix
-			GenericDao<Device> deviceDao = new DeviceDaoImpl();
-			deviceDao.update(this);
-		}
-		LocalDate lastRevDate = revision.getLastRevision();
-		return lastRevDate;
-	}
-
-	public String getLastRevisionDateString() {
-		LocalDate lastRevDate = getLastRevisionDate();
-		return lastRevDate == null ? "" : lastRevDate.toString();
-	}
-
-	public void setLastRevisionDate(LocalDate newRevDate) {
-		ApplianceRevision revision = getLastRevision();
-		revision.setLastRevision(newRevDate);
-	}
-
-	public double getRevisionPeriod() {
-		ApplianceRevision revision = getLastRevision();
-		if (revision != null)
-			return revision.getInterval();
-		else
-			return 0;
-	}
-
-	public String getRevisionPeriodString() {
-		int period = (int) getRevisionPeriod();
-		if (period == 0)
-			return "<TBD>";
-		else {
-			String result = Integer.toString(period) + " year";
-			if (period > 1)
-				result += "s";
-			return result;
-		}
-	}
-
-	public void setRevisionPeriod(double interval) {
-		ApplianceRevision revision = getLastRevision();
-		revision.setInterval((byte) interval);
-	}
-
-	public String getLeftDaysCount() {
-		LocalDate lastDate = getLastRevisionDate();
-		long period = (long) getRevisionPeriod();
-		if (lastDate != null && period > 0) {
-			LocalDate currentDate = LocalDate.now();
-			LocalDate newDate = lastDate.plusYears(period);
-			if(newDate.isBefore(currentDate)) {
-				return "0";
-			}
-			long daysBetween = Duration.between(currentDate.atStartOfDay(), newDate.atStartOfDay()).toDays();
-			return Long.toString(daysBetween);
-		}
-		return "";
-	}
-
-	/********** LOGIKA PRO KALIBRACE ************/
-
-	public LocalDate getLastCallibrationDate()
-	{
-		ApplianceCallibration callibration = getLastCallibration();
-		if (callibration == null)
-		{
-			callibration = new ApplianceCallibration();
-			callibration.setDevice(this);
-			this.setLastCallibration(callibration);
-			GenericDao<Device> deviceDao = new DeviceDaoImpl();
-			deviceDao.update(this);
-		}
-		LocalDate lastRevDate = callibration.getLastCallibration();
-		return lastRevDate;
-	}
-
-	public String getLastCallibrationDateString()
-	{
-		LocalDate lastCalDate = getLastCallibrationDate();
-		return lastCalDate == null ? "" : lastCalDate.toString();
-	}
-
-	public void setLastCallibrationDate(LocalDate newCalDate)
-	{
-		ApplianceCallibration callibration = getLastCallibration();
-		callibration.setLastCallibration(newCalDate);
-	}
-
-	public double getCallibrationPeriod()
-	{
-		ApplianceCallibration callibration = getLastCallibration();
-		if (callibration != null)
-			return callibration.getInterval();
-		else
-			return 0;
-	}
-
-	public String getCallibrationPeriodString()
-	{
-		int callibration = (int) getCallibrationPeriod();
-		if (callibration == 0)
-			return "<TBD>";
-		else
-		{
-			String result = Integer.toString(callibration) + " year";
-			if (callibration > 1)
-				result += "s";
-			return result;
-		}
-	}
-
-	public void setCallibrationPeriod(double interval)
-	{
-		ApplianceCallibration callibration = getLastCallibration();
-		callibration.setInterval((byte) interval);
-	}
-
-	public String getLeftDaysCountCallibration()
-	{
-		LocalDate lastDate = getLastCallibrationDate();
-		long period = (long) getCallibrationPeriod();
-		if (lastDate != null && period > 0)
-		{
-			LocalDate currentDate = LocalDate.now();
-			LocalDate newDate = lastDate.plusYears(period);
-			if (newDate.isBefore(currentDate))
-			{
-				return "0";
-			}
-			long daysBetween = Duration.between(currentDate.atStartOfDay(), newDate.atStartOfDay()).toDays();
-			return Long.toString(daysBetween);
-		}
-		return "";
-	}
 }

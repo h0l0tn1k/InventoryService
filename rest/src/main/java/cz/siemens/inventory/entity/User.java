@@ -1,8 +1,13 @@
 package cz.siemens.inventory.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -32,86 +37,4 @@ public class User implements Serializable {
 	private String barcode;
 
 	private boolean enabled;
-
-	public User() {
-	}
-
-	public User(User user) {
-		this.id = user.id;
-		this.firstName = user.firstName;
-		this.lastName = user.lastName;
-		this.shortName = user.shortName;
-		this.holderType = user.holderType;
-		this.orgUnit = user.orgUnit;
-		this.barcode = user.barcode;
-		this.enabled = user.enabled;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getName() {
-		return firstName + " " + lastName;
-	}
-
-	public String getShortName() {
-		return shortName;
-	}
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-
-	public String getHolderType() {
-		return holderType;
-	}
-
-	public void setHolderType(String holderType) {
-		this.holderType = holderType;
-	}
-
-	public String getOrgUnit() {
-		return orgUnit;
-	}
-
-	public void setOrgUnit(String orgUnit) {
-		this.orgUnit = orgUnit;
-	}
-
-	public String getBarcode() {
-		return barcode;
-	}
-
-	public void setBarcode(String barcode) {
-		this.barcode = barcode;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
 }

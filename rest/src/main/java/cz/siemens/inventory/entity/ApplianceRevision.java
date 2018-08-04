@@ -2,6 +2,8 @@ package cz.siemens.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -9,6 +11,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@Data
+@NoArgsConstructor
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "revision")
@@ -30,43 +34,4 @@ public class ApplianceRevision implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private Device deviceRevision;
-
-	public ApplianceRevision() { }
-	
-	public ApplianceRevision(long id, byte interval) {
-		this.id = id;
-		this.interval = interval;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public byte getInterval() {
-		return interval;
-	}
-
-	public void setInterval(byte interval) {
-		this.interval = interval;
-	}
-
-	public LocalDate getLastRevision() {
-		return lastRevision;
-	}
-
-	public void setLastRevision(LocalDate lastRevision) {
-		this.lastRevision = lastRevision;
-	}
-	
-	public Device getDevice() {
-		return deviceRevision;
-	}
-
-	public void setDevice(Device device) {
-		this.deviceRevision = device;
-	}
 }
