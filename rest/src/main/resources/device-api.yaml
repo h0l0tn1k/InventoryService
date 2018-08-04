@@ -1,0 +1,296 @@
+swagger: "2.0"
+info:
+  title: Siemens Inventory REST API
+  description: |
+    REST API for Siemens Inventory
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory/api/v1
+produces:
+  - application/json
+paths:
+  /devices:
+    get:
+      tags:
+        - Device
+      summary: Gets all Devices
+      operationId: getDevices
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All Devices
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Device'
+        '405':
+          description: Invalid input
+    post:
+      tags:
+        - Device
+      summary: Creates new Device
+      operationId: createDevice
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Device object that needs to be created
+          required: true
+          schema:
+            $ref: '#/definitions/Device'
+      responses:
+        '201':
+          description: Device created
+          schema:
+            $ref: '#/definitions/Device'
+        '405':
+          description: Invalid input
+  /devices/{deviceId}:
+    get:
+      tags:
+        - Device
+      summary: Gets Device based on deviceId
+      operationId: getDevice
+      produces:
+        - application/json
+      parameters:
+        - name: deviceId
+          in: path
+          description: Device id to get
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The device
+          schema:
+            $ref: '#/definitions/Device'
+        '404':
+          description: Requested device does not exist.
+    delete:
+      tags:
+        - Device
+      summary: Deletes an device
+      description: ''
+      operationId: deleteDevice
+      produces:
+        - application/json
+      parameters:
+        - name: deviceId
+          in: path
+          description: Device id to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Device was deleted.
+        '404':
+          description: Specified device does not exist.
+  /devices/barcodeNumber/{barcodeNumber}:
+    get:
+      tags:
+        - Device
+      summary: Gets Device based on barcodeNumber
+      operationId: getDeviceWithBarcodeNumber
+      produces:
+        - application/json
+      parameters:
+        - name: barcodeNumber
+          in: path
+          description: barcodeNumber of device
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The device
+          schema:
+            $ref: '#/definitions/Device'
+        '404':
+          description: Requested device does not exist.
+  /devices/serialNumber/{serialNumber}:
+    get:
+      tags:
+        - Device
+      summary: Gets Device based on serialNumber
+      operationId: getDeviceWithSerialNumber
+      produces:
+        - application/json
+      parameters:
+        - name: serialNumber
+          in: path
+          description: serialNumber of device
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The device
+          schema:
+            $ref: '#/definitions/Device'
+        '404':
+          description: Requested device does not exist.
+  /devices/serialNumber/like/{serialNumber}:
+    get:
+      tags:
+        - Device
+      summary: Gets Devices based on serialNumber like
+      operationId: getDevicesWithSerialNumberLike
+      produces:
+        - application/json
+      parameters:
+        - name: serialNumber
+          in: path
+          description: serialNumber of device
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Devices with serial number like
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Device'
+  /devices/{deviceId}/holder/{holderScdId}:
+    put:
+      tags:
+        - Device
+      summary: Updates Device's (deviceId) holder to holderScdId
+      operationId: updateDeviceHolder
+      produces:
+        - application/json
+      parameters:
+        - name: deviceId
+          in: path
+          description: Device id to be updated
+          required: true
+          type: integer
+          format: int64
+        - name: holderScdId
+          in: path
+          description: New holder
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Updated device with new holder
+          schema:
+            $ref: '#/definitions/Device'
+  /devices/borrowed-by/{userScdId}:
+    get:
+      tags:
+        - Device
+      summary: Gets Devices borrowed by userScdId
+      operationId: getDevicesBorrowedBy
+      produces:
+        - application/json
+      parameters:
+        - name: userScdId
+          in: path
+          description: User
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Devices borrowed by userScdId
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Device'
+definitions:
+  Supplier:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  CompanyOwner:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  Department:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  Project:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  DeviceState:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  DeviceType:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      objectTypeName:
+        type: string
+      classification:
+        type: integer
+      manufacturer:
+        type: string
+      orderNumber:
+        type: string
+      version:
+        type: string
+      supplier:
+        $ref: '#/definitions/Supplier'
+      price:
+        type: number
+        format: double
+  Device:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      addDate:
+        type: string
+        format: date-time
+      barcodeNumber:
+        type: string
+      comment:
+        type: string
+      companyOwner:
+        $ref: '#/definitions/CompanyOwner'
+      defaultLocation:
+        type: string
+      department:
+        $ref: '#/definitions/Department'
+      deviceState:
+        $ref: '#/definitions/DeviceState'
+      deviceType:
+        $ref: '#/definitions/DeviceType'
+      project:
+        $ref: '#/definitions/Project'
+      serialNumber:
+        type: string
+      #todo holder
+      #todo owner
