@@ -1,0 +1,91 @@
+swagger: "2.0"
+info:
+  title: Inventory Service - Company Owner - REST API
+  description: |
+    REST API for Inventory Service
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory/api/v1
+produces:
+  - application/json
+paths:
+  /company-owners:
+    get:
+      tags:
+        - CompanyOwner
+      summary: Gets all Company Owners
+      operationId: getCompanyOwners
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All Company Owners
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/CompanyOwner'
+    post:
+      tags:
+        - CompanyOwner
+      summary: Creates new Company Owner
+      operationId: createCompanyOwner
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Company Owner object that needs to be created
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/CompanyOwner'
+      responses:
+        '201':
+          description: Company Owner created
+          schema:
+            $ref: './common-models.yaml#/definitions/CompanyOwner'
+        '405':
+          description: Invalid input
+  /company-owners/{companyOwnerId}:
+    get:
+      tags:
+        - Device
+      summary: Gets Company Owner based on companyOwnerId
+      operationId: getCompanyOwner
+      produces:
+        - application/json
+      parameters:
+        - name: companyOwnerId
+          in: path
+          description: Company Owner's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The company owner
+          schema:
+            $ref: './common-models.yaml#/definitions/CompanyOwner'
+        '404':
+          description: Requested Company Owner does not exist.
+    delete:
+      tags:
+        - Device
+      summary: Deletes an company owner
+      operationId: deleteCompanyOwner
+      produces:
+        - application/json
+      parameters:
+        - name: companyOwnerId
+          in: path
+          description: Company Owner's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Company Owner was deleted.
+        '404':
+          description: Specified Company Owner does not exist.

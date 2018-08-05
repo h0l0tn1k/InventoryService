@@ -31,4 +31,30 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	public Optional<Device> getDevice(long deviceId) {
 		return deviceMapper.mapToExternal(deviceDao.findById(deviceId));
 	}
+
+	@Override
+	public Optional<Device> getDeviceByBarcode(String barcode) {
+		return deviceMapper.mapToExternal(deviceDao.getDeviceByBarcodeNumber(barcode));
+	}
+
+	@Override
+	public Optional<Device> getDeviceBySerialNumber(String serialNumber) {
+		return deviceMapper.mapToExternal(deviceDao.getDeviceBySerialNumber(serialNumber));
+	}
+
+	@Override
+	public List<Device> getDevicesBySerialNumberLike(String serialNumber) {
+		return deviceMapper.mapToExternal(deviceDao.getDevicesBySerialNumberContainingIgnoreCase(serialNumber));
+	}
+
+	@Override
+	public Device createDevice(Device device) {
+		//todo: add validation
+		return deviceMapper.mapToExternal(deviceDao.save(deviceMapper.mapToInternal(device)));
+	}
+
+	@Override
+	public void deleteDevice(long deviceId) {
+		deviceDao.deleteById(deviceId);
+	}
 }

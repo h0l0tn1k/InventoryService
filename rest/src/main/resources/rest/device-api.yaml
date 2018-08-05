@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   title: Siemens Inventory REST API
   description: |
-    REST API for Siemens Inventory
+    REST API for Inventory Service
   version: 1.0.0
 schemes:
   - https
@@ -24,7 +24,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Device'
+              $ref: './common-models.yaml#/definitions/Device'
         '405':
           description: Invalid input
     post:
@@ -42,12 +42,12 @@ paths:
           description: Device object that needs to be created
           required: true
           schema:
-            $ref: '#/definitions/Device'
+            $ref: './common-models.yaml#/definitions/Device'
       responses:
         '201':
           description: Device created
           schema:
-            $ref: '#/definitions/Device'
+            $ref: './common-models.yaml#/definitions/Device'
         '405':
           description: Invalid input
   /devices/{deviceId}:
@@ -69,7 +69,7 @@ paths:
         '200':
           description: The device
           schema:
-            $ref: '#/definitions/Device'
+            $ref: './common-models.yaml#/definitions/Device'
         '404':
           description: Requested device does not exist.
     delete:
@@ -110,7 +110,7 @@ paths:
         '200':
           description: The device
           schema:
-            $ref: '#/definitions/Device'
+            $ref: './common-models.yaml#/definitions/Device'
         '404':
           description: Requested device does not exist.
   /devices/serialNumber/{serialNumber}:
@@ -131,7 +131,7 @@ paths:
         '200':
           description: The device
           schema:
-            $ref: '#/definitions/Device'
+            $ref: './common-models.yaml#/definitions/Device'
         '404':
           description: Requested device does not exist.
   /devices/serialNumber/like/{serialNumber}:
@@ -154,7 +154,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Device'
+              $ref: './common-models.yaml#/definitions/Device'
   /devices/{deviceId}/holder/{holderScdId}:
     put:
       tags:
@@ -180,7 +180,7 @@ paths:
         '200':
           description: Updated device with new holder
           schema:
-            $ref: '#/definitions/Device'
+            $ref: './common-models.yaml#/definitions/Device'
   /devices/borrowed-by/{userScdId}:
     get:
       tags:
@@ -202,95 +202,4 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Device'
-definitions:
-  Supplier:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-  CompanyOwner:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-  Department:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-  Project:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-  DeviceState:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-  DeviceType:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      objectTypeName:
-        type: string
-      classification:
-        type: integer
-      manufacturer:
-        type: string
-      orderNumber:
-        type: string
-      version:
-        type: string
-      supplier:
-        $ref: '#/definitions/Supplier'
-      price:
-        type: number
-        format: double
-  Device:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      addDate:
-        type: string
-        format: date-time
-      barcodeNumber:
-        type: string
-      comment:
-        type: string
-      companyOwner:
-        $ref: '#/definitions/CompanyOwner'
-      defaultLocation:
-        type: string
-      department:
-        $ref: '#/definitions/Department'
-      deviceState:
-        $ref: '#/definitions/DeviceState'
-      deviceType:
-        $ref: '#/definitions/DeviceType'
-      project:
-        $ref: '#/definitions/Project'
-      serialNumber:
-        type: string
-      #todo holder
-      #todo owner
+              $ref: './common-models.yaml#/definitions/Device'

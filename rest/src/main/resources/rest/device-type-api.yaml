@@ -1,0 +1,92 @@
+swagger: "2.0"
+info:
+  title: Siemens Inventory REST API
+  description: |
+    REST API for Inventory Service
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory/api/v1
+produces:
+  - application/json
+paths:
+  /device-types:
+    get:
+      tags:
+        - DeviceType
+      summary: Gets all Device types
+      operationId: getDeviceTypes
+      produces:
+        - application/json
+      responses:
+      responses:
+        '200':
+          description: All Device Types
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/DeviceType'
+    post:
+      tags:
+        - DeviceType
+      summary: Creates new Device Type
+      operationId: createDeviceType
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Device Type object that needs to be created
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceType'
+      responses:
+        '201':
+          description: Device Type created
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceType'
+        '405':
+          description: Invalid input
+  /device-types/{deviceTypeId}:
+    get:
+      tags:
+        - DeviceType
+      summary: Gets Device Type based on deviceTypeId
+      operationId: getDeviceType
+      produces:
+        - application/json
+      parameters:
+        - name: deviceTypeId
+          in: path
+          description: Device Type's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The Device Type
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceType'
+        '404':
+          description: Requested Device Type does not exist.
+    delete:
+      tags:
+        - DeviceType
+      summary: Deletes an Device Type
+      operationId: deleteDeviceType
+      produces:
+        - application/json
+      parameters:
+        - name: deviceTypeId
+          in: path
+          description: Device Type's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Device Type was deleted.
+        '404':
+          description: Specified Device Type does not exist.
