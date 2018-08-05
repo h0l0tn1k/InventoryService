@@ -1,0 +1,91 @@
+swagger: "2.0"
+info:
+  title: Inventory Service - Supplier - REST API
+  description: |
+    REST API for Inventory Service
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory/api/v1
+produces:
+  - application/json
+paths:
+  /suppliers:
+    get:
+      tags:
+        - Supplier
+      summary: Gets all Suppliers
+      operationId: getSuppliers
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All Suppliers
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/Supplier'
+    post:
+      tags:
+        - Supplier
+      summary: Creates new Supplier
+      operationId: createSupplier
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Supplier object that needs to be created
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/Supplier'
+      responses:
+        '201':
+          description: Supplier created
+          schema:
+            $ref: './common-models.yaml#/definitions/Supplier'
+        '405':
+          description: Invalid input
+  /suppliers/{supplierId}:
+    get:
+      tags:
+        - Supplier
+      summary: Gets Supplier based on supplierId
+      operationId: getSupplier
+      produces:
+        - application/json
+      parameters:
+        - name: supplierId
+          in: path
+          description: Supplier's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The Supplier
+          schema:
+            $ref: './common-models.yaml#/definitions/Supplier'
+        '404':
+          description: Requested Supplier does not exist.
+    delete:
+      tags:
+        - Supplier
+      summary: Deletes an Supplier
+      operationId: deleteSupplier
+      produces:
+        - application/json
+      parameters:
+        - name: supplierId
+          in: path
+          description: Supplier's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Supplier was deleted.
+        '404':
+          description: Specified Supplier does not exist.

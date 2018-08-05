@@ -1,0 +1,91 @@
+swagger: "2.0"
+info:
+  title: Inventory Service - Department - REST API
+  description: |
+    REST API for Inventory Service
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory/api/v1
+produces:
+  - application/json
+paths:
+  /departments:
+    get:
+      tags:
+        - Department
+      summary: Gets all Departments
+      operationId: getDepartments
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All Departments
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/Department'
+    post:
+      tags:
+        - Department
+      summary: Creates new Department
+      operationId: createDepartment
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Department object that needs to be created
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/Department'
+      responses:
+        '201':
+          description: Department created
+          schema:
+            $ref: './common-models.yaml#/definitions/Department'
+        '405':
+          description: Invalid input
+  /departments/{departmentId}:
+    get:
+      tags:
+        - Department
+      summary: Gets Department based on departmentId
+      operationId: getDepartment
+      produces:
+        - application/json
+      parameters:
+        - name: departmentId
+          in: path
+          description: Department's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The Department
+          schema:
+            $ref: './common-models.yaml#/definitions/Department'
+        '404':
+          description: Requested Department does not exist.
+    delete:
+      tags:
+        - Department
+      summary: Deletes an Department
+      operationId: deleteDepartment
+      produces:
+        - application/json
+      parameters:
+        - name: departmentId
+          in: path
+          description: Department's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Department was deleted.
+        '404':
+          description: Specified Department does not exist.

@@ -1,53 +1,75 @@
 package cz.siemens.inventory.controllers;
 
-/*
+
+import cz.siemens.inventory.facade.SupplierFacade;
+import cz.siemens.inventory.gen.api.SuppliersApi;
+import cz.siemens.inventory.gen.model.Supplier;
+import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_SUPPLIERS)
-public class SupplierController {
+@RequestMapping(ApiUris.ROOT_URI)
+public class SupplierController extends BaseController implements SuppliersApi {
 
-    private SupplierDao supplierDao;
-    final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+	final static Logger logger = LoggerFactory.getLogger(SupplierController.class);
+	private SupplierFacade supplierFacade;
 
-    public SupplierController(SupplierDao supplierDao) {
-        this.supplierDao = supplierDao;
-    }
+	@Autowired
+	public SupplierController(SupplierFacade supplierFacade) {
+		this.supplierFacade = supplierFacade;
+	}
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<Supplier> findAll() {
-        logger.info("findAllProjects() called");
-        return supplierDao.findAll();
-    }
+	@Override
+	public ResponseEntity<List<Supplier>> getSuppliers() {
+		logger.info("getSuppliers request received");
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Supplier findById(@PathVariable("id") Long id) throws Exception {
-        logger.info("findById({id}) called", id);
-        try {
-            return supplierDao.findById(id);
-        } catch(Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+		ResponseEntity<List<Supplier>> result = ResponseEntity.ok(supplierFacade.getSuppliers());
 
-    @RequestMapping(value = "/create", method= RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final void create(@RequestBody Supplier supplier) throws Exception {
-        logger.info("create({supplier}) called", supplier.toString());
-        try {
-            supplierDao.create(supplier);
-        } catch(Exception ex) {
-            throw new ResourceAlreadyExistsException();
-        }
-    }
+		logger.info("getSuppliers request finished");
 
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void remove(@PathVariable("id") Long id) throws Exception {
-        logger.info("remove({id}) called", id);
-        try {
-            supplierDao.delete(supplierDao.read(id));
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+		return result;
+	}
+
+	@Override
+	public ResponseEntity<Supplier> getSupplier(@PathVariable("supplierId") Long supplierId) {
+		logger.info("getSupplier({}) request received", supplierId);
+
+		ResponseEntity<Supplier> result = returnOptional(supplierFacade.getSupplier(supplierId));
+
+		logger.info("getSupplier({}) request finished", supplierId);
+
+		return result;
+	}
+
+	@Override
+	public ResponseEntity<Supplier> createSupplier(@ApiParam(required = true) @Valid @RequestBody Supplier body) {
+		logger.info("createSupplier({}) request received", body.toString());
+
+		Supplier createdSupplier = supplierFacade.createSupplier(body);
+
+		logger.info("createSupplier({}) request finished", createdSupplier.getId());
+
+		return returnCreatedResponse(createdSupplier, createdSupplier.getId().toString());
+	}
+
+	@Override
+	public ResponseEntity<Void> deleteSupplier(@ApiParam(required = true) @PathVariable("supplierId") Long supplierId) {
+		logger.info("deleteSupplier({}) request received", supplierId);
+
+		supplierFacade.deleteSupplier(supplierId);
+
+		logger.info("deleteSupplier({}) request finished", supplierId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 }
-*/

@@ -5,12 +5,12 @@
     <parent>
         <artifactId>inventory-service</artifactId>
         <groupId>cz.siemens.inventory.service</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>inventory-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Rest Layer</name>
 
@@ -76,7 +76,7 @@
                 <version>2.3.1</version>
                 <executions>
                     <execution>
-                        <id>generate-source-code</id>
+                        <id>generate-model-source-code</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -85,7 +85,32 @@
                             <generateApiTests>false</generateApiTests>
                             <generateModelTests>false</generateModelTests>
                             <generateSupportingFiles>false</generateSupportingFiles>
-                            <inputSpec>${project.basedir}/src/main/resources/device-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/common-models.yaml</inputSpec>
+                            <language>spring</language>
+                            <modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+                            <output>src</output>
+                            <configOptions>
+                                <basePackage>cz.siemens.inventory.gen.model</basePackage>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <interfaceOnly>true</interfaceOnly>
+                                <invokerPackage>cz.siemens.inventory.gen.model</invokerPackage>
+                                <java8>true</java8>
+                                <library>spring-boot</library>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-device-source-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/device-api.yaml</inputSpec>
                             <language>spring</language>
                             <modelPackage>cz.siemens.inventory.gen.model</modelPackage>
                             <output>src</output>
@@ -102,6 +127,164 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>generate-company-owner-source-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/company-owner-api.yaml</inputSpec>
+                            <language>spring</language>
+                            <modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+                            <output>src</output>
+                            <configOptions>
+                                <basePackage>cz.siemens.inventory.gen.company-owner</basePackage>
+                                <configPackage>cz.siemens.inventory.gen.company-owner.config</configPackage>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <interfaceOnly>true</interfaceOnly>
+                                <invokerPackage>cz.siemens.inventory.gen.company-owner</invokerPackage>
+                                <java8>true</java8>
+                                <library>spring-boot</library>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-department-source-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/department-api.yaml</inputSpec>
+                            <language>spring</language>
+                            <modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+                            <output>src</output>
+                            <configOptions>
+                                <basePackage>cz.siemens.inventory.gen.department</basePackage>
+                                <configPackage>cz.siemens.inventory.gen.department.config</configPackage>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <interfaceOnly>true</interfaceOnly>
+                                <invokerPackage>cz.siemens.inventory.gen.department</invokerPackage>
+                                <java8>true</java8>
+                                <library>spring-boot</library>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+					<execution>
+						<id>generate-device-state-source-code</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+							<generateApiTests>false</generateApiTests>
+							<generateModelTests>false</generateModelTests>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<inputSpec>${project.basedir}/src/main/resources/rest/device-state-api.yaml</inputSpec>
+							<language>spring</language>
+							<modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+							<output>src</output>
+							<configOptions>
+								<basePackage>cz.siemens.inventory.gen.device-state</basePackage>
+								<configPackage>cz.siemens.inventory.gen.device-state.config</configPackage>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<interfaceOnly>true</interfaceOnly>
+								<invokerPackage>cz.siemens.inventory.gen.device-state</invokerPackage>
+								<java8>true</java8>
+								<library>spring-boot</library>
+								<sourceFolder>main/java</sourceFolder>
+							</configOptions>
+						</configuration>
+					</execution>
+                    <execution>
+                        <id>generate-device-type-source-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/device-type-api.yaml</inputSpec>
+                            <language>spring</language>
+                            <modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+                            <output>src</output>
+                            <configOptions>
+                                <basePackage>cz.siemens.inventory.gen.device-type</basePackage>
+                                <configPackage>cz.siemens.inventory.gen.device-type.config</configPackage>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <interfaceOnly>true</interfaceOnly>
+                                <invokerPackage>cz.siemens.inventory.gen.device-type</invokerPackage>
+                                <java8>true</java8>
+                                <library>spring-boot</library>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-supplier-source-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/supplier-api.yaml</inputSpec>
+                            <language>spring</language>
+                            <modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+                            <output>src</output>
+                            <configOptions>
+                                <basePackage>cz.siemens.inventory.gen.supplier</basePackage>
+                                <configPackage>cz.siemens.inventory.gen.supplier.config</configPackage>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <interfaceOnly>true</interfaceOnly>
+                                <invokerPackage>cz.siemens.inventory.gen.supplier</invokerPackage>
+                                <java8>true</java8>
+                                <library>spring-boot</library>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-project-source-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/project-api.yaml</inputSpec>
+                            <language>spring</language>
+                            <modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+                            <output>src</output>
+                            <configOptions>
+                                <basePackage>cz.siemens.inventory.gen.project</basePackage>
+                                <configPackage>cz.siemens.inventory.gen.project.config</configPackage>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <interfaceOnly>true</interfaceOnly>
+                                <invokerPackage>cz.siemens.inventory.gen.project</invokerPackage>
+                                <java8>true</java8>
+                                <library>spring-boot</library>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+
+                    <!-- SWAGGER DOCUMENTATION -->
+                    <execution>
                         <id>generate-device-documentation</id>
                         <goals>
                             <goal>generate</goal>
@@ -110,7 +293,7 @@
                             <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
                             <generateApiDocumentation>true</generateApiDocumentation>
                             <generateModelDocumentation>true</generateModelDocumentation>
-                            <inputSpec>${project.basedir}/src/main/resources/device-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/device-api.yaml</inputSpec>
                             <language>html2</language>
                             <output>src/main/resources/static/documentation/device</output>
                             <configOptions>
@@ -126,10 +309,89 @@
                         <configuration>
                             <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
                             <generateApiDocumentation>true</generateApiDocumentation>
-                            <generateModelDocumentation>true</generateModelDocumentation>
-                            <inputSpec>${project.basedir}/src/main/resources/device-type-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/device-type-api.yaml</inputSpec>
                             <language>html2</language>
                             <output>src/main/resources/static/documentation/device-type</output>
+                            <configOptions>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-company-owner-documentation</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiDocumentation>true</generateApiDocumentation>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/company-owner-api.yaml</inputSpec>
+                            <language>html2</language>
+                            <output>src/main/resources/static/documentation/company-owner</output>
+                            <configOptions>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-department-documentation</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiDocumentation>true</generateApiDocumentation>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/department-api.yaml</inputSpec>
+                            <language>html2</language>
+                            <output>src/main/resources/static/documentation/department</output>
+                            <configOptions>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-device-state-documentation</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiDocumentation>true</generateApiDocumentation>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/device-state-api.yaml</inputSpec>
+                            <language>html2</language>
+                            <output>src/main/resources/static/documentation/device-state</output>
+                            <configOptions>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-supplier-documentation</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiDocumentation>true</generateApiDocumentation>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/supplier-api.yaml</inputSpec>
+                            <language>html2</language>
+                            <output>src/main/resources/static/documentation/supplier</output>
+                            <configOptions>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-project-documentation</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiDocumentation>true</generateApiDocumentation>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/project-api.yaml</inputSpec>
+                            <language>html2</language>
+                            <output>src/main/resources/static/documentation/project</output>
                             <configOptions>
                                 <sourceFolder>main/java</sourceFolder>
                             </configOptions>

@@ -1,55 +1,75 @@
 package cz.siemens.inventory.controllers;
 
-/*
+
+import cz.siemens.inventory.facade.DepartmentFacade;
+import cz.siemens.inventory.gen.api.DepartmentsApi;
+import cz.siemens.inventory.gen.model.Department;
+import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_DEPARTMENT)
-public class DepartmentController {
+@RequestMapping(ApiUris.ROOT_URI)
+public class DepartmentController extends BaseController implements DepartmentsApi {
 
-    private GenericDao<Department> departmentDao;
-    final static Logger logger = LoggerFactory.getLogger(DepartmentController.class);
+	final static Logger logger = LoggerFactory.getLogger(CompanyOwnerController.class);
+	private DepartmentFacade departmentFacade;
 
-    @Autowired
-    public DepartmentController(GenericDao<Department> departmentDao) {
-        this.departmentDao = departmentDao;
-    }
+	@Autowired
+	public DepartmentController(DepartmentFacade departmentFacade) {
+		this.departmentFacade = departmentFacade;
+	}
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<Department> findAll(){
-        return departmentDao.readAll();
-    }
+	@Override
+	public ResponseEntity<List<Department>> getDepartments() {
+		logger.info("getDepartments request received");
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Department findById(@PathVariable("id") Long id) throws Exception {
-        logger.info("findById({id}) called", id);
+		ResponseEntity<List<Department>> result = ResponseEntity.ok(departmentFacade.getDepartments());
 
-        try {
-            return departmentDao.read(id);
-        }catch(ObjectNotFoundException ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+		logger.info("getDepartments request finished");
 
-    @RequestMapping(value = "/create", method= RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final void create(@RequestBody Department department) throws Exception {
-        logger.info("create({department}) called", department.toString());
+		return result;
+	}
 
-        try {
-            departmentDao.create(department);
-        } catch(Exception ex) {
-            throw new ResourceAlreadyExistsException();
-        }
-    }
+	@Override
+	public ResponseEntity<Department> getDepartment(@PathVariable("departmentId") Long departmentId) {
+		logger.info("getDepartment({}) request received", departmentId);
 
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void remove(@PathVariable("id") Long id) throws Exception {
-        logger.info("remove({id}) called", id);
-        try {
-            departmentDao.delete(departmentDao.read(id));
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+		ResponseEntity<Department> result = returnOptional(departmentFacade.getDepartment(departmentId));
+
+		logger.info("getDepartment({}) request finished", departmentId);
+
+		return result;
+	}
+
+	@Override
+	public ResponseEntity<Department> createDepartment(@ApiParam(required = true) @Valid @RequestBody Department body) {
+		logger.info("createDepartment({}) request received", body.toString());
+
+		Department createdDepartment = departmentFacade.createDepartment(body);
+
+		logger.info("createDepartment({}) request finished", createdDepartment.getId());
+
+		return returnCreatedResponse(createdDepartment, createdDepartment.getId().toString());
+	}
+
+	@Override
+	public ResponseEntity<Void> deleteDepartment(@ApiParam(required = true) @PathVariable("companyOwnerId") Long companyOwnerId) {
+		logger.info("deleteDepartment({}) request received", companyOwnerId);
+
+		departmentFacade.deleteDepartment(companyOwnerId);
+
+		logger.info("deleteDepartment({}) request finished", companyOwnerId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 }
-*/
