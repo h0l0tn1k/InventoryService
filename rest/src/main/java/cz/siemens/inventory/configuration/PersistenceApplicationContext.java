@@ -1,6 +1,5 @@
 package cz.siemens.inventory.configuration;
 
-import org.hibernate.Hibernate;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
