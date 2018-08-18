@@ -2,8 +2,10 @@ package cz.siemens.inventory.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.*;
 
 @Data
@@ -16,7 +18,7 @@ public class Supplier implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	private String name;
 }

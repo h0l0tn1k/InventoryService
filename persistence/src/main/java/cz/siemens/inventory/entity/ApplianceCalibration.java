@@ -12,11 +12,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "calibration")
+@ToString(exclude = "deviceCalibration")
 public class ApplianceCalibration implements Serializable
 {
 	private static final long serialVersionUID = -5444360754207233467L;
@@ -24,7 +26,7 @@ public class ApplianceCalibration implements Serializable
 	@Id
 	@GeneratedValue(generator = "calibrationGenerator")
 	@GenericGenerator(name = "calibrationGenerator", strategy = "foreign", parameters = @Parameter(name = "property", value = "deviceCalibration"))
-	private long id;
+	private Long id;
 
 	@Column(name = "calib_interval")
 	private byte interval;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "revision")
+@ToString(exclude = "deviceRevision")
 public class ApplianceRevision implements Serializable {
 
 	private static final long serialVersionUID = 2448457913612961446L;
@@ -23,7 +25,7 @@ public class ApplianceRevision implements Serializable {
 	@Id
 	@GeneratedValue(generator = "revisionGenerator")
 	@GenericGenerator(name = "revisionGenerator", strategy = "foreign", parameters = @Parameter(name = "property", value = "deviceRevision"))
-	private long id;
+	private Long id;
 	
 	@Column(name = "rev_interval")
 	private byte interval;

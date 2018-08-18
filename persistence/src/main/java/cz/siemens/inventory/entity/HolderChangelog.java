@@ -29,7 +29,7 @@ public class HolderChangelog implements Serializable
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name = "date")
 	@Type(type = "timestamp")

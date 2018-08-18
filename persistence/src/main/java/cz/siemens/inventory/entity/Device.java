@@ -3,6 +3,7 @@ package cz.siemens.inventory.entity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -14,6 +15,7 @@ import java.time.OffsetDateTime;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "objects")
+@ToString
 public class Device implements Serializable {
 
 	private static final long serialVersionUID = 6243936014818205991L;
@@ -21,9 +23,9 @@ public class Device implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "object_type_id", referencedColumnName = "id")
 	private DeviceType objectType;
 
@@ -67,7 +69,8 @@ public class Device implements Serializable {
 	@Column(name = "comment")
 	private String comment;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceInventory", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "inventoryRecord_id", referencedColumnName = "id")
 	private InventoryRecord inventoryRecord;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceRevision", cascade = CascadeType.ALL)
@@ -92,6 +95,11 @@ public class Device implements Serializable {
 
 	public String getTypeAndVersionName() {
 		return objectType != null ? objectType.getTypeAndVersionName() : undefStr;
+	}
+
+	public void setInventoryRecord(InventoryRecord inventoryRecord) {
+		this.inventoryRecord = inventoryRecord;
+		inventoryRecord.setDeviceInventory(this);
 	}
 
 }

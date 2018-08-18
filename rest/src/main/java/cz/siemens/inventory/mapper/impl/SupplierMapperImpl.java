@@ -11,7 +11,7 @@ public class SupplierMapperImpl implements SupplierMapper {
 		Supplier supplier = new Supplier();
 		supplier.setId(object.getId());
 		supplier.setName(object.getName());
-		return null;
+		return supplier;
 	}
 
 	@Override

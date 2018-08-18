@@ -16,7 +16,7 @@ public class LoginUserScd implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	private long scdId;
 	private String firstName;

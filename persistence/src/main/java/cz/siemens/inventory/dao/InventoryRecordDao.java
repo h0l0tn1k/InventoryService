@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface InventoryRecordDao extends JpaRepository<InventoryRecord, Long> {
 
-	@Query("SELECT ir FROM InventoryRecord ir WHERE ir.registered = TRUE")
+	@Query("SELECT ir FROM InventoryRecord ir WHERE ir.registered = 'OK'")
 	List<InventoryRecord> findAllChecked();
 
-	@Query("SELECT ir FROM InventoryRecord ir WHERE ir.registered = FALSE")
+	@Query("SELECT ir FROM InventoryRecord ir WHERE ir.registered IN ('False', 'Unclear')")
 	List<InventoryRecord> findAllUnChecked();
 }

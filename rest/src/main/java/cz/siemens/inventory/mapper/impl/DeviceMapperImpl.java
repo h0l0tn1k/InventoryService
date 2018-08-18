@@ -13,16 +13,18 @@ public class DeviceMapperImpl implements DeviceMapper {
 	private ProjectMapper projectMapper;
 	private DeviceStateMapper deviceStateMapper;
 	private DeviceTypeMapper deviceTypeMapper;
+	private InventoryRecordMapper inventoryRecordMapper;
 
 	@Autowired
 	public DeviceMapperImpl(CompanyOwnerMapper companyOwnerMapper, DepartmentMapper departmentMapper,
 							ProjectMapper projectMapper, DeviceStateMapper deviceStateMapper,
-							DeviceTypeMapper deviceTypeMapper) {
+							DeviceTypeMapper deviceTypeMapper, InventoryRecordMapper inventoryRecordMapper) {
 		this.companyOwnerMapper = companyOwnerMapper;
 		this.departmentMapper = departmentMapper;
 		this.projectMapper = projectMapper;
 		this.deviceStateMapper = deviceStateMapper;
 		this.deviceTypeMapper = deviceTypeMapper;
+		this.inventoryRecordMapper = inventoryRecordMapper;
 	}
 
 	@Override
@@ -38,6 +40,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 		result.setProject(projectMapper.mapToInternal(object.getProject()));
 		result.setDeviceState(deviceStateMapper.mapToInternal(object.getDeviceState()));
 		result.setObjectType(deviceTypeMapper.mapToInternal(object.getDeviceType()));
+		result.setInventoryRecord(inventoryRecordMapper.mapToInternal(object.getInventoryRecord()));
 		result.setAddDate(object.getAddDate());
 		return result;
 	}
@@ -55,6 +58,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 				.project(projectMapper.mapToExternal(object.getProject()))
 				.deviceState(deviceStateMapper.mapToExternal(object.getDeviceState()))
 				.deviceType(deviceTypeMapper.mapToExternal(object.getObjectType()))
+				.inventoryRecord(inventoryRecordMapper.mapToExternal(object.getInventoryRecord()))
 				.addDate(object.getAddDate());
 	}
 }

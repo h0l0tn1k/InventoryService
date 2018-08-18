@@ -57,7 +57,7 @@ public class DeviceController extends BaseController implements DevicesApi {
 
 		Device device = deviceFacade.createDevice(body);
 
-		logger.info("createDevice({}) request finished", body.getId());
+		logger.info("createDevice({}) request finished", device.getId());
 
 		return returnCreatedResponse(device, device.getId().toString());
 	}

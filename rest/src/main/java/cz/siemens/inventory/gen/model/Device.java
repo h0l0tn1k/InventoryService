@@ -7,6 +7,7 @@ import cz.siemens.inventory.gen.model.CompanyOwner;
 import cz.siemens.inventory.gen.model.Department;
 import cz.siemens.inventory.gen.model.DeviceState;
 import cz.siemens.inventory.gen.model.DeviceType;
+import cz.siemens.inventory.gen.model.InventoryRecord;
 import cz.siemens.inventory.gen.model.Project;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -50,6 +51,9 @@ public class Device   {
 
   @JsonProperty("project")
   private Project project = null;
+
+  @JsonProperty("inventoryRecord")
+  private InventoryRecord inventoryRecord = null;
 
   @JsonProperty("serialNumber")
   private String serialNumber = null;
@@ -260,6 +264,27 @@ public class Device   {
     this.project = project;
   }
 
+  public Device inventoryRecord(InventoryRecord inventoryRecord) {
+    this.inventoryRecord = inventoryRecord;
+    return this;
+  }
+
+  /**
+   * Get inventoryRecord
+   * @return inventoryRecord
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public InventoryRecord getInventoryRecord() {
+    return inventoryRecord;
+  }
+
+  public void setInventoryRecord(InventoryRecord inventoryRecord) {
+    this.inventoryRecord = inventoryRecord;
+  }
+
   public Device serialNumber(String serialNumber) {
     this.serialNumber = serialNumber;
     return this;
@@ -300,12 +325,13 @@ public class Device   {
         Objects.equals(this.deviceState, device.deviceState) &&
         Objects.equals(this.deviceType, device.deviceType) &&
         Objects.equals(this.project, device.project) &&
+        Objects.equals(this.inventoryRecord, device.inventoryRecord) &&
         Objects.equals(this.serialNumber, device.serialNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, addDate, barcodeNumber, comment, companyOwner, defaultLocation, department, deviceState, deviceType, project, serialNumber);
+    return Objects.hash(id, addDate, barcodeNumber, comment, companyOwner, defaultLocation, department, deviceState, deviceType, project, inventoryRecord, serialNumber);
   }
 
   @Override
@@ -323,6 +349,7 @@ public class Device   {
     sb.append("    deviceState: ").append(toIndentedString(deviceState)).append("\n");
     sb.append("    deviceType: ").append(toIndentedString(deviceType)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
+    sb.append("    inventoryRecord: ").append(toIndentedString(inventoryRecord)).append("\n");
     sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
     sb.append("}");
     return sb.toString();

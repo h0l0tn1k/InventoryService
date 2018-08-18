@@ -4,13 +4,16 @@ import cz.siemens.inventory.dao.DeviceStateDao;
 import cz.siemens.inventory.facade.DeviceStateFacade;
 import cz.siemens.inventory.gen.model.DeviceState;
 import cz.siemens.inventory.mapper.DeviceStateMapper;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DeviceStateFacadeImpl implements DeviceStateFacade {
 
 	private DeviceStateDao deviceStateDao;

@@ -1,5 +1,6 @@
 package cz.siemens.inventory.configuration;
 
+import org.hibernate.Hibernate;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,7 @@ public class PersistenceApplicationContext {
 
 		final Map<String, Object> properties = new HashMap<>();
 		properties.put(Environment.GLOBALLY_QUOTED_IDENTIFIERS, true);
+		properties.put(Environment.USE_NEW_ID_GENERATOR_MAPPINGS, false);
 
 		return em;
 	}

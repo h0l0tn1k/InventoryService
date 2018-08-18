@@ -15,7 +15,7 @@ public class DeviceType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(name = "object_type")
 	private String objectTypeName;
@@ -29,7 +29,7 @@ public class DeviceType implements Serializable {
 
 	private String version;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "supplier", referencedColumnName = "id")
 	private Supplier supplier;
 

@@ -96,7 +96,25 @@ definitions:
         $ref: '#/definitions/DeviceType'
       project:
         $ref: '#/definitions/Project'
+      inventoryRecord:
+        $ref: '#/definitions/InventoryRecord'
       serialNumber:
         type: string
       #todo holder
       #todo owner
+  InventoryRecord:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      inventoryState:
+        $ref: '#/definitions/InventoryState'
+  InventoryState:
+    type: string
+    enum:
+      - 'OK'
+      - 'False'
+      - 'Unclear'
+components:
+  schemas:
