@@ -25,7 +25,7 @@ public class Device implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "object_type_id", referencedColumnName = "id")
 	private DeviceType objectType;
 

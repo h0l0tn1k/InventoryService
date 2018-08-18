@@ -59,13 +59,9 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	public Device createDevice(Device device) {
 		//todo: add validation
 		device.addDate(OffsetDateTime.now());
-		//WORKAROUND: due to poor design I have to save InventoryRecord first
-		InventoryRecord inventoryRecord = inventoryRecordFacade.createInventoryRecord(device.getInventoryRecord());
-		cz.siemens.inventory.entity.Device deviceToCreate = deviceMapper.mapToInternal(device);
-		device.setInventoryRecord(inventoryRecord);
 
-		cz.siemens.inventory.entity.Device createdDevice = deviceDao.save(deviceToCreate);
-		return deviceMapper.mapToExternal(createdDevice);
+		cz.siemens.inventory.entity.Device device1 = deviceMapper.mapToInternal(device);
+		return deviceMapper.mapToExternal(deviceDao.save(device1));
 	}
 
 	@Override

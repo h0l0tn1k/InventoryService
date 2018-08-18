@@ -29,7 +29,7 @@ public class DeviceType implements Serializable {
 
 	private String version;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "supplier", referencedColumnName = "id")
 	private Supplier supplier;
 
