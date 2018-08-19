@@ -2,7 +2,6 @@ package cz.siemens.inventory.entity.custom;
 
 import cz.siemens.inventory.dao.LoginPasswordScdDao;
 import cz.siemens.inventory.entity.UserPassword;
-import cz.siemens.inventory.entity.UserScd;
 
 import java.security.MessageDigest;
 /*

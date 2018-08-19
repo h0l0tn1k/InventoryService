@@ -12,4 +12,7 @@ public interface LoginUserScdDao extends JpaRepository<LoginUserScd, Long> {
 
 	@Query("SELECT user From LoginUserScd user where scdId=:scdId")
 	LoginUserScd getByScdId(@Param("scdId") Long scdId);
+
+	@Query("SELECT user From LoginUserScd user where email=:email")
+	LoginUserScd getByEmail(@Param("email") String email);
 }
