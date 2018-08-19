@@ -1,0 +1,102 @@
+swagger: "2.0"
+info:
+  title: Siemens Inventory REST API
+  description: |
+    REST API for Inventory Service
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory-service/api/v1
+produces:
+  - application/json
+paths:
+  /inventory-records:
+    get:
+      tags:
+        - InventoryRecord
+      summary: Gets all Inventory Records
+      operationId: getInventoryRecords
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All Inventory Records
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/InventoryRecord'
+        '405':
+          description: Invalid input
+#    post:
+#      tags:
+#        - InventoryRecord
+#      summary: Creates new Inventory Record
+#      operationId: createInventoryRecord
+#      consumes:
+#        - application/json
+#      produces:
+#        - application/json
+#      parameters:
+#        - in: body
+#          name: body
+#          description: Inventory Record object that needs to be created
+#          required: true
+#          schema:
+#            $ref: './common-models.yaml#/definitions/InventoryRecord'
+#      responses:
+#        '201':
+#          description: Inventory Record created
+#          schema:
+#            $ref: './common-models.yaml#/definitions/InventoryRecord'
+#        '405':
+#          description: Invalid input
+  /inventory-records/{inventoryRecordId}:
+    get:
+      tags:
+        - InventoryRecord
+      summary: Gets Inventory Record based on inventoryRecordId
+      operationId: getInventoryRecord
+      produces:
+        - application/json
+      parameters:
+        - name: inventoryRecordId
+          in: path
+          description: Inventory Record id to get
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The Inventory Record
+          schema:
+            $ref: './common-models.yaml#/definitions/InventoryRecord'
+        '404':
+          description: Requested Inventory Record does not exist.
+    put:
+      tags:
+        - InventoryRecord
+      summary: Updates an Inventory Record
+      description: ''
+      operationId: updateInventoryRecord
+      produces:
+        - application/json
+      parameters:
+        - name: inventoryRecordId
+          in: path
+          description: Inventory Record id to update
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Inventory Record object that needs to be updated
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/InventoryRecord'
+      responses:
+        '200':
+          description: Updated Inventory Record
+          schema:
+            $ref: './common-models.yaml#/definitions/InventoryRecord'
+        '404':
+          description: Specified Inventory Record does not exist.

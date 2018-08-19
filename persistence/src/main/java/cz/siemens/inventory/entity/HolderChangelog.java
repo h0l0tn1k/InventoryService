@@ -41,11 +41,11 @@ public class HolderChangelog implements Serializable
 
 	@ManyToOne
 	@JoinColumn(name = "old_holder_id", referencedColumnName = "id")
-	private UserScd oldHolder;
+	private LoginUserScd oldHolder;
 
 	@ManyToOne
 	@JoinColumn(name = "new_holder_id", referencedColumnName = "id")
-	private UserScd newHolder;
+	private LoginUserScd newHolder;
 	
 	@Column(name = "comment")
 	private String comment;

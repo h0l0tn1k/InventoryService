@@ -34,6 +34,8 @@ public class PersistenceApplicationContext {
 		properties.put(Environment.GLOBALLY_QUOTED_IDENTIFIERS, true);
 		properties.put(Environment.USE_NEW_ID_GENERATOR_MAPPINGS, false);
 
+		em.setJpaPropertyMap(properties);
+
 		return em;
 	}
 }

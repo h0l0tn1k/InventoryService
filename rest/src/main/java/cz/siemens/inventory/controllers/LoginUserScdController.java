@@ -5,7 +5,7 @@ package cz.siemens.inventory.controllers;
 @RequestMapping(ApiUris.ROOT_URI_LOGIN_USER_SCD)
 public class LoginUserScdController {
 
-    private GenericDao<UserScd> userDao;
+    private GenericDao<LoginUserScdDao> userDao;
     final static Logger logger = LoggerFactory.getLogger(LoginUserScdController.class);
 
     @Autowired

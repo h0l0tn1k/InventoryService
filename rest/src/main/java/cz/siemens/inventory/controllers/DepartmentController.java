@@ -64,12 +64,12 @@ public class DepartmentController extends BaseController implements DepartmentsA
 	}
 
 	@Override
-	public ResponseEntity<Void> deleteDepartment(@ApiParam(required = true) @PathVariable("companyOwnerId") Long companyOwnerId) {
-		logger.info("deleteDepartment({}) request received", companyOwnerId);
+	public ResponseEntity<Void> deleteDepartment(@ApiParam(required = true) @PathVariable("departmentId") Long departmentId) {
+		logger.info("deleteDepartment({}) request received", departmentId);
 
-		departmentFacade.deleteDepartment(companyOwnerId);
+		departmentFacade.deleteDepartment(departmentId);
 
-		logger.info("deleteDepartment({}) request finished", companyOwnerId);
+		logger.info("deleteDepartment({}) request finished", departmentId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

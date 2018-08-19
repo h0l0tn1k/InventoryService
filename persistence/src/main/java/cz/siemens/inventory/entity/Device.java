@@ -50,11 +50,11 @@ public class Device implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "owner_id", referencedColumnName = "id")
-	private UserScd owner;
+	private LoginUserScd owner;
 
 	@ManyToOne
 	@JoinColumn(name = "holder_id", referencedColumnName = "id")
-	private UserScd holder;
+	private LoginUserScd holder;
 
 	@Column(name = "default_location")
 	private String defaultLocation;

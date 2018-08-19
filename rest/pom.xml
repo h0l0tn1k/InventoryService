@@ -293,6 +293,32 @@
                             </configOptions>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>generate-inventory-record-source-code</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/inventory-record-api.yaml</inputSpec>
+                            <language>spring</language>
+                            <modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+                            <output>src</output>
+                            <configOptions>
+                                <basePackage>cz.siemens.inventory.gen.inventory-record</basePackage>
+                                <configPackage>cz.siemens.inventory.gen.inventory-record.config</configPackage>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <interfaceOnly>true</interfaceOnly>
+                                <invokerPackage>cz.siemens.inventory.gen.inventory-record</invokerPackage>
+                                <java8>true</java8>
+                                <library>spring-boot</library>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
 
                     <!-- SWAGGER DOCUMENTATION -->
                     <execution>
@@ -403,6 +429,22 @@
                             <inputSpec>${project.basedir}/src/main/resources/rest/project-api.yaml</inputSpec>
                             <language>html2</language>
                             <output>src/main/resources/static/documentation/project</output>
+                            <configOptions>
+                                <sourceFolder>main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-inventory-record-documentation</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+                            <generateApiDocumentation>true</generateApiDocumentation>
+                            <inputSpec>${project.basedir}/src/main/resources/rest/inventory-record-api.yaml</inputSpec>
+                            <language>html2</language>
+                            <output>src/main/resources/static/documentation/inventory-record</output>
                             <configOptions>
                                 <sourceFolder>main/java</sourceFolder>
                             </configOptions>

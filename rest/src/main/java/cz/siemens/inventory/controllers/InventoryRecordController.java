@@ -1,89 +1,62 @@
 package cz.siemens.inventory.controllers;
 
-import cz.siemens.inventory.dao.InventoryRecordDao;
-import cz.siemens.inventory.entity.InventoryRecord;
-import cz.siemens.inventory.controllers.exceptions.ResourceAlreadyExistsException;
-import cz.siemens.inventory.controllers.exceptions.ResourceNotFoundException;
+import cz.siemens.inventory.facade.InventoryRecordFacade;
+import cz.siemens.inventory.gen.api.InventoryRecordsApi;
+import cz.siemens.inventory.gen.model.InventoryRecord;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
-/*
+import java.util.Optional;
+
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_INVENTORY_RECORD)
-public class InventoryRecordController {
+@RequestMapping(ApiUris.ROOT_URI)
+public class InventoryRecordController extends BaseController implements InventoryRecordsApi {
 
-    private InventoryRecordDao inventoryRecordDao;
-    final static Logger logger = LoggerFactory.getLogger(InventoryRecordController.class);
+	private InventoryRecordFacade inventoryRecordFacade;
+	final static Logger logger = LoggerFactory.getLogger(InventoryRecordController.class);
 
-    @Autowired
-    public InventoryRecordController(InventoryRecordDao inventoryRecordDao) {
-        this.inventoryRecordDao = inventoryRecordDao;
-    }
+	@Autowired
+	public InventoryRecordController(InventoryRecordFacade inventoryRecordFacade) {
+		this.inventoryRecordFacade = inventoryRecordFacade;
+	}
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<InventoryRecord> findAll(){
-        logger.info("findAll() called");
-        return inventoryRecordDao.readAll();
-    }
+	public ResponseEntity<InventoryRecord> getInventoryRecord(@ApiParam(required = true) @PathVariable("inventoryRecordId") Long inventoryRecordId) {
+		logger.info("getInventoryRecord({}) request received", inventoryRecordId);
 
-    @RequestMapping(value="/checked", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<InventoryRecord> findAllChecked(){
-        logger.info("findAllChecked() called");
-        return inventoryRecordDao.findAllChecked();
-    }
+		Optional<InventoryRecord> inventoryRecord = inventoryRecordFacade.getInventoryRecord(inventoryRecordId);
 
-    @RequestMapping(value="/unchecked", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<InventoryRecord> findAllUnChecked(){
-        logger.info("findAllUnChecked() called");
-        return inventoryRecordDao.findAllUnChecked();
-    }
+		logger.info("getInventoryRecord({}) request finished", inventoryRecordId);
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final InventoryRecord findById(@PathVariable("id") Long id) throws Exception {
-        logger.info("findById({id}) called", id);
-        try {
-            return inventoryRecordDao.read(id);
-        } catch(Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+		return returnOptional(inventoryRecord);
+	}
 
-    @RequestMapping(value="/{id}/{checked}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void updateChecked(@PathVariable("id") Long id, @PathVariable("checked") Boolean checked) throws Exception {
-        logger.info("updateChecked({id}) called", id);
-        try {
-            InventoryRecord inventoryRecord = findById(id);
-            inventoryRecord.setRegistered(checked);
-            inventoryRecordDao.update(inventoryRecord);
-        } catch(Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+	public ResponseEntity<List<InventoryRecord>> getInventoryRecords() {
+		logger.info("getInventoryRecords() request received");
 
-    @RequestMapping(value = "/create", method= RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final void create(@RequestBody InventoryRecord inventoryRecord) throws Exception {
-        logger.info("create({inventoryRecord}) called", inventoryRecord.toString());
-        try {
-            inventoryRecordDao.create(inventoryRecord);
-        } catch(Exception ex) {
-            throw new ResourceAlreadyExistsException();
-        }
-    }
+		List<InventoryRecord> inventoryRecords = inventoryRecordFacade.getInventoryRecords();
 
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void remove(@PathVariable("id") Long id) throws Exception {
-        logger.info("remove({id}) called", id);
-        try {
-            inventoryRecordDao.delete(inventoryRecordDao.read(id));
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+		logger.info("getInventoryRecords() request finished");
+
+		return ResponseEntity.ok(inventoryRecords);
+	}
+
+	public ResponseEntity<InventoryRecord> updateInventoryRecord(@ApiParam(required = true) @PathVariable("inventoryRecordId") Long inventoryRecordId,
+																 @ApiParam(required = true) @Valid @RequestBody InventoryRecord body) {
+		logger.info("updateInventoryRecord({}, {}) request received", inventoryRecordId, body.toString());
+
+		InventoryRecord inventoryRecord = inventoryRecordFacade.updateInventoryRecord(body);
+
+		logger.info("updateInventoryRecord({}) request finished", inventoryRecordId);
+
+		return ResponseEntity.ok(inventoryRecord);
+	}
 }
-*/

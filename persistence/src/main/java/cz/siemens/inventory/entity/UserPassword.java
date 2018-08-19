@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -16,6 +17,7 @@ public class UserPassword implements Serializable
 	@Column(name = "email")
 	private String email;
 
+	@NotNull
 	@Column(name = "password")
 	private String passwordHash;
 }

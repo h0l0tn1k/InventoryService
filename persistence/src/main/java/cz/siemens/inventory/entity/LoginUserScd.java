@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -18,19 +19,42 @@ public class LoginUserScd implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
 	private long scdId;
+
+	@NotNull
 	private String firstName;
+
+	@NotNull
 	private String lastName;
+
 	private String gid;
+
 	private String orgcode;
+
 	private String email;
-	private long superiorId;
+
+	private Long superiorId;
+
 	private String superiorFirstName;
+
 	private String superiorLastName;
+
+	@NotNull
 	private boolean flagRead;
+
+	@NotNull
 	private boolean flagWrite;
+
+	@NotNull
 	private boolean flagBorrow;
+
+	@NotNull
 	private boolean flagInventory;
+
+	@NotNull
 	private boolean flagRevision;
+
+	@NotNull
 	private boolean flagAdmin;
 }

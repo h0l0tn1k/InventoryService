@@ -1,6 +1,6 @@
 package cz.siemens.inventory.entity.custom;
 
-import cz.siemens.inventory.entity.UserScd;
+import cz.siemens.inventory.entity.LoginUserScd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class PermissionItem
 
 	private List<PermissionItem> perm;
 
-	public PermissionItem(UserScd permission)
+	public PermissionItem(LoginUserScd permission)
 	{
 		perm = new ArrayList<>();
 		perm.add(new PermissionItem("Read-only", permission.isFlagRead()));
