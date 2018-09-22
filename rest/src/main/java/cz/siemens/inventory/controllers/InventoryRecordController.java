@@ -1,7 +1,9 @@
 package cz.siemens.inventory.controllers;
 
+import cz.siemens.inventory.facade.DeviceFacade;
 import cz.siemens.inventory.facade.InventoryRecordFacade;
 import cz.siemens.inventory.gen.api.InventoryRecordsApi;
+import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.gen.model.InventoryRecord;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -22,11 +24,13 @@ import java.util.Optional;
 public class InventoryRecordController extends BaseController implements InventoryRecordsApi {
 
 	private InventoryRecordFacade inventoryRecordFacade;
+	private DeviceFacade deviceFacade;
 	final static Logger logger = LoggerFactory.getLogger(InventoryRecordController.class);
 
 	@Autowired
-	public InventoryRecordController(InventoryRecordFacade inventoryRecordFacade) {
+	public InventoryRecordController(InventoryRecordFacade inventoryRecordFacade, DeviceFacade deviceFacade) {
 		this.inventoryRecordFacade = inventoryRecordFacade;
+		this.deviceFacade = deviceFacade;
 	}
 
 	public ResponseEntity<InventoryRecord> getInventoryRecord(@ApiParam(required = true) @PathVariable("inventoryRecordId") Long inventoryRecordId) {
@@ -58,5 +62,25 @@ public class InventoryRecordController extends BaseController implements Invento
 		logger.info("updateInventoryRecord({}) request finished", inventoryRecordId);
 
 		return ResponseEntity.ok(inventoryRecord);
+	}
+
+	public ResponseEntity<List<Device>> getCheckedDevices() {
+		logger.info("getCheckedInventoryRecords() request received");
+
+		List<Device> devices = inventoryRecordFacade.getAllCheckedDevices();
+
+		logger.info("getCheckedInventoryRecords() request finished");
+
+		return ResponseEntity.ok(devices);
+	}
+
+	public ResponseEntity<List<Device>> getUncheckedDevices() {
+		logger.info("getUncheckedInventoryRecords() request received");
+
+		List<Device> devices = inventoryRecordFacade.getAllUncheckedDevices();
+
+		logger.info("getUncheckedInventoryRecords() request finished");
+
+		return ResponseEntity.ok(devices);
 	}
 }

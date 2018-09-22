@@ -25,8 +25,36 @@ paths:
             type: array
             items:
               $ref: './common-models.yaml#/definitions/InventoryRecord'
-        '405':
-          description: Invalid input
+  /inventory-records/checked:
+    get:
+      tags:
+        - InventoryRecord
+      summary: Gets all Checked Devices
+      operationId: getCheckedDevices
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All Checked Devices
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/Device'
+  /inventory-records/unchecked:
+    get:
+      tags:
+        - InventoryRecord
+      summary: Gets all Unchecked Devices
+      operationId: getUncheckedDevices
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All Unchecked Devices
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/Device'
 #    post:
 #      tags:
 #        - InventoryRecord
@@ -76,7 +104,6 @@ paths:
       tags:
         - InventoryRecord
       summary: Updates an Inventory Record
-      description: ''
       operationId: updateInventoryRecord
       produces:
         - application/json

@@ -1,54 +1,50 @@
 package cz.siemens.inventory.controllers;
 
-/*
+
+import cz.siemens.inventory.facade.UserFacade;
+import cz.siemens.inventory.gen.api.UsersApi;
+import cz.siemens.inventory.gen.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 @RestController
-@RequestMapping(ApiUris.ROOT_URI_USERS)
-public class UserController {
+@RequestMapping(ApiUris.ROOT_URI)
+public class UserController extends BaseController implements UsersApi {
 
-    private UserDao userDao;
-    final static Logger logger = LoggerFactory.getLogger(UserController.class);
+	final static Logger logger = LoggerFactory.getLogger(UserController.class);
+	private UserFacade userFacade;
 
-    @Autowired
-    public UserController(UserDao userDao) {
-        this.userDao = userDao;
-    }
+	@Autowired
+	public UserController(UserFacade userFacade) {
+		this.userFacade = userFacade;
+	}
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<User> findAll(){
-        logger.info("findAll()");
-        return userDao.findAll();
-    }
+	@Override
+	public ResponseEntity<List<User>> getUsers() {
+		logger.info("getUsers request received");
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final User findById(@PathVariable("id") Long id) throws Exception {
-        logger.info("findById({id})", id);
-        try {
-            return userDao.findById(id);
-        } catch(Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+		ResponseEntity<List<User>> users = ResponseEntity.ok(userFacade.getUsers());
 
-    @RequestMapping(value = "/create", method= RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final void create(@RequestBody User user) throws Exception {
-        logger.info("create({user})", user.toString());
-        try {
-            userDao.save(user);
-        } catch(Exception ex) {
-            throw new ResourceAlreadyExistsException();
-        }
-    }
+		logger.info("getUsers request finished");
 
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void remove(@PathVariable("id") Long id) throws Exception {
-        logger.info("remove({id})", id);
-        try {
-            userDao.delete(userDao.findById(id));
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-    }
+		return users;
+	}
+
+	@Override
+	public ResponseEntity<User> getUser(@PathVariable("userId") Long userId) {
+		logger.info("getUser({}) request received", userId);
+
+		ResponseEntity<User> result = returnOptional(userFacade.getUser(userId));
+
+		logger.info("getUser({}) request finished", userId);
+
+		return result;
+	}
 }
-*/

@@ -2,6 +2,7 @@ package cz.siemens.inventory.facade.impl;
 
 import cz.siemens.inventory.dao.DeviceDao;
 import cz.siemens.inventory.dao.InventoryRecordDao;
+import cz.siemens.inventory.entity.LoginUserScd;
 import cz.siemens.inventory.facade.DeviceFacade;
 import cz.siemens.inventory.facade.InventoryRecordFacade;
 import cz.siemens.inventory.gen.model.Device;
@@ -41,6 +42,11 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	}
 
 	@Override
+	public Device updateDevice(Device device) {
+		return deviceMapper.mapToExternal(deviceDao.save(deviceMapper.mapToInternal(device)));
+	}
+
+	@Override
 	public Optional<Device> getDeviceByBarcode(String barcode) {
 		return deviceMapper.mapToExternal(deviceDao.getDeviceByBarcodeNumber(barcode));
 	}
@@ -56,9 +62,14 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	}
 
 	@Override
+	public List<Device> getDevicesBorrowedByUser(Long userId) {
+		return deviceMapper.mapToExternal(deviceDao.getDevicesBorrowedByUser(userId));
+	}
+
+	@Override
 	public Device createDevice(Device device) {
 		//todo: add validation
-		device.addDate(OffsetDateTime.now());
+//		device.addDate(OffsetDateTime.now());
 
 		cz.siemens.inventory.entity.Device device1 = deviceMapper.mapToInternal(device);
 		return deviceMapper.mapToExternal(deviceDao.save(device1));

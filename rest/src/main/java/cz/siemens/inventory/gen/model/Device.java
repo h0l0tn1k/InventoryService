@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import cz.siemens.inventory.gen.model.CompanyOwner;
 import cz.siemens.inventory.gen.model.Department;
+import cz.siemens.inventory.gen.model.DeviceCalibration;
+import cz.siemens.inventory.gen.model.DeviceRevision;
 import cz.siemens.inventory.gen.model.DeviceState;
 import cz.siemens.inventory.gen.model.DeviceType;
 import cz.siemens.inventory.gen.model.InventoryRecord;
 import cz.siemens.inventory.gen.model.Project;
+import cz.siemens.inventory.gen.model.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -25,11 +27,11 @@ public class Device   {
   @JsonProperty("id")
   private Long id = null;
 
-  @JsonProperty("addDate")
-  private OffsetDateTime addDate = null;
-
   @JsonProperty("barcodeNumber")
   private String barcodeNumber = null;
+
+  @JsonProperty("calibration")
+  private DeviceCalibration calibration = null;
 
   @JsonProperty("comment")
   private String comment = null;
@@ -52,11 +54,20 @@ public class Device   {
   @JsonProperty("project")
   private Project project = null;
 
+  @JsonProperty("revision")
+  private DeviceRevision revision = null;
+
   @JsonProperty("inventoryRecord")
   private InventoryRecord inventoryRecord = null;
 
   @JsonProperty("serialNumber")
   private String serialNumber = null;
+
+  @JsonProperty("holder")
+  private User holder = null;
+
+  @JsonProperty("owner")
+  private User owner = null;
 
   public Device id(Long id) {
     this.id = id;
@@ -78,27 +89,6 @@ public class Device   {
     this.id = id;
   }
 
-  public Device addDate(OffsetDateTime addDate) {
-    this.addDate = addDate;
-    return this;
-  }
-
-  /**
-   * Get addDate
-   * @return addDate
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public OffsetDateTime getAddDate() {
-    return addDate;
-  }
-
-  public void setAddDate(OffsetDateTime addDate) {
-    this.addDate = addDate;
-  }
-
   public Device barcodeNumber(String barcodeNumber) {
     this.barcodeNumber = barcodeNumber;
     return this;
@@ -117,6 +107,27 @@ public class Device   {
 
   public void setBarcodeNumber(String barcodeNumber) {
     this.barcodeNumber = barcodeNumber;
+  }
+
+  public Device calibration(DeviceCalibration calibration) {
+    this.calibration = calibration;
+    return this;
+  }
+
+  /**
+   * Get calibration
+   * @return calibration
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public DeviceCalibration getCalibration() {
+    return calibration;
+  }
+
+  public void setCalibration(DeviceCalibration calibration) {
+    this.calibration = calibration;
   }
 
   public Device comment(String comment) {
@@ -264,6 +275,27 @@ public class Device   {
     this.project = project;
   }
 
+  public Device revision(DeviceRevision revision) {
+    this.revision = revision;
+    return this;
+  }
+
+  /**
+   * Get revision
+   * @return revision
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public DeviceRevision getRevision() {
+    return revision;
+  }
+
+  public void setRevision(DeviceRevision revision) {
+    this.revision = revision;
+  }
+
   public Device inventoryRecord(InventoryRecord inventoryRecord) {
     this.inventoryRecord = inventoryRecord;
     return this;
@@ -305,6 +337,48 @@ public class Device   {
     this.serialNumber = serialNumber;
   }
 
+  public Device holder(User holder) {
+    this.holder = holder;
+    return this;
+  }
+
+  /**
+   * Get holder
+   * @return holder
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public User getHolder() {
+    return holder;
+  }
+
+  public void setHolder(User holder) {
+    this.holder = holder;
+  }
+
+  public Device owner(User owner) {
+    this.owner = owner;
+    return this;
+  }
+
+  /**
+   * Get owner
+   * @return owner
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public User getOwner() {
+    return owner;
+  }
+
+  public void setOwner(User owner) {
+    this.owner = owner;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -316,8 +390,8 @@ public class Device   {
     }
     Device device = (Device) o;
     return Objects.equals(this.id, device.id) &&
-        Objects.equals(this.addDate, device.addDate) &&
         Objects.equals(this.barcodeNumber, device.barcodeNumber) &&
+        Objects.equals(this.calibration, device.calibration) &&
         Objects.equals(this.comment, device.comment) &&
         Objects.equals(this.companyOwner, device.companyOwner) &&
         Objects.equals(this.defaultLocation, device.defaultLocation) &&
@@ -325,13 +399,16 @@ public class Device   {
         Objects.equals(this.deviceState, device.deviceState) &&
         Objects.equals(this.deviceType, device.deviceType) &&
         Objects.equals(this.project, device.project) &&
+        Objects.equals(this.revision, device.revision) &&
         Objects.equals(this.inventoryRecord, device.inventoryRecord) &&
-        Objects.equals(this.serialNumber, device.serialNumber);
+        Objects.equals(this.serialNumber, device.serialNumber) &&
+        Objects.equals(this.holder, device.holder) &&
+        Objects.equals(this.owner, device.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, addDate, barcodeNumber, comment, companyOwner, defaultLocation, department, deviceState, deviceType, project, inventoryRecord, serialNumber);
+    return Objects.hash(id, barcodeNumber, calibration, comment, companyOwner, defaultLocation, department, deviceState, deviceType, project, revision, inventoryRecord, serialNumber, holder, owner);
   }
 
   @Override
@@ -340,8 +417,8 @@ public class Device   {
     sb.append("class Device {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    addDate: ").append(toIndentedString(addDate)).append("\n");
     sb.append("    barcodeNumber: ").append(toIndentedString(barcodeNumber)).append("\n");
+    sb.append("    calibration: ").append(toIndentedString(calibration)).append("\n");
     sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
     sb.append("    companyOwner: ").append(toIndentedString(companyOwner)).append("\n");
     sb.append("    defaultLocation: ").append(toIndentedString(defaultLocation)).append("\n");
@@ -349,8 +426,11 @@ public class Device   {
     sb.append("    deviceState: ").append(toIndentedString(deviceState)).append("\n");
     sb.append("    deviceType: ").append(toIndentedString(deviceType)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
+    sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
     sb.append("    inventoryRecord: ").append(toIndentedString(inventoryRecord)).append("\n");
     sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
+    sb.append("    holder: ").append(toIndentedString(holder)).append("\n");
+    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,0 +1,56 @@
+swagger: "2.0"
+info:
+  title: Siemens Inventory REST API
+  description: |
+    REST API for Inventory Service
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory-service/api/v1
+produces:
+  - application/json
+paths:
+  /users:
+    get:
+      tags:
+        - User
+      summary: Gets all Users
+      operationId: getUsers
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All Users
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/User'
+  /users/{userId}:
+    get:
+      tags:
+        - User
+      summary: Gets User based on userId
+      operationId: getUser
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          description: User id to get
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The User
+          schema:
+            $ref: './common-models.yaml#/definitions/User'
+        '404':
+          description: Requested User does not exist.
+      responses:
+        '200':
+          description: The User
+          schema:
+            $ref: './common-models.yaml#/definitions/User'
+        '404':
+          description: Requested User does not exist.

@@ -29,7 +29,7 @@ public class ApplianceCalibration implements Serializable
 	private Long id;
 
 	@Column(name = "calib_interval")
-	private byte interval;
+	private int interval;
 
 	@Column(name = "last_calibration")
 	private LocalDate lastCalibration;
@@ -58,12 +58,12 @@ public class ApplianceCalibration implements Serializable
 		this.id = id;
 	}
 
-	public byte getInterval()
+	public int getInterval()
 	{
 		return interval;
 	}
 
-	public void setInterval(byte interval)
+	public void setInterval(int interval)
 	{
 		this.interval = interval;
 	}

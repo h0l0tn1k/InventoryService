@@ -5,6 +5,7 @@
  */
 package cz.siemens.inventory.gen.api;
 
+import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.gen.model.InventoryRecord;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
@@ -46,6 +47,29 @@ public interface InventoryRecordsApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
+    @ApiOperation(value = "Gets all Checked Devices", nickname = "getCheckedDevices", notes = "", response = Device.class, responseContainer = "List", tags={ "InventoryRecord", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "All Checked Devices", response = Device.class, responseContainer = "List") })
+    @RequestMapping(value = "/inventory-records/checked",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    default ResponseEntity<List<Device>> getCheckedDevices() {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"deviceType\" : {    \"orderNumber\" : \"orderNumber\",    \"price\" : 2.027123023002322,    \"supplier\" : {      \"name\" : \"name\",      \"id\" : 3    },    \"objectTypeName\" : \"objectTypeName\",    \"id\" : 7,    \"classification\" : 9,    \"version\" : \"version\",    \"manufacturer\" : \"manufacturer\"  },  \"owner\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"barcodeNumber\" : \"barcodeNumber\",  \"serialNumber\" : \"serialNumber\",  \"project\" : {    \"name\" : \"name\",    \"id\" : 4  },  \"holder\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"companyOwner\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"inventoryRecord\" : {    \"inventoryState\" : { },    \"id\" : 0  },  \"revision\" : {    \"revisionInterval\" : 1,    \"id\" : 7  },  \"comment\" : \"comment\",  \"id\" : 0,  \"deviceState\" : {    \"name\" : \"name\",    \"id\" : 2  },  \"department\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"calibration\" : {    \"calibrationInterval\" : 1,    \"id\" : 6  },  \"defaultLocation\" : \"defaultLocation\"}, {  \"deviceType\" : {    \"orderNumber\" : \"orderNumber\",    \"price\" : 2.027123023002322,    \"supplier\" : {      \"name\" : \"name\",      \"id\" : 3    },    \"objectTypeName\" : \"objectTypeName\",    \"id\" : 7,    \"classification\" : 9,    \"version\" : \"version\",    \"manufacturer\" : \"manufacturer\"  },  \"owner\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"barcodeNumber\" : \"barcodeNumber\",  \"serialNumber\" : \"serialNumber\",  \"project\" : {    \"name\" : \"name\",    \"id\" : 4  },  \"holder\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"companyOwner\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"inventoryRecord\" : {    \"inventoryState\" : { },    \"id\" : 0  },  \"revision\" : {    \"revisionInterval\" : 1,    \"id\" : 7  },  \"comment\" : \"comment\",  \"id\" : 0,  \"deviceState\" : {    \"name\" : \"name\",    \"id\" : 2  },  \"department\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"calibration\" : {    \"calibrationInterval\" : 1,    \"id\" : 6  },  \"defaultLocation\" : \"defaultLocation\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default InventoryRecordsApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
     @ApiOperation(value = "Gets Inventory Record based on inventoryRecordId", nickname = "getInventoryRecord", notes = "", response = InventoryRecord.class, tags={ "InventoryRecord", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The Inventory Record", response = InventoryRecord.class),
@@ -72,8 +96,7 @@ public interface InventoryRecordsApi {
 
     @ApiOperation(value = "Gets all Inventory Records", nickname = "getInventoryRecords", notes = "", response = InventoryRecord.class, responseContainer = "List", tags={ "InventoryRecord", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "All Inventory Records", response = InventoryRecord.class, responseContainer = "List"),
-        @ApiResponse(code = 405, message = "Invalid input") })
+        @ApiResponse(code = 200, message = "All Inventory Records", response = InventoryRecord.class, responseContainer = "List") })
     @RequestMapping(value = "/inventory-records",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
@@ -82,6 +105,29 @@ public interface InventoryRecordsApi {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
                     return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"inventoryState\" : { },  \"id\" : 0}, {  \"inventoryState\" : { },  \"id\" : 0} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default InventoryRecordsApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Gets all Unchecked Devices", nickname = "getUncheckedDevices", notes = "", response = Device.class, responseContainer = "List", tags={ "InventoryRecord", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "All Unchecked Devices", response = Device.class, responseContainer = "List") })
+    @RequestMapping(value = "/inventory-records/unchecked",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    default ResponseEntity<List<Device>> getUncheckedDevices() {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"deviceType\" : {    \"orderNumber\" : \"orderNumber\",    \"price\" : 2.027123023002322,    \"supplier\" : {      \"name\" : \"name\",      \"id\" : 3    },    \"objectTypeName\" : \"objectTypeName\",    \"id\" : 7,    \"classification\" : 9,    \"version\" : \"version\",    \"manufacturer\" : \"manufacturer\"  },  \"owner\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"barcodeNumber\" : \"barcodeNumber\",  \"serialNumber\" : \"serialNumber\",  \"project\" : {    \"name\" : \"name\",    \"id\" : 4  },  \"holder\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"companyOwner\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"inventoryRecord\" : {    \"inventoryState\" : { },    \"id\" : 0  },  \"revision\" : {    \"revisionInterval\" : 1,    \"id\" : 7  },  \"comment\" : \"comment\",  \"id\" : 0,  \"deviceState\" : {    \"name\" : \"name\",    \"id\" : 2  },  \"department\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"calibration\" : {    \"calibrationInterval\" : 1,    \"id\" : 6  },  \"defaultLocation\" : \"defaultLocation\"}, {  \"deviceType\" : {    \"orderNumber\" : \"orderNumber\",    \"price\" : 2.027123023002322,    \"supplier\" : {      \"name\" : \"name\",      \"id\" : 3    },    \"objectTypeName\" : \"objectTypeName\",    \"id\" : 7,    \"classification\" : 9,    \"version\" : \"version\",    \"manufacturer\" : \"manufacturer\"  },  \"owner\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"barcodeNumber\" : \"barcodeNumber\",  \"serialNumber\" : \"serialNumber\",  \"project\" : {    \"name\" : \"name\",    \"id\" : 4  },  \"holder\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"companyOwner\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"inventoryRecord\" : {    \"inventoryState\" : { },    \"id\" : 0  },  \"revision\" : {    \"revisionInterval\" : 1,    \"id\" : 7  },  \"comment\" : \"comment\",  \"id\" : 0,  \"deviceState\" : {    \"name\" : \"name\",    \"id\" : 2  },  \"department\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"calibration\" : {    \"calibrationInterval\" : 1,    \"id\" : 6  },  \"defaultLocation\" : \"defaultLocation\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

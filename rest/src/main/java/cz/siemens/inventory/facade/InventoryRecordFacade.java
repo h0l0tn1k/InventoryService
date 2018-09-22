@@ -1,6 +1,7 @@
 package cz.siemens.inventory.facade;
 
 
+import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.gen.model.InventoryRecord;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public interface InventoryRecordFacade {
 
 	List<InventoryRecord> getInventoryRecords();
 
-	List<InventoryRecord> getAllCheckedInventoryRecords();
+	List<Device> getAllCheckedDevices();
 
-	List<InventoryRecord> getAllUncheckedInventoryRecords();
+	List<Device> getAllUncheckedDevices();
 
 }

@@ -11,11 +11,15 @@ public interface DeviceFacade {
 
 	Optional<Device> getDevice(long deviceId);
 
+	Device updateDevice(Device device);
+
 	Optional<Device> getDeviceByBarcode(String barcode);
 
 	Optional<Device> getDeviceBySerialNumber(String serialNumber);
 
 	List<Device> getDevicesBySerialNumberLike(String serialNumber);
+
+	List<Device> getDevicesBorrowedByUser(Long userId);
 
 	Device createDevice(Device device);
 

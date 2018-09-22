@@ -72,6 +72,33 @@ paths:
             $ref: './common-models.yaml#/definitions/Device'
         '404':
           description: Requested device does not exist.
+    put:
+      tags:
+        - Device
+      summary: Updates Device based on deviceId
+      operationId: updateDevice
+      produces:
+        - application/json
+      parameters:
+        - name: deviceId
+          in: path
+          description: Device id to update
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Device that needs to be updated
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/Device'
+      responses:
+        '201':
+          description: Device created
+          schema:
+            $ref: './common-models.yaml#/definitions/Device'
+        '404':
+          description: Device not found
     delete:
       tags:
         - Device
@@ -155,32 +182,32 @@ paths:
             type: array
             items:
               $ref: './common-models.yaml#/definitions/Device'
-  /devices/{deviceId}/holder/{holderScdId}:
-    put:
-      tags:
-        - Device
-      summary: Updates Device's (deviceId) holder to holderScdId
-      operationId: updateDeviceHolder
-      produces:
-        - application/json
-      parameters:
-        - name: deviceId
-          in: path
-          description: Device id to be updated
-          required: true
-          type: integer
-          format: int64
-        - name: holderScdId
-          in: path
-          description: New holder
-          required: true
-          type: integer
-          format: int64
-      responses:
-        '200':
-          description: Updated device with new holder
-          schema:
-            $ref: './common-models.yaml#/definitions/Device'
+#  /devices/{deviceId}/holder/{holderScdId}:
+#    put:
+#      tags:
+#        - Device
+#      summary: Updates Device's (deviceId) holder to holderScdId
+#      operationId: updateDeviceHolder
+#      produces:
+#        - application/json
+#      parameters:
+#        - name: deviceId
+#          in: path
+#          description: Device id to be updated
+#          required: true
+#          type: integer
+#          format: int64
+#        - name: holderScdId
+#          in: path
+#          description: New holder
+#          required: true
+#          type: integer
+#          format: int64
+#      responses:
+#        '200':
+#          description: Updated device with new holder
+#          schema:
+#            $ref: './common-models.yaml#/definitions/Device'
   /devices/borrowed-by/{userScdId}:
     get:
       tags:

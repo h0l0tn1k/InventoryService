@@ -2,7 +2,9 @@ package cz.siemens.inventory.facade.impl;
 
 import cz.siemens.inventory.dao.InventoryRecordDao;
 import cz.siemens.inventory.facade.InventoryRecordFacade;
+import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.gen.model.InventoryRecord;
+import cz.siemens.inventory.mapper.DeviceMapper;
 import cz.siemens.inventory.mapper.InventoryRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -17,12 +20,15 @@ public class InventoryRecordFacadeImpl implements InventoryRecordFacade {
 
 	private InventoryRecordDao inventoryRecordDao;
 	private InventoryRecordMapper inventoryRecordMapper;
+	private DeviceMapper deviceMapper;
 
 	@Autowired
 	public InventoryRecordFacadeImpl(InventoryRecordDao inventoryRecordDao,
-									 InventoryRecordMapper inventoryRecordMapper) {
+									 InventoryRecordMapper inventoryRecordMapper,
+									 DeviceMapper deviceMapper) {
 		this.inventoryRecordDao = inventoryRecordDao;
 		this.inventoryRecordMapper = inventoryRecordMapper;
+		this.deviceMapper = deviceMapper;
 	}
 
 	@Override
@@ -47,12 +53,12 @@ public class InventoryRecordFacadeImpl implements InventoryRecordFacade {
 	}
 
 	@Override
-	public List<InventoryRecord> getAllCheckedInventoryRecords() {
-		return inventoryRecordMapper.mapToExternal(inventoryRecordDao.findAllChecked());
+	public List<Device> getAllCheckedDevices() {
+		return deviceMapper.mapToExternal(inventoryRecordDao.findAllChecked().stream().map(x -> x.getDeviceInventory()).collect(Collectors.toList()));
 	}
 
 	@Override
-	public List<InventoryRecord> getAllUncheckedInventoryRecords() {
-		return inventoryRecordMapper.mapToExternal(inventoryRecordDao.findAllUnChecked());
+	public List<Device> getAllUncheckedDevices() {
+		return deviceMapper.mapToExternal(inventoryRecordDao.findAllUnChecked().stream().map(x -> x.getDeviceInventory()).collect(Collectors.toList()));
 	}
 }

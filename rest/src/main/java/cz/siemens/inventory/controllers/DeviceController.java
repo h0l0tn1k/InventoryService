@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +22,8 @@ import java.util.Optional;
 @RequestMapping(ApiUris.ROOT_URI)
 public class DeviceController extends BaseController implements DevicesApi {
 
-	private DeviceFacade deviceFacade;
 	final static Logger logger = LoggerFactory.getLogger(DeviceController.class);
+	private DeviceFacade deviceFacade;
 
 	@Autowired
 	public DeviceController(DeviceFacade deviceFacade) {
@@ -108,14 +107,20 @@ public class DeviceController extends BaseController implements DevicesApi {
 
 	@Override
 	public ResponseEntity<List<Device>> getDevicesBorrowedBy(@ApiParam(required = true) @PathVariable("userScdId") Long userScdId) {
-		//todo:
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		logger.info("getDevicesBorrowedBy({}) request received", userScdId);
+
+		List<Device> devicesBorrowedByUser = deviceFacade.getDevicesBorrowedByUser(userScdId);
+
+		logger.info("getDevicesBorrowedBy({}) request finished", userScdId);
+
+		return ResponseEntity.ok(devicesBorrowedByUser);
 	}
 
 	@Override
-	public ResponseEntity<Device> updateDeviceHolder(@ApiParam(required = true) @PathVariable("deviceId") Long deviceId,
-													 @ApiParam(required = true) @PathVariable("holderScdId") Long holderScdId) {
-		//todo:
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+	public ResponseEntity<Device> updateDevice(@ApiParam(required = true) @PathVariable("deviceId") Long deviceId,
+											   @ApiParam(required = true) @Valid @RequestBody Device body) {
+		Device device = deviceFacade.updateDevice(body);
+
+		return ResponseEntity.ok(device);
 	}
 }
