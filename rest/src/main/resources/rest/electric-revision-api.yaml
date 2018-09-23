@@ -1,0 +1,58 @@
+swagger: "2.0"
+info:
+  title: Inventory Service - Electric revision - REST API
+  description: |
+    REST API for Inventory Service
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory-service/api/v1
+produces:
+  - application/json
+paths:
+  /electric-revisions:
+    post:
+      tags:
+        - ElectricRevision
+      summary: Creates new Electric revision
+      operationId: createElectricRevision
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Electric revision object that needs to be created
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceRevision'
+      responses:
+        '201':
+          description:  Electric revision created
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceRevision'
+        '405':
+          description: Invalid input
+  /electric-revisions/{revisionId}:
+    get:
+      tags:
+        - ElectricRevision
+      summary: Gets Electric revision based on revisionId
+      operationId: getElectricRevision
+      produces:
+        - application/json
+      parameters:
+        - name: revisionId
+          in: path
+          description: Electric revision's id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The Electric revision
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceRevision'
+        '404':
+          description: Requested Electric revision does not exist.

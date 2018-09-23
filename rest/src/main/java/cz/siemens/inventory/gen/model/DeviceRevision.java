@@ -21,6 +21,9 @@ public class DeviceRevision   {
   @JsonProperty("revisionInterval")
   private Integer revisionInterval = null;
 
+  @JsonProperty("lastRevisionDateString")
+  private String lastRevisionDateString = null;
+
   public DeviceRevision id(Long id) {
     this.id = id;
     return this;
@@ -61,6 +64,26 @@ public class DeviceRevision   {
     this.revisionInterval = revisionInterval;
   }
 
+  public DeviceRevision lastRevisionDateString(String lastRevisionDateString) {
+    this.lastRevisionDateString = lastRevisionDateString;
+    return this;
+  }
+
+  /**
+   * Get lastRevisionDateString
+   * @return lastRevisionDateString
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getLastRevisionDateString() {
+    return lastRevisionDateString;
+  }
+
+  public void setLastRevisionDateString(String lastRevisionDateString) {
+    this.lastRevisionDateString = lastRevisionDateString;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -72,12 +95,13 @@ public class DeviceRevision   {
     }
     DeviceRevision deviceRevision = (DeviceRevision) o;
     return Objects.equals(this.id, deviceRevision.id) &&
-        Objects.equals(this.revisionInterval, deviceRevision.revisionInterval);
+        Objects.equals(this.revisionInterval, deviceRevision.revisionInterval) &&
+        Objects.equals(this.lastRevisionDateString, deviceRevision.lastRevisionDateString);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, revisionInterval);
+    return Objects.hash(id, revisionInterval, lastRevisionDateString);
   }
 
   @Override
@@ -87,6 +111,7 @@ public class DeviceRevision   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    revisionInterval: ").append(toIndentedString(revisionInterval)).append("\n");
+    sb.append("    lastRevisionDateString: ").append(toIndentedString(lastRevisionDateString)).append("\n");
     sb.append("}");
     return sb.toString();
   }

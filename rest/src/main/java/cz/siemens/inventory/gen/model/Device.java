@@ -27,6 +27,9 @@ public class Device   {
   @JsonProperty("id")
   private Long id = null;
 
+  @JsonProperty("addDateString")
+  private String addDateString = null;
+
   @JsonProperty("barcodeNumber")
   private String barcodeNumber = null;
 
@@ -87,6 +90,26 @@ public class Device   {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Device addDateString(String addDateString) {
+    this.addDateString = addDateString;
+    return this;
+  }
+
+  /**
+   * Get addDateString
+   * @return addDateString
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getAddDateString() {
+    return addDateString;
+  }
+
+  public void setAddDateString(String addDateString) {
+    this.addDateString = addDateString;
   }
 
   public Device barcodeNumber(String barcodeNumber) {
@@ -390,6 +413,7 @@ public class Device   {
     }
     Device device = (Device) o;
     return Objects.equals(this.id, device.id) &&
+        Objects.equals(this.addDateString, device.addDateString) &&
         Objects.equals(this.barcodeNumber, device.barcodeNumber) &&
         Objects.equals(this.calibration, device.calibration) &&
         Objects.equals(this.comment, device.comment) &&
@@ -408,7 +432,7 @@ public class Device   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, barcodeNumber, calibration, comment, companyOwner, defaultLocation, department, deviceState, deviceType, project, revision, inventoryRecord, serialNumber, holder, owner);
+    return Objects.hash(id, addDateString, barcodeNumber, calibration, comment, companyOwner, defaultLocation, department, deviceState, deviceType, project, revision, inventoryRecord, serialNumber, holder, owner);
   }
 
   @Override
@@ -417,6 +441,7 @@ public class Device   {
     sb.append("class Device {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    addDateString: ").append(toIndentedString(addDateString)).append("\n");
     sb.append("    barcodeNumber: ").append(toIndentedString(barcodeNumber)).append("\n");
     sb.append("    calibration: ").append(toIndentedString(calibration)).append("\n");
     sb.append("    comment: ").append(toIndentedString(comment)).append("\n");

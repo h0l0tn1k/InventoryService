@@ -119,7 +119,11 @@ public class DeviceController extends BaseController implements DevicesApi {
 	@Override
 	public ResponseEntity<Device> updateDevice(@ApiParam(required = true) @PathVariable("deviceId") Long deviceId,
 											   @ApiParam(required = true) @Valid @RequestBody Device body) {
+		logger.info("updateDevice({}, {}) request received", deviceId, body);
+
 		Device device = deviceFacade.updateDevice(body);
+
+		logger.info("updateDevice({}, {}) request finished", deviceId, device);
 
 		return ResponseEntity.ok(device);
 	}

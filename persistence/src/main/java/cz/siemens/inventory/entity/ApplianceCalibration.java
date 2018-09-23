@@ -12,10 +12,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "calibration")
 @ToString(exclude = "deviceCalibration")
@@ -37,54 +41,4 @@ public class ApplianceCalibration implements Serializable
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private Device deviceCalibration;
-
-	public ApplianceCalibration()
-	{
-	}
-
-	public ApplianceCalibration(long id, byte interval)
-	{
-		this.id = id;
-		this.interval = interval;
-	}
-
-	public long getId()
-	{
-		return id;
-	}
-
-	public void setId(long id)
-	{
-		this.id = id;
-	}
-
-	public int getInterval()
-	{
-		return interval;
-	}
-
-	public void setInterval(int interval)
-	{
-		this.interval = interval;
-	}
-
-	public LocalDate getLastCalibration()
-	{
-		return lastCalibration;
-	}
-
-	public void setLastCalibration(LocalDate lastCalibration)
-	{
-		this.lastCalibration = lastCalibration;
-	}
-
-	public Device getDevice()
-	{
-		return deviceCalibration;
-	}
-
-	public void setDevice(Device device)
-	{
-		this.deviceCalibration = device;
-	}
 }

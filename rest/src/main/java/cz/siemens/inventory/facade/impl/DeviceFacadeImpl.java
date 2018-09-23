@@ -22,12 +22,10 @@ public class DeviceFacadeImpl implements DeviceFacade {
 
 	private DeviceMapper deviceMapper;
 	private DeviceDao deviceDao;
-	private InventoryRecordFacade inventoryRecordFacade;
 
 	@Autowired
-	public DeviceFacadeImpl(DeviceDao deviceDao, DeviceMapper deviceMapper, InventoryRecordFacade inventoryRecordFacade) {
+	public DeviceFacadeImpl(DeviceDao deviceDao, DeviceMapper deviceMapper) {
 		this.deviceDao = deviceDao;
-		this.inventoryRecordFacade = inventoryRecordFacade;
 		this.deviceMapper = deviceMapper;
 	}
 
@@ -69,9 +67,8 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	@Override
 	public Device createDevice(Device device) {
 		//todo: add validation
-//		device.addDate(OffsetDateTime.now());
-
 		cz.siemens.inventory.entity.Device device1 = deviceMapper.mapToInternal(device);
+		device1.setAddDate(OffsetDateTime.now());
 		return deviceMapper.mapToExternal(deviceDao.save(device1));
 	}
 

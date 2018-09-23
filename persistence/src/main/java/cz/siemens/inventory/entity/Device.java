@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -59,7 +60,8 @@ public class Device implements Serializable {
 	@Column(name = "default_location")
 	private String defaultLocation;
 
-	@Column(name = "date_add")
+	@CreationTimestamp
+	@Column(name = "date_add", updatable = false, nullable = false)
 	private OffsetDateTime addDate;
 
 	@ManyToOne
@@ -89,7 +91,7 @@ public class Device implements Serializable {
 		this.setLastRevision(revision);
 
 		ApplianceCalibration calibration = new ApplianceCalibration();
-		calibration.setDevice(this);
+		calibration.setDeviceCalibration(this);
 		this.setDeviceCalibration(calibration);
 	}
 
@@ -100,6 +102,16 @@ public class Device implements Serializable {
 	public void setInventoryRecord(InventoryRecord inventoryRecord) {
 		this.inventoryRecord = inventoryRecord;
 		inventoryRecord.setDeviceInventory(this);
+	}
+
+	public void setLastRevision(ApplianceRevision lastRevision) {
+		lastRevision.setDeviceRevision(this);
+		this.lastRevision = lastRevision;
+	}
+
+	public void setDeviceCalibration(ApplianceCalibration deviceCalibration) {
+		deviceCalibration.setDeviceCalibration(this);
+		this.deviceCalibration = deviceCalibration;
 	}
 
 }

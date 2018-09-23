@@ -5,6 +5,10 @@ import cz.siemens.inventory.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 @Service
 public class DeviceMapperImpl implements DeviceMapper {
 
@@ -51,7 +55,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 		result.setDeviceState(deviceStateMapper.mapToInternal(object.getDeviceState()));
 		result.setObjectType(deviceTypeMapper.mapToInternal(object.getDeviceType()));
 		result.setInventoryRecord(inventoryRecordMapper.mapToInternal(object.getInventoryRecord()));
-//		result.setAddDate(object.getAddDate());
+		result.setAddDate(OffsetDateTime.parse(object.getAddDateString(), DateTimeFormatter.ISO_DATE_TIME));
 		result.setHolder(userMapper.mapToInternal(object.getHolder()));
 		result.setOwner(userMapper.mapToInternal(object.getOwner()));
 		return result;
@@ -73,7 +77,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 				.deviceState(deviceStateMapper.mapToExternal(object.getDeviceState()))
 				.deviceType(deviceTypeMapper.mapToExternal(object.getObjectType()))
 				.inventoryRecord(inventoryRecordMapper.mapToExternal(object.getInventoryRecord()))
-//				.addDate(object.getAddDate())
+				.addDateString(object.getAddDate().format(DateTimeFormatter.ISO_DATE_TIME))
 				.holder(userMapper.mapToExternal(object.getHolder()))
 				.owner(userMapper.mapToExternal(object.getOwner()));
 	}

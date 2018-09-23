@@ -23,8 +23,9 @@ public class ApplianceRevision implements Serializable {
 	private static final long serialVersionUID = 2448457913612961446L;
 
 	@Id
-	@GeneratedValue(generator = "revisionGenerator")
-	@GenericGenerator(name = "revisionGenerator", strategy = "foreign", parameters = @Parameter(name = "property", value = "deviceRevision"))
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(generator = "revisionGenerator")
+//	@GenericGenerator(name = "revisionGenerator", strategy = "foreign", parameters = @Parameter(name = "property", value = "deviceRevision"))
 	private Long id;
 	
 	@Column(name = "rev_interval")
@@ -34,6 +35,7 @@ public class ApplianceRevision implements Serializable {
 	private LocalDate lastRevision;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="id")
+	@MapsId
 	private Device deviceRevision;
 }

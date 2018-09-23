@@ -182,32 +182,6 @@ paths:
             type: array
             items:
               $ref: './common-models.yaml#/definitions/Device'
-#  /devices/{deviceId}/holder/{holderScdId}:
-#    put:
-#      tags:
-#        - Device
-#      summary: Updates Device's (deviceId) holder to holderScdId
-#      operationId: updateDeviceHolder
-#      produces:
-#        - application/json
-#      parameters:
-#        - name: deviceId
-#          in: path
-#          description: Device id to be updated
-#          required: true
-#          type: integer
-#          format: int64
-#        - name: holderScdId
-#          in: path
-#          description: New holder
-#          required: true
-#          type: integer
-#          format: int64
-#      responses:
-#        '200':
-#          description: Updated device with new holder
-#          schema:
-#            $ref: './common-models.yaml#/definitions/Device'
   /devices/borrowed-by/{userScdId}:
     get:
       tags:
