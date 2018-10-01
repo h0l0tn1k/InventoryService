@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 
 @Service
 public class DeviceMapperImpl implements DeviceMapper {
@@ -49,6 +48,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 		result.setDeviceCalibration(deviceCalibrationMapper.mapToInternal(object.getCalibration()));
 		result.setLastRevision(deviceRevisionMapper.mapToInternal(object.getRevision()));
 		result.setComment(object.getComment());
+		result.setNstValue(object.getNstValue());
 		result.setCompanyOwner(companyOwnerMapper.mapToInternal(object.getCompanyOwner()));
 		result.setDepartment(departmentMapper.mapToInternal(object.getDepartment()));
 		result.setProject(projectMapper.mapToInternal(object.getProject()));
@@ -71,6 +71,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 				.calibration(deviceCalibrationMapper.mapToExternal(object.getDeviceCalibration()))
 				.revision(deviceRevisionMapper.mapToExternal(object.getLastRevision()))
 				.comment(object.getComment())
+				.nstValue(object.getNstValue())
 				.companyOwner(companyOwnerMapper.mapToExternal(object.getCompanyOwner()))
 				.department(departmentMapper.mapToExternal(object.getDepartment()))
 				.project(projectMapper.mapToExternal(object.getProject()))

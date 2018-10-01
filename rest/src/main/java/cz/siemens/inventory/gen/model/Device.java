@@ -63,8 +63,14 @@ public class Device   {
   @JsonProperty("inventoryRecord")
   private InventoryRecord inventoryRecord = null;
 
+  @JsonProperty("inventoryNumber")
+  private String inventoryNumber = null;
+
   @JsonProperty("serialNumber")
   private String serialNumber = null;
+
+  @JsonProperty("nstValue")
+  private String nstValue = null;
 
   @JsonProperty("holder")
   private User holder = null;
@@ -340,6 +346,26 @@ public class Device   {
     this.inventoryRecord = inventoryRecord;
   }
 
+  public Device inventoryNumber(String inventoryNumber) {
+    this.inventoryNumber = inventoryNumber;
+    return this;
+  }
+
+  /**
+   * Get inventoryNumber
+   * @return inventoryNumber
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getInventoryNumber() {
+    return inventoryNumber;
+  }
+
+  public void setInventoryNumber(String inventoryNumber) {
+    this.inventoryNumber = inventoryNumber;
+  }
+
   public Device serialNumber(String serialNumber) {
     this.serialNumber = serialNumber;
     return this;
@@ -358,6 +384,26 @@ public class Device   {
 
   public void setSerialNumber(String serialNumber) {
     this.serialNumber = serialNumber;
+  }
+
+  public Device nstValue(String nstValue) {
+    this.nstValue = nstValue;
+    return this;
+  }
+
+  /**
+   * Get nstValue
+   * @return nstValue
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getNstValue() {
+    return nstValue;
+  }
+
+  public void setNstValue(String nstValue) {
+    this.nstValue = nstValue;
   }
 
   public Device holder(User holder) {
@@ -425,14 +471,16 @@ public class Device   {
         Objects.equals(this.project, device.project) &&
         Objects.equals(this.revision, device.revision) &&
         Objects.equals(this.inventoryRecord, device.inventoryRecord) &&
+        Objects.equals(this.inventoryNumber, device.inventoryNumber) &&
         Objects.equals(this.serialNumber, device.serialNumber) &&
+        Objects.equals(this.nstValue, device.nstValue) &&
         Objects.equals(this.holder, device.holder) &&
         Objects.equals(this.owner, device.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, addDateString, barcodeNumber, calibration, comment, companyOwner, defaultLocation, department, deviceState, deviceType, project, revision, inventoryRecord, serialNumber, holder, owner);
+    return Objects.hash(id, addDateString, barcodeNumber, calibration, comment, companyOwner, defaultLocation, department, deviceState, deviceType, project, revision, inventoryRecord, inventoryNumber, serialNumber, nstValue, holder, owner);
   }
 
   @Override
@@ -453,7 +501,9 @@ public class Device   {
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    revision: ").append(toIndentedString(revision)).append("\n");
     sb.append("    inventoryRecord: ").append(toIndentedString(inventoryRecord)).append("\n");
+    sb.append("    inventoryNumber: ").append(toIndentedString(inventoryNumber)).append("\n");
     sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
+    sb.append("    nstValue: ").append(toIndentedString(nstValue)).append("\n");
     sb.append("    holder: ").append(toIndentedString(holder)).append("\n");
     sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
     sb.append("}");

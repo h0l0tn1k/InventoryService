@@ -149,7 +149,11 @@ definitions:
         $ref: '#/definitions/DeviceRevision'
       inventoryRecord:
         $ref: '#/definitions/InventoryRecord'
+      inventoryNumber:
+        type: string
       serialNumber:
+        type: string
+      nstValue:
         type: string
       holder:
         $ref: '#/definitions/User'

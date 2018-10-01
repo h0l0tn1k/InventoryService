@@ -33,6 +33,9 @@ public class Device implements Serializable {
 	@Column(name = "serial_no")
 	private String serialNumber;
 
+	@Column(name = "inventory_no")
+	private String inventoryNumber;
+
 	@Column(name = "barcode_no")
 	private String barcodeNumber;
 
@@ -70,6 +73,9 @@ public class Device implements Serializable {
 
 	@Column(name = "comment")
 	private String comment;
+
+	@Column(name = "nst")
+	private String nstValue;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "inventoryRecord_id", referencedColumnName = "id")
