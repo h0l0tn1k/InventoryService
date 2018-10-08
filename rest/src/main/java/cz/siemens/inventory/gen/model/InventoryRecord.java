@@ -22,6 +22,9 @@ public class InventoryRecord   {
   @JsonProperty("inventoryState")
   private InventoryState inventoryState = null;
 
+  @JsonProperty("comment")
+  private String comment = null;
+
   public InventoryRecord id(Long id) {
     this.id = id;
     return this;
@@ -63,6 +66,26 @@ public class InventoryRecord   {
     this.inventoryState = inventoryState;
   }
 
+  public InventoryRecord comment(String comment) {
+    this.comment = comment;
+    return this;
+  }
+
+  /**
+   * Get comment
+   * @return comment
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -74,12 +97,13 @@ public class InventoryRecord   {
     }
     InventoryRecord inventoryRecord = (InventoryRecord) o;
     return Objects.equals(this.id, inventoryRecord.id) &&
-        Objects.equals(this.inventoryState, inventoryRecord.inventoryState);
+        Objects.equals(this.inventoryState, inventoryRecord.inventoryState) &&
+        Objects.equals(this.comment, inventoryRecord.comment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, inventoryState);
+    return Objects.hash(id, inventoryState, comment);
   }
 
   @Override
@@ -89,6 +113,7 @@ public class InventoryRecord   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    inventoryState: ").append(toIndentedString(inventoryState)).append("\n");
+    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
     sb.append("}");
     return sb.toString();
   }

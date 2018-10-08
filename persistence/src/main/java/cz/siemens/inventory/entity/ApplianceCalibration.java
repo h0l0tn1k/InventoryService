@@ -33,7 +33,7 @@ public class ApplianceCalibration implements Serializable
 	private Long id;
 
 	@Column(name = "calib_interval")
-	private int interval;
+	private Integer interval;
 
 	@Column(name = "last_calibration")
 	private LocalDate lastCalibration;

@@ -5,10 +5,12 @@ import cz.siemens.inventory.gen.model.DeviceCalibration;
 import cz.siemens.inventory.mapper.DeviceCalibrationMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.mapper.DateFormat.formatter;
 
 @Service
 public class DeviceCalibrationMapperImpl implements DeviceCalibrationMapper {
@@ -31,7 +33,7 @@ public class DeviceCalibrationMapperImpl implements DeviceCalibrationMapper {
 			return null;
 		}
 		String lastCalibrationDateString = (object.getLastCalibration() == null)
-				? "" : object.getLastCalibration().format(DateTimeFormatter.ISO_DATE);
+				? "" : object.getLastCalibration().format(DateTimeFormatter.ofPattern(YYYY_MM_DD));
 
 		return new DeviceCalibration().id(object.getId()).calibrationInterval(object.getInterval())
 				.lastCalibrationDateString(lastCalibrationDateString);
@@ -42,7 +44,7 @@ public class DeviceCalibrationMapperImpl implements DeviceCalibrationMapper {
 			return null;
 		}
 		try {
-			return LocalDate.parse(dateString, DateTimeFormatter.ISO_DATE);
+			return LocalDate.parse(dateString, formatter);
 		} catch (DateTimeParseException e) {
 			return null;
 		}

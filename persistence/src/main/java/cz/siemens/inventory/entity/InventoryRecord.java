@@ -4,12 +4,10 @@ import cz.siemens.inventory.entity.custom.InventoryState;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
-import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +25,9 @@ public class InventoryRecord implements Serializable {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private InventoryState registered;
+
+	@Column(name = "comment")
+	private String comment;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "inventoryRecord")
 	private Device deviceInventory;

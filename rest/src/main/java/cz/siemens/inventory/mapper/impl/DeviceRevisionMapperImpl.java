@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.mapper.DateFormat.formatter;
+
 @Service
 public class DeviceRevisionMapperImpl implements DeviceRevisionMapper {
 
@@ -30,7 +33,7 @@ public class DeviceRevisionMapperImpl implements DeviceRevisionMapper {
 			return null;
 		}
 		String lastRevisionDateString = (object.getLastRevision() == null)
-				? "" : object.getLastRevision().format(DateTimeFormatter.ISO_DATE);
+				? "" : object.getLastRevision().format(DateTimeFormatter.ofPattern(YYYY_MM_DD));
 		return new DeviceRevision().id(object.getId()).revisionInterval(object.getInterval())
 				.lastRevisionDateString(lastRevisionDateString);
 	}
@@ -40,7 +43,7 @@ public class DeviceRevisionMapperImpl implements DeviceRevisionMapper {
 			return null;
 		}
 		try {
-			return LocalDate.parse(dateString, DateTimeFormatter.ISO_DATE);
+			return LocalDate.parse(dateString, formatter);
 		} catch (DateTimeParseException e) {
 			return null;
 		}

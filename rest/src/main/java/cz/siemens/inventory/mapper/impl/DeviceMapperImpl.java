@@ -49,6 +49,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 		result.setLastRevision(deviceRevisionMapper.mapToInternal(object.getRevision()));
 		result.setComment(object.getComment());
 		result.setNstValue(object.getNstValue());
+		result.setInventoryNumber(object.getInventoryNumber());
 		result.setCompanyOwner(companyOwnerMapper.mapToInternal(object.getCompanyOwner()));
 		result.setDepartment(departmentMapper.mapToInternal(object.getDepartment()));
 		result.setProject(projectMapper.mapToInternal(object.getProject()));
@@ -72,6 +73,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 				.revision(deviceRevisionMapper.mapToExternal(object.getLastRevision()))
 				.comment(object.getComment())
 				.nstValue(object.getNstValue())
+				.inventoryNumber(object.getInventoryNumber())
 				.companyOwner(companyOwnerMapper.mapToExternal(object.getCompanyOwner()))
 				.department(departmentMapper.mapToExternal(object.getDepartment()))
 				.project(projectMapper.mapToExternal(object.getProject()))

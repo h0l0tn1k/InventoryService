@@ -167,6 +167,8 @@ definitions:
         format: int64
       inventoryState:
         $ref: '#/definitions/InventoryState'
+      comment:
+        type: string
   InventoryState:
     type: string
     enum:
