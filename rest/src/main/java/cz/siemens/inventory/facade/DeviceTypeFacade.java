@@ -13,5 +13,7 @@ public interface DeviceTypeFacade {
 
 	DeviceType createDeviceType(DeviceType deviceType);
 
+	DeviceType updateDeviceType(DeviceType deviceType);
+
 	void deleteDeviceType(long deviceTypeId);
 }

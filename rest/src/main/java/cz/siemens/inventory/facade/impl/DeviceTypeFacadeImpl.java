@@ -41,6 +41,12 @@ public class DeviceTypeFacadeImpl implements DeviceTypeFacade {
 	}
 
 	@Override
+	public DeviceType updateDeviceType(DeviceType deviceType) {
+		//todo: add validations
+		return deviceTypeMapper.mapToExternal(deviceTypeDao.save(deviceTypeMapper.mapToInternal(deviceType)));
+	}
+
+	@Override
 	public void deleteDeviceType(long deviceTypeId) {
 		deviceTypeDao.deleteById(deviceTypeId);
 	}

@@ -1,10 +1,8 @@
 package cz.siemens.inventory.controllers;
 
 
-import cz.siemens.inventory.facade.DeviceFacade;
 import cz.siemens.inventory.facade.DeviceTypeFacade;
 import cz.siemens.inventory.gen.api.DeviceTypesApi;
-import cz.siemens.inventory.gen.model.DeviceState;
 import cz.siemens.inventory.gen.model.DeviceType;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -26,55 +24,67 @@ import java.util.Optional;
 public class DeviceTypeController extends BaseController implements DeviceTypesApi {
 
     final static Logger logger = LoggerFactory.getLogger(DeviceTypeController.class);
-	private DeviceTypeFacade deviceTypeFacade;
+    private DeviceTypeFacade deviceTypeFacade;
 
     @Autowired
     public DeviceTypeController(DeviceTypeFacade deviceTypeFacade) {
         this.deviceTypeFacade = deviceTypeFacade;
     }
 
-	@Override
-	public ResponseEntity<List<DeviceType>> getDeviceTypes() {
-		logger.info("getDeviceTypes request received");
+    @Override
+    public ResponseEntity<List<DeviceType>> getDeviceTypes() {
+        logger.info("getDeviceTypes request received");
 
-		List<DeviceType> deviceTypes = deviceTypeFacade.getDeviceTypes();
+        List<DeviceType> deviceTypes = deviceTypeFacade.getDeviceTypes();
 
-		logger.info("getDeviceTypes request finished");
+        logger.info("getDeviceTypes request finished");
 
-		return ResponseEntity.ok(deviceTypes);
-	}
+        return ResponseEntity.ok(deviceTypes);
+    }
 
-	@Override
-	public ResponseEntity<DeviceType> getDeviceType(@PathVariable("deviceTypeId") Long deviceTypeId) {
-		logger.info("getDeviceType({}) request received", deviceTypeId);
+    @Override
+    public ResponseEntity<DeviceType> getDeviceType(@PathVariable("deviceTypeId") Long deviceTypeId) {
+        logger.info("getDeviceType({}) request received", deviceTypeId);
 
-		Optional<DeviceType> deviceType = deviceTypeFacade.getDeviceType(deviceTypeId);
+        Optional<DeviceType> deviceType = deviceTypeFacade.getDeviceType(deviceTypeId);
 
-		logger.info("getDeviceType({}) request finished", deviceTypeId);
+        logger.info("getDeviceType({}) request finished", deviceTypeId);
 
-		return returnOptional(deviceType);
-	}
+        return returnOptional(deviceType);
+    }
 
-	@Override
-	public ResponseEntity<DeviceType> createDeviceType(@ApiParam(required = true) @Valid @RequestBody DeviceType body) {
-		logger.info("createDeviceType({}) request received", body.toString());
+    @Override
+    public ResponseEntity<DeviceType> createDeviceType(@ApiParam(required = true) @Valid @RequestBody DeviceType body) {
+        logger.info("createDeviceType({}) request received", body.toString());
 
-		DeviceType deviceType = deviceTypeFacade.createDeviceType(body);
+        DeviceType deviceType = deviceTypeFacade.createDeviceType(body);
 
-		logger.info("createDeviceType({}) request finished", deviceType.getId());
+        logger.info("createDeviceType({}) request finished", deviceType.getId());
 
-		return returnCreatedResponse(deviceType, deviceType.getId().toString());
-	}
+        return returnCreatedResponse(deviceType, deviceType.getId().toString());
+    }
 
-	@Override
-	public ResponseEntity<Void> deleteDeviceType(@PathVariable("deviceTypeId") Long deviceTypeId) {
-		logger.info("deleteDeviceType({}) request received", deviceTypeId);
+    @Override
+    public ResponseEntity<DeviceType> updateDeviceType(@ApiParam(required = true) @PathVariable("deviceTypeId") Long deviceTypeId,
+                                                       @ApiParam(required = true) @Valid @RequestBody DeviceType body) {
+        logger.info("updateDeviceType({}, {}) request received", deviceTypeId, body.toString());
 
-		deviceTypeFacade.deleteDeviceType(deviceTypeId);
+        DeviceType deviceType = deviceTypeFacade.updateDeviceType(body);
 
-		logger.info("deleteDeviceType({}) request finished", deviceTypeId);
+        logger.info("updateDeviceType({}, {}) request finished", deviceTypeId, deviceType.getId());
 
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+        return ResponseEntity.ok(deviceType);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteDeviceType(@PathVariable("deviceTypeId") Long deviceTypeId) {
+        logger.info("deleteDeviceType({}) request received", deviceTypeId);
+
+        deviceTypeFacade.deleteDeviceType(deviceTypeId);
+
+        logger.info("deleteDeviceType({}) request finished", deviceTypeId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

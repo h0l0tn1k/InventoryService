@@ -133,4 +133,29 @@ public interface DeviceTypesApi {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+
+    @ApiOperation(value = "Updates Device Type based on deviceTypeId", nickname = "updateDeviceType", notes = "", response = DeviceType.class, tags={ "DeviceType", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "The Device Type", response = DeviceType.class),
+        @ApiResponse(code = 404, message = "Requested Device Type does not exist.") })
+    @RequestMapping(value = "/device-types/{deviceTypeId}",
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.PUT)
+    default ResponseEntity<DeviceType> updateDeviceType(@ApiParam(value = "Device Type's id",required=true) @PathVariable("deviceTypeId") Long deviceTypeId,@ApiParam(value = "Device Type object that needs to be updated" ,required=true )  @Valid @RequestBody DeviceType body) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"orderNumber\" : \"orderNumber\",  \"price\" : 5.962133916683182,  \"supplier\" : {    \"name\" : \"name\",    \"id\" : 1  },  \"objectTypeName\" : \"objectTypeName\",  \"id\" : 0,  \"classification\" : 6,  \"version\" : \"version\",  \"manufacturer\" : \"manufacturer\"}", DeviceType.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default DeviceTypesApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
 }
