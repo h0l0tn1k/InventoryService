@@ -1,13 +1,9 @@
 package cz.siemens.inventory.facade.impl;
 
 import cz.siemens.inventory.dao.CompanyOwnerDao;
-import cz.siemens.inventory.dao.DeviceDao;
 import cz.siemens.inventory.facade.CompanyOwnerFacade;
-import cz.siemens.inventory.facade.DeviceFacade;
 import cz.siemens.inventory.gen.model.CompanyOwner;
-import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.mapper.CompanyOwnerMapper;
-import cz.siemens.inventory.mapper.DeviceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +36,12 @@ public class CompanyOwnerFacadeImpl implements CompanyOwnerFacade {
 
 	@Override
 	public CompanyOwner createCompanyOwner(CompanyOwner companyOwner) {
+		//todo: add validation
+		return companyOwnerMapper.mapToExternal(companyOwnerDao.save(companyOwnerMapper.mapToInternal(companyOwner)));
+	}
+
+	@Override
+	public CompanyOwner updateCompanyOwner(CompanyOwner companyOwner) {
 		//todo: add validation
 		return companyOwnerMapper.mapToExternal(companyOwnerDao.save(companyOwnerMapper.mapToInternal(companyOwner)));
 	}

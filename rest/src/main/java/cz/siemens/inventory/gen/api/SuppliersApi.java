@@ -133,4 +133,29 @@ public interface SuppliersApi {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+
+    @ApiOperation(value = "Updates Supplier based on supplierId", nickname = "updateSupplier", notes = "", response = Supplier.class, tags={ "Supplier", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "The Supplier", response = Supplier.class),
+        @ApiResponse(code = 404, message = "Requested Company Owner does not exist.") })
+    @RequestMapping(value = "/suppliers/{supplierId}",
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.PUT)
+    default ResponseEntity<Supplier> updateSupplier(@ApiParam(value = "Supplier's id",required=true) @PathVariable("supplierId") Long supplierId,@ApiParam(value = "Supplier object that needs to be updated" ,required=true )  @Valid @RequestBody Supplier body) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"name\" : \"name\",  \"id\" : 0}", Supplier.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default SuppliersApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
 }

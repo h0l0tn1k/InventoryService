@@ -13,5 +13,7 @@ public interface CompanyOwnerFacade {
 
 	CompanyOwner createCompanyOwner(CompanyOwner companyOwner);
 
+	CompanyOwner updateCompanyOwner(CompanyOwner companyOwner);
+
 	void deleteCompanyOwner(long companyOwnerId);
 }

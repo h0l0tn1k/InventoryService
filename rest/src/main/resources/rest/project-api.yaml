@@ -70,6 +70,35 @@ paths:
             $ref: './common-models.yaml#/definitions/Project'
         '404':
           description: Requested Project does not exist.
+    put:
+      tags:
+        - Project
+      summary: Updates Project based on projectId
+      operationId: updateProject
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: projectId
+          in: path
+          description: Project's id
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Project object that needs to be updated
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/Project'
+      responses:
+        '200':
+          description: The Project
+          schema:
+            $ref: './common-models.yaml#/definitions/Project'
+        '404':
+          description: Requested Project does not exist.
     delete:
       tags:
         - Project

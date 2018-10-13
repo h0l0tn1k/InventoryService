@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 public class SupplierMapperImpl implements SupplierMapper {
 	@Override
 	public Supplier mapToInternal(cz.siemens.inventory.gen.model.Supplier object) {
+		if (object == null) {
+			return null;
+		}
 		Supplier supplier = new Supplier();
 		supplier.setId(object.getId());
 		supplier.setName(object.getName());
@@ -16,6 +19,9 @@ public class SupplierMapperImpl implements SupplierMapper {
 
 	@Override
 	public cz.siemens.inventory.gen.model.Supplier mapToExternal(Supplier object) {
+		if (object == null) {
+			return null;
+		}
 		cz.siemens.inventory.gen.model.Supplier supplier = new cz.siemens.inventory.gen.model.Supplier();
 		return supplier.id(object.getId()).name(object.getName());
 	}

@@ -133,4 +133,29 @@ public interface DepartmentsApi {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+
+    @ApiOperation(value = "Updates Department based on departmentId", nickname = "updateDepartment", notes = "", response = Department.class, tags={ "Department", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "The Department", response = Department.class),
+        @ApiResponse(code = 404, message = "Requested Company Owner does not exist.") })
+    @RequestMapping(value = "/departments/{departmentId}",
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.PUT)
+    default ResponseEntity<Department> updateDepartment(@ApiParam(value = "Department's id",required=true) @PathVariable("departmentId") Long departmentId,@ApiParam(value = "Department object that needs to be updated" ,required=true )  @Valid @RequestBody Department body) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"name\" : \"name\",  \"id\" : 0}", Department.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default DepartmentsApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
 }

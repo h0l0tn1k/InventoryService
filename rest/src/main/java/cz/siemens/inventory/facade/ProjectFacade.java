@@ -13,5 +13,7 @@ public interface ProjectFacade {
 
 	Project createProject(Project project);
 
+	Project updateProject(Project project);
+
 	void deleteProject(long projectId);
 }

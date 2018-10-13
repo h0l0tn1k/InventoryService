@@ -22,53 +22,65 @@ import java.util.List;
 @RequestMapping(ApiUris.ROOT_URI)
 public class CompanyOwnerController extends BaseController implements CompanyOwnersApi {
 
-	final static Logger logger = LoggerFactory.getLogger(CompanyOwnerController.class);
-	private CompanyOwnerFacade companyOwnerFacade;
+    final static Logger logger = LoggerFactory.getLogger(CompanyOwnerController.class);
+    private CompanyOwnerFacade companyOwnerFacade;
 
-	@Autowired
-	public CompanyOwnerController(CompanyOwnerFacade companyOwnerFacade) {
-		this.companyOwnerFacade = companyOwnerFacade;
-	}
+    @Autowired
+    public CompanyOwnerController(CompanyOwnerFacade companyOwnerFacade) {
+        this.companyOwnerFacade = companyOwnerFacade;
+    }
 
-	@Override
-	public ResponseEntity<List<CompanyOwner>> getCompanyOwners() {
-		logger.info("getCompanyOwners request received");
+    @Override
+    public ResponseEntity<List<CompanyOwner>> getCompanyOwners() {
+        logger.info("getCompanyOwners request received");
 
-		ResponseEntity<List<CompanyOwner>> result = ResponseEntity.ok(companyOwnerFacade.getCompanyOwners());
-		logger.info("getCompanyOwners request finished");
+        ResponseEntity<List<CompanyOwner>> result = ResponseEntity.ok(companyOwnerFacade.getCompanyOwners());
+        logger.info("getCompanyOwners request finished");
 
-		return result;
-	}
+        return result;
+    }
 
-	@Override
-	public ResponseEntity<CompanyOwner> getCompanyOwner(@PathVariable("companyOwnerId") Long companyOwnerId) {
-		logger.info("getCompanyOwner({}) request received", companyOwnerId);
+    @Override
+    public ResponseEntity<CompanyOwner> getCompanyOwner(@PathVariable("companyOwnerId") Long companyOwnerId) {
+        logger.info("getCompanyOwner({}) request received", companyOwnerId);
 
-		ResponseEntity<CompanyOwner> result = returnOptional(companyOwnerFacade.getCompanyOwner(companyOwnerId));
+        ResponseEntity<CompanyOwner> result = returnOptional(companyOwnerFacade.getCompanyOwner(companyOwnerId));
 
-		logger.info("getCompanyOwner({}) request finished", companyOwnerId);
+        logger.info("getCompanyOwner({}) request finished", companyOwnerId);
 
-		return result;
-	}
+        return result;
+    }
 
-	@Override
-	public ResponseEntity<CompanyOwner> createCompanyOwner(@ApiParam(required = true) @Valid @RequestBody CompanyOwner body) {
-		logger.info("createCompanyOwner({}) request received", body.toString());
+    @Override
+    public ResponseEntity<CompanyOwner> createCompanyOwner(@ApiParam(required = true) @Valid @RequestBody CompanyOwner body) {
+        logger.info("createCompanyOwner({}) request received", body.toString());
 
-		CompanyOwner createdCompanyOwner = companyOwnerFacade.createCompanyOwner(body);
+        CompanyOwner createdCompanyOwner = companyOwnerFacade.createCompanyOwner(body);
 
-		logger.info("createCompanyOwner({}) request finished", createdCompanyOwner.getId());
+        logger.info("createCompanyOwner({}) request finished", createdCompanyOwner.getId());
 
-		return returnCreatedResponse(createdCompanyOwner, createdCompanyOwner.getId().toString());
-	}
+        return returnCreatedResponse(createdCompanyOwner, createdCompanyOwner.getId().toString());
+    }
 
-	@Override
-	public ResponseEntity<Void> deleteCompanyOwner(@ApiParam(required = true) @PathVariable("companyOwnerId") Long companyOwnerId) {
-		logger.info("deleteCompanyOwner({}) request received", companyOwnerId);
+    @Override
+    public ResponseEntity<CompanyOwner> updateCompanyOwner(@ApiParam(required = true) @PathVariable("companyOwnerId") Long companyOwnerId,
+                                                           @ApiParam(required = true) @Valid @RequestBody CompanyOwner body) {
+        logger.info("updateCompanyOwner({}, {}) request received", companyOwnerId, body.toString());
 
-		companyOwnerFacade.deleteCompanyOwner(companyOwnerId);
+        CompanyOwner updatedCompanyOwner = companyOwnerFacade.updateCompanyOwner(body);
 
-		logger.info("deleteCompanyOwner({}) request finished", companyOwnerId);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+        logger.info("updateCompanyOwner({}, {}) request finished", companyOwnerId, updatedCompanyOwner.toString());
+
+        return ResponseEntity.ok(updatedCompanyOwner);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteCompanyOwner(@ApiParam(required = true) @PathVariable("companyOwnerId") Long companyOwnerId) {
+        logger.info("deleteCompanyOwner({}) request received", companyOwnerId);
+
+        companyOwnerFacade.deleteCompanyOwner(companyOwnerId);
+
+        logger.info("deleteCompanyOwner({}) request finished", companyOwnerId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

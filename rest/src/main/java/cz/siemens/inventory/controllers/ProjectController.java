@@ -22,54 +22,66 @@ import java.util.List;
 @RequestMapping(ApiUris.ROOT_URI)
 public class ProjectController extends BaseController implements ProjectsApi {
 
-	final static Logger logger = LoggerFactory.getLogger(ProjectController.class);
-	private ProjectFacade projectsFacade;
+    final static Logger logger = LoggerFactory.getLogger(ProjectController.class);
+    private ProjectFacade projectsFacade;
 
-	@Autowired
-	public ProjectController(ProjectFacade projectsFacade) {
-		this.projectsFacade = projectsFacade;
-	}
+    @Autowired
+    public ProjectController(ProjectFacade projectsFacade) {
+        this.projectsFacade = projectsFacade;
+    }
 
-	@Override
-	public ResponseEntity<List<Project>> getProjects() {
-		logger.info("getProjects request received");
+    @Override
+    public ResponseEntity<List<Project>> getProjects() {
+        logger.info("getProjects request received");
 
-		ResponseEntity<List<Project>> result = ResponseEntity.ok(projectsFacade.getProjects());
+        ResponseEntity<List<Project>> result = ResponseEntity.ok(projectsFacade.getProjects());
 
-		logger.info("getProjects request finished");
+        logger.info("getProjects request finished");
 
-		return result;
-	}
+        return result;
+    }
 
-	@Override
-	public ResponseEntity<Project> getProject(@PathVariable("projectId") Long projectId) {
-		logger.info("getProject({}) request received", projectId);
+    @Override
+    public ResponseEntity<Project> getProject(@PathVariable("projectId") Long projectId) {
+        logger.info("getProject({}) request received", projectId);
 
-		ResponseEntity<Project> result = returnOptional(projectsFacade.getProject(projectId));
+        ResponseEntity<Project> result = returnOptional(projectsFacade.getProject(projectId));
 
-		logger.info("getProject({}) request finished", projectId);
+        logger.info("getProject({}) request finished", projectId);
 
-		return result;
-	}
+        return result;
+    }
 
-	@Override
-	public ResponseEntity<Project> createProject(@ApiParam(required = true) @Valid @RequestBody Project body) {
-		logger.info("createProject({}) request received", body.toString());
+    @Override
+    public ResponseEntity<Project> createProject(@ApiParam(required = true) @Valid @RequestBody Project body) {
+        logger.info("createProject({}) request received", body.toString());
 
-		Project createdProject = projectsFacade.createProject(body);
+        Project createdProject = projectsFacade.createProject(body);
 
-		logger.info("createProject({}) request finished", createdProject.getId());
+        logger.info("createProject({}) request finished", createdProject.getId());
 
-		return returnCreatedResponse(createdProject, createdProject.getId().toString());
-	}
+        return returnCreatedResponse(createdProject, createdProject.getId().toString());
+    }
 
-	@Override
-	public ResponseEntity<Void> deleteProject(@ApiParam(required = true) @PathVariable("projectId") Long projectId) {
-		logger.info("deleteProject({}) request received", projectId);
+    @Override
+    public ResponseEntity<Project> updateProject(@ApiParam(required = true) @PathVariable("projectId") Long projectId,
+                                                 @ApiParam(required = true) @Valid @RequestBody Project body) {
+        logger.info("updateProject({}, {}) request received", projectId, body.toString());
 
-		projectsFacade.deleteProject(projectId);
+        Project updatedProject = projectsFacade.createProject(body);
 
-		logger.info("deleteProject({}) request finished", projectId);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+        logger.info("updateProject({}, {}) request finished", projectId, updatedProject.toString());
+
+        return ResponseEntity.ok(updatedProject);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteProject(@ApiParam(required = true) @PathVariable("projectId") Long projectId) {
+        logger.info("deleteProject({}) request received", projectId);
+
+        projectsFacade.deleteProject(projectId);
+
+        logger.info("deleteProject({}) request finished", projectId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -41,6 +41,12 @@ public class DepartmentFacadeImpl implements DepartmentFacade {
 	}
 
 	@Override
+	public Department updateDepartment(Department department) {
+		//todo: add validatians
+		return departmentMapper.mapToExternal(departmentDao.save(departmentMapper.mapToInternal(department)));
+	}
+
+	@Override
 	public void deleteDepartment(long departmentId) {
 		departmentDao.deleteById(departmentId);
 	}

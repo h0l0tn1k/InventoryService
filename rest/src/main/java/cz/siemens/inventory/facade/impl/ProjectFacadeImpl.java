@@ -41,6 +41,12 @@ public class ProjectFacadeImpl implements ProjectFacade {
 	}
 
 	@Override
+	public Project updateProject(Project project) {
+		//todo: add validations
+		return projectMapper.mapToExternal(projectsDao.save(projectMapper.mapToInternal(project)));
+	}
+
+	@Override
 	public void deleteProject(long projectId) {
 		projectsDao.deleteById(projectId);
 	}

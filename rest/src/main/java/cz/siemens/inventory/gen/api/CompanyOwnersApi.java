@@ -87,7 +87,7 @@ public interface CompanyOwnersApi {
     }
 
 
-    @ApiOperation(value = "Gets Company Owner based on companyOwnerId", nickname = "getCompanyOwner", notes = "", response = CompanyOwner.class, tags={ "Device", })
+    @ApiOperation(value = "Gets Company Owner based on companyOwnerId", nickname = "getCompanyOwner", notes = "", response = CompanyOwner.class, tags={ "CompanyOwner", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The company owner", response = CompanyOwner.class),
         @ApiResponse(code = 404, message = "Requested Company Owner does not exist.") })
@@ -122,6 +122,31 @@ public interface CompanyOwnersApi {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
                     return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"name\" : \"name\",  \"id\" : 0}, {  \"name\" : \"name\",  \"id\" : 0} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default CompanyOwnersApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Updates Company Owner based on companyOwnerId", nickname = "updateCompanyOwner", notes = "", response = CompanyOwner.class, tags={ "CompanyOwner", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "The Company Owner", response = CompanyOwner.class),
+        @ApiResponse(code = 404, message = "Requested Company Owner does not exist.") })
+    @RequestMapping(value = "/company-owners/{companyOwnerId}",
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.PUT)
+    default ResponseEntity<CompanyOwner> updateCompanyOwner(@ApiParam(value = "Company Owner's id",required=true) @PathVariable("companyOwnerId") Long companyOwnerId,@ApiParam(value = "Device Type object that needs to be updated" ,required=true )  @Valid @RequestBody CompanyOwner body) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"name\" : \"name\",  \"id\" : 0}", CompanyOwner.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

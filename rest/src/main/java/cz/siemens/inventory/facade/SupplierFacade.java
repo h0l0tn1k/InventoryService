@@ -13,5 +13,7 @@ public interface SupplierFacade {
 
 	Supplier createSupplier(Supplier supplier);
 
+	Supplier updateSupplier(Supplier supplier);
+
 	void deleteSupplier(long supplierId);
 }

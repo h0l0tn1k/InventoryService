@@ -70,6 +70,35 @@ paths:
             $ref: './common-models.yaml#/definitions/Supplier'
         '404':
           description: Requested Supplier does not exist.
+    put:
+      tags:
+        - Supplier
+      summary: Updates Supplier based on supplierId
+      operationId: updateSupplier
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: supplierId
+          in: path
+          description: Supplier's id
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Supplier object that needs to be updated
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/Supplier'
+      responses:
+        '200':
+          description: The Supplier
+          schema:
+            $ref: './common-models.yaml#/definitions/Supplier'
+        '404':
+          description: Requested Company Owner does not exist.
     delete:
       tags:
         - Supplier

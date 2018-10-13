@@ -133,4 +133,29 @@ public interface ProjectsApi {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+
+    @ApiOperation(value = "Updates Project based on projectId", nickname = "updateProject", notes = "", response = Project.class, tags={ "Project", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "The Project", response = Project.class),
+        @ApiResponse(code = 404, message = "Requested Project does not exist.") })
+    @RequestMapping(value = "/projects/{projectId}",
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.PUT)
+    default ResponseEntity<Project> updateProject(@ApiParam(value = "Project's id",required=true) @PathVariable("projectId") Long projectId,@ApiParam(value = "Project object that needs to be updated" ,required=true )  @Valid @RequestBody Project body) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"name\" : \"name\",  \"id\" : 0}", Project.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ProjectsApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
 }

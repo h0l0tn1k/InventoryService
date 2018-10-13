@@ -51,7 +51,7 @@ paths:
   /company-owners/{companyOwnerId}:
     get:
       tags:
-        - Device
+        - CompanyOwner
       summary: Gets Company Owner based on companyOwnerId
       operationId: getCompanyOwner
       produces:
@@ -66,6 +66,35 @@ paths:
       responses:
         '200':
           description: The company owner
+          schema:
+            $ref: './common-models.yaml#/definitions/CompanyOwner'
+        '404':
+          description: Requested Company Owner does not exist.
+    put:
+      tags:
+        - CompanyOwner
+      summary: Updates Company Owner based on companyOwnerId
+      operationId: updateCompanyOwner
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: companyOwnerId
+          in: path
+          description: Company Owner's id
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Device Type object that needs to be updated
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/CompanyOwner'
+      responses:
+        '200':
+          description: The Company Owner
           schema:
             $ref: './common-models.yaml#/definitions/CompanyOwner'
         '404':

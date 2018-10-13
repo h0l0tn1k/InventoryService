@@ -70,6 +70,35 @@ paths:
             $ref: './common-models.yaml#/definitions/Department'
         '404':
           description: Requested Department does not exist.
+    put:
+      tags:
+        - Department
+      summary: Updates Department based on departmentId
+      operationId: updateDepartment
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: departmentId
+          in: path
+          description: Department's id
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Department object that needs to be updated
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/Department'
+      responses:
+        '200':
+          description: The Department
+          schema:
+            $ref: './common-models.yaml#/definitions/Department'
+        '404':
+          description: Requested Company Owner does not exist.
     delete:
       tags:
         - Department

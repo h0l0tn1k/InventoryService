@@ -22,54 +22,66 @@ import java.util.List;
 @RequestMapping(ApiUris.ROOT_URI)
 public class DepartmentController extends BaseController implements DepartmentsApi {
 
-	final static Logger logger = LoggerFactory.getLogger(CompanyOwnerController.class);
-	private DepartmentFacade departmentFacade;
+    final static Logger logger = LoggerFactory.getLogger(CompanyOwnerController.class);
+    private DepartmentFacade departmentFacade;
 
-	@Autowired
-	public DepartmentController(DepartmentFacade departmentFacade) {
-		this.departmentFacade = departmentFacade;
-	}
+    @Autowired
+    public DepartmentController(DepartmentFacade departmentFacade) {
+        this.departmentFacade = departmentFacade;
+    }
 
-	@Override
-	public ResponseEntity<List<Department>> getDepartments() {
-		logger.info("getDepartments request received");
+    @Override
+    public ResponseEntity<List<Department>> getDepartments() {
+        logger.info("getDepartments request received");
 
-		ResponseEntity<List<Department>> result = ResponseEntity.ok(departmentFacade.getDepartments());
+        ResponseEntity<List<Department>> result = ResponseEntity.ok(departmentFacade.getDepartments());
 
-		logger.info("getDepartments request finished");
+        logger.info("getDepartments request finished");
 
-		return result;
-	}
+        return result;
+    }
 
-	@Override
-	public ResponseEntity<Department> getDepartment(@PathVariable("departmentId") Long departmentId) {
-		logger.info("getDepartment({}) request received", departmentId);
+    @Override
+    public ResponseEntity<Department> getDepartment(@PathVariable("departmentId") Long departmentId) {
+        logger.info("getDepartment({}) request received", departmentId);
 
-		ResponseEntity<Department> result = returnOptional(departmentFacade.getDepartment(departmentId));
+        ResponseEntity<Department> result = returnOptional(departmentFacade.getDepartment(departmentId));
 
-		logger.info("getDepartment({}) request finished", departmentId);
+        logger.info("getDepartment({}) request finished", departmentId);
 
-		return result;
-	}
+        return result;
+    }
 
-	@Override
-	public ResponseEntity<Department> createDepartment(@ApiParam(required = true) @Valid @RequestBody Department body) {
-		logger.info("createDepartment({}) request received", body.toString());
+    @Override
+    public ResponseEntity<Department> createDepartment(@ApiParam(required = true) @Valid @RequestBody Department body) {
+        logger.info("createDepartment({}) request received", body.toString());
 
-		Department createdDepartment = departmentFacade.createDepartment(body);
+        Department createdDepartment = departmentFacade.createDepartment(body);
 
-		logger.info("createDepartment({}) request finished", createdDepartment.getId());
+        logger.info("createDepartment({}) request finished", createdDepartment.getId());
 
-		return returnCreatedResponse(createdDepartment, createdDepartment.getId().toString());
-	}
+        return returnCreatedResponse(createdDepartment, createdDepartment.getId().toString());
+    }
 
-	@Override
-	public ResponseEntity<Void> deleteDepartment(@ApiParam(required = true) @PathVariable("departmentId") Long departmentId) {
-		logger.info("deleteDepartment({}) request received", departmentId);
+    @Override
+    public ResponseEntity<Department> updateDepartment(@ApiParam(required = true) @PathVariable("departmentId") Long departmentId,
+                                                       @ApiParam(required = true) @Valid @RequestBody Department body) {
+        logger.info("updateDepartment({}, {}) request received", departmentId, body.toString());
 
-		departmentFacade.deleteDepartment(departmentId);
+        Department updatedDepartment = departmentFacade.updateDepartment(body);
 
-		logger.info("deleteDepartment({}) request finished", departmentId);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+        logger.info("updateDepartment({}, {}) request finished", departmentId, updatedDepartment.toString());
+
+        return ResponseEntity.ok(updatedDepartment);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteDepartment(@ApiParam(required = true) @PathVariable("departmentId") Long departmentId) {
+        logger.info("deleteDepartment({}) request received", departmentId);
+
+        departmentFacade.deleteDepartment(departmentId);
+
+        logger.info("deleteDepartment({}) request finished", departmentId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

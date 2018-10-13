@@ -41,6 +41,12 @@ public class SupplierFacadeImpl implements SupplierFacade {
 	}
 
 	@Override
+	public Supplier updateSupplier(Supplier supplier) {
+		//todo: add validations
+		return supplierMapper.mapToExternal(supplierDao.save(supplierMapper.mapToInternal(supplier)));
+	}
+
+	@Override
 	public void deleteSupplier(long supplierId) {
 		supplierDao.deleteById(supplierId);
 	}

@@ -13,5 +13,7 @@ public interface DepartmentFacade {
 
 	Department createDepartment(Department department);
 
+	Department updateDepartment(Department department);
+
 	void deleteDepartment(long departmentId);
 }
