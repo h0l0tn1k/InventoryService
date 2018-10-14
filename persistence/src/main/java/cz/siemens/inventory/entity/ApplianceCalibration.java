@@ -40,5 +40,5 @@ public class ApplianceCalibration implements Serializable
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
-	private Device deviceCalibration;
+	private DeviceInternal deviceCalibration;
 }

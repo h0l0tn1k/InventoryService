@@ -1,12 +1,17 @@
 package cz.siemens.inventory.mapper.impl;
 
-import cz.siemens.inventory.entity.Device;
+import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.mapper.DateFormat.formatter;
 
 @Service
 public class DeviceMapperImpl implements DeviceMapper {
@@ -39,8 +44,8 @@ public class DeviceMapperImpl implements DeviceMapper {
 	}
 
 	@Override
-	public Device mapToInternal(cz.siemens.inventory.gen.model.Device object) {
-		Device result = new Device();
+	public DeviceInternal mapToInternal(cz.siemens.inventory.gen.model.Device object) {
+		DeviceInternal result = new DeviceInternal();
 		result.setId(object.getId());
 		result.setBarcodeNumber(object.getBarcodeNumber());
 		result.setSerialNumber(object.getSerialNumber());
@@ -56,14 +61,16 @@ public class DeviceMapperImpl implements DeviceMapper {
 		result.setDeviceState(deviceStateMapper.mapToInternal(object.getDeviceState()));
 		result.setObjectType(deviceTypeMapper.mapToInternal(object.getDeviceType()));
 		result.setInventoryRecord(inventoryRecordMapper.mapToInternal(object.getInventoryRecord()));
-		result.setAddDate(OffsetDateTime.parse(object.getAddDateString(), DateTimeFormatter.ISO_DATE_TIME));
+		result.setAddDate(parseStringToDate(object.getAddDateString()));
 		result.setHolder(userMapper.mapToInternal(object.getHolder()));
 		result.setOwner(userMapper.mapToInternal(object.getOwner()));
 		return result;
 	}
 
 	@Override
-	public cz.siemens.inventory.gen.model.Device mapToExternal(Device object) {
+	public cz.siemens.inventory.gen.model.Device mapToExternal(DeviceInternal object) {
+		String addDateString = (object.getAddDate() == null)
+				? "" : object.getAddDate().format(DateTimeFormatter.ofPattern(YYYY_MM_DD));
 		return new cz.siemens.inventory.gen.model.Device()
 				.id(object.getId())
 				.serialNumber(object.getSerialNumber())
@@ -80,8 +87,19 @@ public class DeviceMapperImpl implements DeviceMapper {
 				.deviceState(deviceStateMapper.mapToExternal(object.getDeviceState()))
 				.deviceType(deviceTypeMapper.mapToExternal(object.getObjectType()))
 				.inventoryRecord(inventoryRecordMapper.mapToExternal(object.getInventoryRecord()))
-				.addDateString(object.getAddDate().format(DateTimeFormatter.ISO_DATE_TIME))
+				.addDateString(addDateString)
 				.holder(userMapper.mapToExternal(object.getHolder()))
 				.owner(userMapper.mapToExternal(object.getOwner()));
+	}
+
+	private OffsetDateTime parseStringToDate(String dateString) {
+		if (dateString == null) {
+			return null;
+		}
+		try {
+			return OffsetDateTime.parse(dateString, formatter);
+		} catch (DateTimeParseException e) {
+			return null;
+		}
 	}
 }

@@ -39,7 +39,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: './common-models.yaml#/definitions/Device'
+              $ref: './common-models.yaml#/definitions/DeviceInternal'
   /inventory-records/unchecked:
     get:
       tags:
@@ -54,7 +54,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: './common-models.yaml#/definitions/Device'
+              $ref: './common-models.yaml#/definitions/DeviceInternal'
 #    post:
 #      tags:
 #        - InventoryRecord

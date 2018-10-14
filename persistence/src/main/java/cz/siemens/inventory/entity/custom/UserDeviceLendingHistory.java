@@ -1,18 +1,18 @@
 package cz.siemens.inventory.entity.custom;
 
-import cz.siemens.inventory.entity.Device;
+import cz.siemens.inventory.entity.DeviceInternal;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class UserDeviceLendingHistory
 {
-	Device device;
+	DeviceInternal device;
 	Timestamp dateFrom;
 	Timestamp dateTo;
 	SimpleDateFormat dateFormat;
 	
-	public UserDeviceLendingHistory(Device device, Timestamp dateFrom, Timestamp dateTo)
+	public UserDeviceLendingHistory(DeviceInternal device, Timestamp dateFrom, Timestamp dateTo)
 	{
 		this.device = device;
 		this.dateFrom = dateFrom;

@@ -1,9 +1,7 @@
 package cz.siemens.inventory.facade.impl;
 
 import cz.siemens.inventory.dao.ApplianceRevisionDao;
-import cz.siemens.inventory.dao.DeviceDao;
 import cz.siemens.inventory.entity.ApplianceRevision;
-import cz.siemens.inventory.entity.Device;
 import cz.siemens.inventory.facade.DeviceRevisionFacade;
 import cz.siemens.inventory.gen.model.DeviceRevision;
 import cz.siemens.inventory.mapper.DeviceRevisionMapper;

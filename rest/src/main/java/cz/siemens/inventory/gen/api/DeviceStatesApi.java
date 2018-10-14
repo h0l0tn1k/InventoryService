@@ -46,15 +46,15 @@ public interface DeviceStatesApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates new Device State", nickname = "createDeviceState", notes = "", response = DeviceState.class, tags={ "DeviceState", })
+    @ApiOperation(value = "Creates new DeviceInternal State", nickname = "createDeviceState", notes = "", response = DeviceState.class, tags={ "DeviceState", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Device State created", response = DeviceState.class),
+        @ApiResponse(code = 201, message = "DeviceInternal State created", response = DeviceState.class),
         @ApiResponse(code = 405, message = "Invalid input") })
     @RequestMapping(value = "/device-states",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    default ResponseEntity<DeviceState> createDeviceState(@ApiParam(value = "Device State object that needs to be created" ,required=true )  @Valid @RequestBody DeviceState body) {
+    default ResponseEntity<DeviceState> createDeviceState(@ApiParam(value = "DeviceInternal State object that needs to be created" ,required=true )  @Valid @RequestBody DeviceState body) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -71,14 +71,14 @@ public interface DeviceStatesApi {
     }
 
 
-    @ApiOperation(value = "Deletes an Device State", nickname = "deleteDeviceState", notes = "", tags={ "DeviceState", })
+    @ApiOperation(value = "Deletes an DeviceInternal State", nickname = "deleteDeviceState", notes = "", tags={ "DeviceState", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Device State was deleted."),
-        @ApiResponse(code = 404, message = "Specified Device State does not exist.") })
+        @ApiResponse(code = 200, message = "DeviceInternal State was deleted."),
+        @ApiResponse(code = 404, message = "Specified DeviceInternal State does not exist.") })
     @RequestMapping(value = "/device-states/{deviceStateId}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteDeviceState(@ApiParam(value = "Device State's id",required=true) @PathVariable("deviceStateId") Long deviceStateId) {
+    default ResponseEntity<Void> deleteDeviceState(@ApiParam(value = "DeviceInternal State's id",required=true) @PathVariable("deviceStateId") Long deviceStateId) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
             log.warn("ObjectMapper or HttpServletRequest not configured in default DeviceStatesApi interface so no example is generated");
@@ -87,14 +87,14 @@ public interface DeviceStatesApi {
     }
 
 
-    @ApiOperation(value = "Gets Device State based on deviceStateId", nickname = "getDeviceState", notes = "", response = DeviceState.class, tags={ "DeviceState", })
+    @ApiOperation(value = "Gets DeviceInternal State based on deviceStateId", nickname = "getDeviceState", notes = "", response = DeviceState.class, tags={ "DeviceState", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "The Device State", response = DeviceState.class),
-        @ApiResponse(code = 404, message = "Requested Device State does not exist.") })
+        @ApiResponse(code = 200, message = "The DeviceInternal State", response = DeviceState.class),
+        @ApiResponse(code = 404, message = "Requested DeviceInternal State does not exist.") })
     @RequestMapping(value = "/device-states/{deviceStateId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<DeviceState> getDeviceState(@ApiParam(value = "Device State's id",required=true) @PathVariable("deviceStateId") Long deviceStateId) {
+    default ResponseEntity<DeviceState> getDeviceState(@ApiParam(value = "DeviceInternal State's id",required=true) @PathVariable("deviceStateId") Long deviceStateId) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -111,9 +111,9 @@ public interface DeviceStatesApi {
     }
 
 
-    @ApiOperation(value = "Gets all Device States", nickname = "getDeviceStates", notes = "", response = DeviceState.class, responseContainer = "List", tags={ "DeviceState", })
+    @ApiOperation(value = "Gets all DeviceInternal States", nickname = "getDeviceStates", notes = "", response = DeviceState.class, responseContainer = "List", tags={ "DeviceState", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "All Device States", response = DeviceState.class, responseContainer = "List") })
+        @ApiResponse(code = 200, message = "All DeviceInternal States", response = DeviceState.class, responseContainer = "List") })
     @RequestMapping(value = "/device-states",
         produces = { "application/json" }, 
         method = RequestMethod.GET)

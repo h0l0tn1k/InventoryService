@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import org.hibernate.annotations.Parameter;
 
 @Data
 @NoArgsConstructor
@@ -23,9 +23,8 @@ public class ApplianceRevision implements Serializable {
 	private static final long serialVersionUID = 2448457913612961446L;
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@GeneratedValue(generator = "revisionGenerator")
-//	@GenericGenerator(name = "revisionGenerator", strategy = "foreign", parameters = @Parameter(name = "property", value = "deviceRevision"))
+	@GeneratedValue(generator = "revisionGenerator")
+	@GenericGenerator(name = "revisionGenerator", strategy = "foreign", parameters = @Parameter(name = "property", value = "deviceRevision"))
 	private Long id;
 	
 	@Column(name = "rev_interval")
@@ -37,5 +36,5 @@ public class ApplianceRevision implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id")
 	@MapsId
-	private Device deviceRevision;
+	private DeviceInternal deviceRevision;
 }

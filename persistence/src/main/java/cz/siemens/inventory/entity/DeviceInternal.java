@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "objects")
 @ToString
-public class Device implements Serializable {
+public class DeviceInternal implements Serializable {
 
 	private static final long serialVersionUID = 6243936014818205991L;
 	private static final String undefStr = "";
@@ -77,8 +77,8 @@ public class Device implements Serializable {
 	@Column(name = "nst")
 	private String nstValue;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "inventoryRecord_id", referencedColumnName = "id")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceInventory", cascade = CascadeType.ALL)
+	//@JoinColumn(name = "inventoryRecord_id", referencedColumnName = "id")
 	private InventoryRecord inventoryRecord;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceRevision", cascade = CascadeType.ALL)
@@ -87,7 +87,7 @@ public class Device implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "deviceCalibration", cascade = CascadeType.ALL)
 	private ApplianceCalibration deviceCalibration;
 
-	public Device() {
+	public DeviceInternal() {
 		InventoryRecord inventoryRecord = new InventoryRecord();
 		inventoryRecord.setDeviceInventory(this);
 		this.setInventoryRecord(inventoryRecord);
@@ -107,17 +107,23 @@ public class Device implements Serializable {
 
 	public void setInventoryRecord(InventoryRecord inventoryRecord) {
 		this.inventoryRecord = inventoryRecord;
-		inventoryRecord.setDeviceInventory(this);
+		if (inventoryRecord != null) {
+			inventoryRecord.setDeviceInventory(this);
+		}
 	}
 
 	public void setLastRevision(ApplianceRevision lastRevision) {
-		lastRevision.setDeviceRevision(this);
 		this.lastRevision = lastRevision;
+		if (lastRevision != null) {
+			lastRevision.setDeviceRevision(this);
+		}
 	}
 
 	public void setDeviceCalibration(ApplianceCalibration deviceCalibration) {
-		deviceCalibration.setDeviceCalibration(this);
 		this.deviceCalibration = deviceCalibration;
+		if (deviceCalibration != null) {
+			deviceCalibration.setDeviceCalibration(this);
+		}
 	}
 
 }

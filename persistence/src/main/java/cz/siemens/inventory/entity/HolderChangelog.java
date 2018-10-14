@@ -2,9 +2,6 @@ package cz.siemens.inventory.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +34,7 @@ public class HolderChangelog implements Serializable
 	
 	@ManyToOne
 	@JoinColumn(name = "object_id", referencedColumnName = "id")
-	private Device device;
+	private DeviceInternal device;
 
 	@ManyToOne
 	@JoinColumn(name = "old_holder_id", referencedColumnName = "id")

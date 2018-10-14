@@ -14,14 +14,14 @@ paths:
     get:
       tags:
         - DeviceType
-      summary: Gets all Device types
+      summary: Gets all DeviceInternal types
       operationId: getDeviceTypes
       produces:
         - application/json
       responses:
       responses:
         '200':
-          description: All Device Types
+          description: All DeviceInternal Types
           schema:
             type: array
             items:
@@ -29,7 +29,7 @@ paths:
     post:
       tags:
         - DeviceType
-      summary: Creates new Device Type
+      summary: Creates new DeviceInternal Type
       operationId: createDeviceType
       consumes:
         - application/json
@@ -38,13 +38,13 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Device Type object that needs to be created
+          description: DeviceInternal Type object that needs to be created
           required: true
           schema:
             $ref: './common-models.yaml#/definitions/DeviceType'
       responses:
         '201':
-          description: Device Type created
+          description: DeviceInternal Type created
           schema:
             $ref: './common-models.yaml#/definitions/DeviceType'
         '405':
@@ -53,28 +53,28 @@ paths:
     get:
       tags:
         - DeviceType
-      summary: Gets Device Type based on deviceTypeId
+      summary: Gets DeviceInternal Type based on deviceTypeId
       operationId: getDeviceType
       produces:
         - application/json
       parameters:
         - name: deviceTypeId
           in: path
-          description: Device Type's id
+          description: DeviceInternal Type's id
           required: true
           type: integer
           format: int64
       responses:
         '200':
-          description: The Device Type
+          description: The DeviceInternal Type
           schema:
             $ref: './common-models.yaml#/definitions/DeviceType'
         '404':
-          description: Requested Device Type does not exist.
+          description: Requested DeviceInternal Type does not exist.
     put:
       tags:
         - DeviceType
-      summary: Updates Device Type based on deviceTypeId
+      summary: Updates DeviceInternal Type based on deviceTypeId
       operationId: updateDeviceType
       consumes:
         - application/json
@@ -83,39 +83,39 @@ paths:
       parameters:
         - name: deviceTypeId
           in: path
-          description: Device Type's id
+          description: DeviceInternal Type's id
           required: true
           type: integer
           format: int64
         - in: body
           name: body
-          description: Device Type object that needs to be updated
+          description: DeviceInternal Type object that needs to be updated
           required: true
           schema:
             $ref: './common-models.yaml#/definitions/DeviceType'
       responses:
         '200':
-          description: The Device Type
+          description: The DeviceInternal Type
           schema:
             $ref: './common-models.yaml#/definitions/DeviceType'
         '404':
-          description: Requested Device Type does not exist.
+          description: Requested DeviceInternal Type does not exist.
     delete:
       tags:
         - DeviceType
-      summary: Deletes an Device Type
+      summary: Deletes an DeviceInternal Type
       operationId: deleteDeviceType
       produces:
         - application/json
       parameters:
         - name: deviceTypeId
           in: path
-          description: Device Type's id
+          description: DeviceInternal Type's id
           required: true
           type: integer
           format: int64
       responses:
         '200':
-          description: Device Type was deleted.
+          description: DeviceInternal Type was deleted.
         '404':
-          description: Specified Device Type does not exist.
+          description: Specified DeviceInternal Type does not exist.

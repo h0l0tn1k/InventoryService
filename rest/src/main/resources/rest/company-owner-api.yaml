@@ -88,7 +88,7 @@ paths:
           format: int64
         - in: body
           name: body
-          description: Device Type object that needs to be updated
+          description: DeviceInternal Type object that needs to be updated
           required: true
           schema:
             $ref: './common-models.yaml#/definitions/CompanyOwner'
@@ -101,7 +101,7 @@ paths:
           description: Requested Company Owner does not exist.
     delete:
       tags:
-        - Device
+        - DeviceInternal
       summary: Deletes an company owner
       operationId: deleteCompanyOwner
       produces:

@@ -65,7 +65,7 @@ public class DeviceStateController extends BaseController implements DeviceState
 	}
 
 	@Override
-	public ResponseEntity<Void> deleteDeviceState(@ApiParam(value = "Device State's id",required=true) @PathVariable("deviceStateId") Long deviceStateId) {
+	public ResponseEntity<Void> deleteDeviceState(@ApiParam(value = "DeviceInternal State's id",required=true) @PathVariable("deviceStateId") Long deviceStateId) {
 		logger.info("deleteDeviceState({}) request received", deviceStateId);
 
 		deviceStateFacade.deleteDeviceState(deviceStateId);

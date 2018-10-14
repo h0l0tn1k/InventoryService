@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: Inventory Service - Device State - REST API
+  title: Inventory Service - DeviceInternal State - REST API
   description: |
     REST API for Inventory Service
   version: 1.0.0
@@ -14,13 +14,13 @@ paths:
     get:
       tags:
         - DeviceState
-      summary: Gets all Device States
+      summary: Gets all DeviceInternal States
       operationId: getDeviceStates
       produces:
         - application/json
       responses:
         '200':
-          description: All Device States
+          description: All DeviceInternal States
           schema:
             type: array
             items:
@@ -28,7 +28,7 @@ paths:
     post:
       tags:
         - DeviceState
-      summary: Creates new Device State
+      summary: Creates new DeviceInternal State
       operationId: createDeviceState
       consumes:
         - application/json
@@ -37,13 +37,13 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Device State object that needs to be created
+          description: DeviceInternal State object that needs to be created
           required: true
           schema:
             $ref: './common-models.yaml#/definitions/DeviceState'
       responses:
         '201':
-          description: Device State created
+          description: DeviceInternal State created
           schema:
             $ref: './common-models.yaml#/definitions/DeviceState'
         '405':
@@ -52,40 +52,40 @@ paths:
     get:
       tags:
         - DeviceState
-      summary: Gets Device State based on deviceStateId
+      summary: Gets DeviceInternal State based on deviceStateId
       operationId: getDeviceState
       produces:
         - application/json
       parameters:
         - name: deviceStateId
           in: path
-          description: Device State's id
+          description: DeviceInternal State's id
           required: true
           type: integer
           format: int64
       responses:
         '200':
-          description: The Device State
+          description: The DeviceInternal State
           schema:
             $ref: './common-models.yaml#/definitions/DeviceState'
         '404':
-          description: Requested Device State does not exist.
+          description: Requested DeviceInternal State does not exist.
     delete:
       tags:
         - DeviceState
-      summary: Deletes an Device State
+      summary: Deletes an DeviceInternal State
       operationId: deleteDeviceState
       produces:
         - application/json
       parameters:
         - name: deviceStateId
           in: path
-          description: Device State's id
+          description: DeviceInternal State's id
           required: true
           type: integer
           format: int64
       responses:
         '200':
-          description: Device State was deleted.
+          description: DeviceInternal State was deleted.
         '404':
-          description: Specified Device State does not exist.
+          description: Specified DeviceInternal State does not exist.

@@ -71,7 +71,7 @@ public interface CompanyOwnersApi {
     }
 
 
-    @ApiOperation(value = "Deletes an company owner", nickname = "deleteCompanyOwner", notes = "", tags={ "Device", })
+    @ApiOperation(value = "Deletes an company owner", nickname = "deleteCompanyOwner", notes = "", tags={ "DeviceInternal", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Company Owner was deleted."),
         @ApiResponse(code = 404, message = "Specified Company Owner does not exist.") })
@@ -142,7 +142,7 @@ public interface CompanyOwnersApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.PUT)
-    default ResponseEntity<CompanyOwner> updateCompanyOwner(@ApiParam(value = "Company Owner's id",required=true) @PathVariable("companyOwnerId") Long companyOwnerId,@ApiParam(value = "Device Type object that needs to be updated" ,required=true )  @Valid @RequestBody CompanyOwner body) {
+    default ResponseEntity<CompanyOwner> updateCompanyOwner(@ApiParam(value = "Company Owner's id",required=true) @PathVariable("companyOwnerId") Long companyOwnerId,@ApiParam(value = "DeviceInternal Type object that needs to be updated" ,required=true )  @Valid @RequestBody CompanyOwner body) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
