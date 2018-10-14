@@ -3,7 +3,6 @@ package cz.siemens.inventory.controllers;
 
 import cz.siemens.inventory.facade.DeviceRevisionFacade;
 import cz.siemens.inventory.gen.api.ElectricRevisionsApi;
-import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.gen.model.DeviceRevision;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -43,7 +41,7 @@ public class ElectricRevisionController extends BaseController implements Electr
 	}
 
 	@Override
-	public ResponseEntity<DeviceRevision> getElectricRevision(@ApiParam(required=true) @PathVariable("revisionId") Long revisionId) {
+	public ResponseEntity<DeviceRevision> getElectricRevision(@ApiParam(required = true) @PathVariable("revisionId") Long revisionId) {
 		logger.info("getElectricRevision({}) request received", revisionId);
 
 		Optional<DeviceRevision> deviceRevision = deviceRevisionFacade.getDeviceRevision(revisionId);
@@ -51,5 +49,17 @@ public class ElectricRevisionController extends BaseController implements Electr
 		logger.info("getElectricRevision({}) request finished", revisionId);
 
 		return returnOptional(deviceRevision);
+	}
+
+	@Override
+	public ResponseEntity<DeviceRevision> updateElectricRevision(@ApiParam(required = true) @PathVariable("revisionId") Long revisionId,
+																 @ApiParam(required = true) @Valid @RequestBody DeviceRevision body) {
+		logger.info("updateElectricRevision({}, {}) request received", revisionId, body);
+
+		DeviceRevision deviceRevision = deviceRevisionFacade.updateDeviceRevision(body);
+
+		logger.info("updateElectricRevision({}, {}) request finished", revisionId, deviceRevision);
+
+		return ResponseEntity.ok(deviceRevision);
 	}
 }

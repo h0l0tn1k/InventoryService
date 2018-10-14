@@ -10,4 +10,6 @@ public interface DeviceCalibrationFacade {
 	Optional<DeviceCalibration> getDeviceCalibration(long calibrationId);
 
 	DeviceCalibration createDeviceCalibration(DeviceCalibration deviceCalibration);
+
+	DeviceCalibration updateDeviceCalibration(DeviceCalibration deviceCalibration);
 }

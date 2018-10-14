@@ -32,6 +32,15 @@ public class DeviceCalibrationFacadeImpl implements DeviceCalibrationFacade {
 
 	@Override
 	public DeviceCalibration createDeviceCalibration(DeviceCalibration deviceCalibration) {
+		//todo audit log if saved successfully
+		ApplianceCalibration calibration = deviceCalibrationMapper.mapToInternal(deviceCalibration);
+
+		return deviceCalibrationMapper.mapToExternal(applianceCalibrationDao.save(calibration));
+	}
+
+	@Override
+	public DeviceCalibration updateDeviceCalibration(DeviceCalibration deviceCalibration) {
+		//todo audit log if saved successfully
 		ApplianceCalibration calibration = deviceCalibrationMapper.mapToInternal(deviceCalibration);
 
 		return deviceCalibrationMapper.mapToExternal(applianceCalibrationDao.save(calibration));

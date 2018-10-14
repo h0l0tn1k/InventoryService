@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * DeviceInternal
+ * Device
  */
 @Validated
 
@@ -486,7 +486,7 @@ public class Device   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DeviceInternal {\n");
+    sb.append("class Device {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    addDateString: ").append(toIndentedString(addDateString)).append("\n");

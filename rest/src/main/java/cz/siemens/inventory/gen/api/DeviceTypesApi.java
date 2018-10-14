@@ -46,7 +46,7 @@ public interface DeviceTypesApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates new DeviceInternal Type", nickname = "createDeviceType", notes = "", response = DeviceType.class, tags={ "DeviceType", })
+    @ApiOperation(value = "Creates new Device Type", nickname = "createDeviceType", notes = "", response = DeviceType.class, tags={ "DeviceType", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "DeviceInternal Type created", response = DeviceType.class),
         @ApiResponse(code = 405, message = "Invalid input") })
@@ -54,7 +54,7 @@ public interface DeviceTypesApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    default ResponseEntity<DeviceType> createDeviceType(@ApiParam(value = "DeviceInternal Type object that needs to be created" ,required=true )  @Valid @RequestBody DeviceType body) {
+    default ResponseEntity<DeviceType> createDeviceType(@ApiParam(value = "Device Type object that needs to be created" ,required=true )  @Valid @RequestBody DeviceType body) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -71,14 +71,14 @@ public interface DeviceTypesApi {
     }
 
 
-    @ApiOperation(value = "Deletes an DeviceInternal Type", nickname = "deleteDeviceType", notes = "", tags={ "DeviceType", })
+    @ApiOperation(value = "Deletes an Device Type", nickname = "deleteDeviceType", notes = "", tags={ "DeviceType", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "DeviceInternal Type was deleted."),
-        @ApiResponse(code = 404, message = "Specified DeviceInternal Type does not exist.") })
+        @ApiResponse(code = 200, message = "Device Type was deleted."),
+        @ApiResponse(code = 404, message = "Specified Device Type does not exist.") })
     @RequestMapping(value = "/device-types/{deviceTypeId}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteDeviceType(@ApiParam(value = "DeviceInternal Type's id",required=true) @PathVariable("deviceTypeId") Long deviceTypeId) {
+    default ResponseEntity<Void> deleteDeviceType(@ApiParam(value = "Device Type's id",required=true) @PathVariable("deviceTypeId") Long deviceTypeId) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
             log.warn("ObjectMapper or HttpServletRequest not configured in default DeviceTypesApi interface so no example is generated");
@@ -87,14 +87,14 @@ public interface DeviceTypesApi {
     }
 
 
-    @ApiOperation(value = "Gets DeviceInternal Type based on deviceTypeId", nickname = "getDeviceType", notes = "", response = DeviceType.class, tags={ "DeviceType", })
+    @ApiOperation(value = "Gets Device Type based on deviceTypeId", nickname = "getDeviceType", notes = "", response = DeviceType.class, tags={ "DeviceType", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "The DeviceInternal Type", response = DeviceType.class),
-        @ApiResponse(code = 404, message = "Requested DeviceInternal Type does not exist.") })
+        @ApiResponse(code = 200, message = "The Device Type", response = DeviceType.class),
+        @ApiResponse(code = 404, message = "Requested Device Type does not exist.") })
     @RequestMapping(value = "/device-types/{deviceTypeId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<DeviceType> getDeviceType(@ApiParam(value = "DeviceInternal Type's id",required=true) @PathVariable("deviceTypeId") Long deviceTypeId) {
+    default ResponseEntity<DeviceType> getDeviceType(@ApiParam(value = "Device Type's id",required=true) @PathVariable("deviceTypeId") Long deviceTypeId) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -111,9 +111,9 @@ public interface DeviceTypesApi {
     }
 
 
-    @ApiOperation(value = "Gets all DeviceInternal types", nickname = "getDeviceTypes", notes = "", response = DeviceType.class, responseContainer = "List", tags={ "DeviceType", })
+    @ApiOperation(value = "Gets all Device types", nickname = "getDeviceTypes", notes = "", response = DeviceType.class, responseContainer = "List", tags={ "DeviceType", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "All DeviceInternal Types", response = DeviceType.class, responseContainer = "List") })
+        @ApiResponse(code = 200, message = "All Device Types", response = DeviceType.class, responseContainer = "List") })
     @RequestMapping(value = "/device-types",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
@@ -134,15 +134,15 @@ public interface DeviceTypesApi {
     }
 
 
-    @ApiOperation(value = "Updates DeviceInternal Type based on deviceTypeId", nickname = "updateDeviceType", notes = "", response = DeviceType.class, tags={ "DeviceType", })
+    @ApiOperation(value = "Updates Device Type based on deviceTypeId", nickname = "updateDeviceType", notes = "", response = DeviceType.class, tags={ "DeviceType", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "The DeviceInternal Type", response = DeviceType.class),
+        @ApiResponse(code = 200, message = "The Device Type", response = DeviceType.class),
         @ApiResponse(code = 404, message = "Requested DeviceInternal Type does not exist.") })
     @RequestMapping(value = "/device-types/{deviceTypeId}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.PUT)
-    default ResponseEntity<DeviceType> updateDeviceType(@ApiParam(value = "DeviceInternal Type's id",required=true) @PathVariable("deviceTypeId") Long deviceTypeId,@ApiParam(value = "DeviceInternal Type object that needs to be updated" ,required=true )  @Valid @RequestBody DeviceType body) {
+    default ResponseEntity<DeviceType> updateDeviceType(@ApiParam(value = "Device Type's id",required=true) @PathVariable("deviceTypeId") Long deviceTypeId,@ApiParam(value = "Device Type object that needs to be updated" ,required=true )  @Valid @RequestBody DeviceType body) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

@@ -56,3 +56,30 @@ paths:
             $ref: './common-models.yaml#/definitions/DeviceRevision'
         '404':
           description: Requested Electric revision does not exist.
+    put:
+      tags:
+        - ElectricRevision
+      summary: Updates an Electric revision based on revisionId
+      operationId: updateElectricRevision
+      produces:
+        - application/json
+      parameters:
+        - name: revisionId
+          in: path
+          description: Electric Revision id to update
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Electric revision object that needs to be updated
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceRevision'
+      responses:
+        '200':
+          description: Updated Electric revision
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceRevision'
+        '404':
+          description: Specified Electric revision does not exist.

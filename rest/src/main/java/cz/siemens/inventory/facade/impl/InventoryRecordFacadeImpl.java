@@ -38,6 +38,7 @@ public class InventoryRecordFacadeImpl implements InventoryRecordFacade {
 
 	@Override
 	public InventoryRecord updateInventoryRecord(InventoryRecord inventoryRecord) {
+		//todo add audit log, is saving was successful
 		//todo add validation
 		return inventoryRecordMapper.mapToExternal(inventoryRecordDao.save(inventoryRecordMapper.mapToInternal(inventoryRecord)));
 	}

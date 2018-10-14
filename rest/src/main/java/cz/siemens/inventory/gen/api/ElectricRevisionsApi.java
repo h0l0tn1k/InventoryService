@@ -94,4 +94,28 @@ public interface ElectricRevisionsApi {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+
+    @ApiOperation(value = "Updates an Electric revision based on revisionId", nickname = "updateElectricRevision", notes = "", response = DeviceRevision.class, tags={ "ElectricRevision", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Updated Electric revision", response = DeviceRevision.class),
+        @ApiResponse(code = 404, message = "Specified Electric revision does not exist.") })
+    @RequestMapping(value = "/electric-revisions/{revisionId}",
+        produces = { "application/json" }, 
+        method = RequestMethod.PUT)
+    default ResponseEntity<DeviceRevision> updateElectricRevision(@ApiParam(value = "Electric Revision id to update",required=true) @PathVariable("revisionId") Long revisionId,@ApiParam(value = "Electric revision object that needs to be updated" ,required=true )  @Valid @RequestBody DeviceRevision body) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"revisionInterval\" : 6,  \"lastRevisionDateString\" : \"lastRevisionDateString\",  \"id\" : 0}", DeviceRevision.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ElectricRevisionsApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
 }

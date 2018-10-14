@@ -32,9 +32,15 @@ public class DeviceRevisionFacadeImpl implements DeviceRevisionFacade {
 
 	@Override
 	public DeviceRevision createDeviceRevision(DeviceRevision deviceRevision) {
+		//todo add audit log if saved successfully
 		ApplianceRevision applianceRevision = deviceRevisionMapper.mapToInternal(deviceRevision);
+		return deviceRevisionMapper.mapToExternal(applianceRevisionDao.save(applianceRevision));
+	}
 
-		applianceRevision.setLastRevision(LocalDate.now());
+	@Override
+	public DeviceRevision updateDeviceRevision(DeviceRevision deviceRevision) {
+		//todo add audit log if saved successfully
+		ApplianceRevision applianceRevision = deviceRevisionMapper.mapToInternal(deviceRevision);
 		return deviceRevisionMapper.mapToExternal(applianceRevisionDao.save(applianceRevision));
 	}
 }

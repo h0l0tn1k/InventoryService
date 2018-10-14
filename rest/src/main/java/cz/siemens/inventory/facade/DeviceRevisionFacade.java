@@ -11,4 +11,6 @@ public interface DeviceRevisionFacade {
 	Optional<DeviceRevision> getDeviceRevision(long revisionId);
 
 	DeviceRevision createDeviceRevision(DeviceRevision deviceRevision);
+
+	DeviceRevision updateDeviceRevision(DeviceRevision deviceRevision);
 }

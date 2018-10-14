@@ -46,15 +46,15 @@ public interface DevicesApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates new DeviceInternal", nickname = "createDevice", notes = "", response = Device.class, tags={ "DeviceInternal", })
+    @ApiOperation(value = "Creates new Device", nickname = "createDevice", notes = "", response = Device.class, tags={ "Device", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "DeviceInternal created", response = Device.class),
+        @ApiResponse(code = 201, message = "Device created", response = Device.class),
         @ApiResponse(code = 405, message = "Invalid input") })
     @RequestMapping(value = "/devices",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    default ResponseEntity<Device> createDevice(@ApiParam(value = "DeviceInternal object that needs to be created" ,required=true )  @Valid @RequestBody Device body) {
+    default ResponseEntity<Device> createDevice(@ApiParam(value = "Device object that needs to be created" ,required=true )  @Valid @RequestBody Device body) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -71,14 +71,14 @@ public interface DevicesApi {
     }
 
 
-    @ApiOperation(value = "Deletes an device", nickname = "deleteDevice", notes = "", tags={ "DeviceInternal", })
+    @ApiOperation(value = "Deletes an device", nickname = "deleteDevice", notes = "", tags={ "Device", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "DeviceInternal was deleted."),
+        @ApiResponse(code = 200, message = "Device was deleted."),
         @ApiResponse(code = 404, message = "Specified device does not exist.") })
     @RequestMapping(value = "/devices/{deviceId}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteDevice(@ApiParam(value = "DeviceInternal id to delete",required=true) @PathVariable("deviceId") Long deviceId) {
+    default ResponseEntity<Void> deleteDevice(@ApiParam(value = "Device id to delete",required=true) @PathVariable("deviceId") Long deviceId) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
             log.warn("ObjectMapper or HttpServletRequest not configured in default DevicesApi interface so no example is generated");
@@ -87,14 +87,14 @@ public interface DevicesApi {
     }
 
 
-    @ApiOperation(value = "Gets DeviceInternal based on deviceId", nickname = "getDevice", notes = "", response = Device.class, tags={ "DeviceInternal", })
+    @ApiOperation(value = "Gets Device based on deviceId", nickname = "getDevice", notes = "", response = Device.class, tags={ "Device", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The device", response = Device.class),
         @ApiResponse(code = 404, message = "Requested device does not exist.") })
     @RequestMapping(value = "/devices/{deviceId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<Device> getDevice(@ApiParam(value = "DeviceInternal id to get",required=true) @PathVariable("deviceId") Long deviceId) {
+    default ResponseEntity<Device> getDevice(@ApiParam(value = "Device id to get",required=true) @PathVariable("deviceId") Long deviceId) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -111,7 +111,7 @@ public interface DevicesApi {
     }
 
 
-    @ApiOperation(value = "Gets DeviceInternal based on barcodeNumber", nickname = "getDeviceWithBarcodeNumber", notes = "", response = Device.class, tags={ "DeviceInternal", })
+    @ApiOperation(value = "Gets Device based on barcodeNumber", nickname = "getDeviceWithBarcodeNumber", notes = "", response = Device.class, tags={ "Device", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The device", response = Device.class),
         @ApiResponse(code = 404, message = "Requested device does not exist.") })
@@ -135,7 +135,7 @@ public interface DevicesApi {
     }
 
 
-    @ApiOperation(value = "Gets DeviceInternal based on serialNumber", nickname = "getDeviceWithSerialNumber", notes = "", response = Device.class, tags={ "DeviceInternal", })
+    @ApiOperation(value = "Gets Device based on serialNumber", nickname = "getDeviceWithSerialNumber", notes = "", response = Device.class, tags={ "Device", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The device", response = Device.class),
         @ApiResponse(code = 404, message = "Requested device does not exist.") })
@@ -159,7 +159,7 @@ public interface DevicesApi {
     }
 
 
-    @ApiOperation(value = "Gets all Devices", nickname = "getDevices", notes = "", response = Device.class, responseContainer = "List", tags={ "DeviceInternal", })
+    @ApiOperation(value = "Gets all Devices", nickname = "getDevices", notes = "", response = Device.class, responseContainer = "List", tags={ "Device", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "All Devices", response = Device.class, responseContainer = "List"),
         @ApiResponse(code = 405, message = "Invalid input") })
@@ -183,7 +183,7 @@ public interface DevicesApi {
     }
 
 
-    @ApiOperation(value = "Gets Devices borrowed by userScdId", nickname = "getDevicesBorrowedBy", notes = "", response = Device.class, responseContainer = "List", tags={ "DeviceInternal", })
+    @ApiOperation(value = "Gets Devices borrowed by userScdId", nickname = "getDevicesBorrowedBy", notes = "", response = Device.class, responseContainer = "List", tags={ "Device", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Devices borrowed by userScdId", response = Device.class, responseContainer = "List") })
     @RequestMapping(value = "/devices/borrowed-by/{userScdId}",
@@ -206,7 +206,7 @@ public interface DevicesApi {
     }
 
 
-    @ApiOperation(value = "Gets Devices based on serialNumber like", nickname = "getDevicesWithSerialNumberLike", notes = "", response = Device.class, responseContainer = "List", tags={ "DeviceInternal", })
+    @ApiOperation(value = "Gets Devices based on serialNumber like", nickname = "getDevicesWithSerialNumberLike", notes = "", response = Device.class, responseContainer = "List", tags={ "Device", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Devices with serial number like", response = Device.class, responseContainer = "List") })
     @RequestMapping(value = "/devices/serialNumber/like/{serialNumber}",
@@ -229,14 +229,14 @@ public interface DevicesApi {
     }
 
 
-    @ApiOperation(value = "Updates DeviceInternal based on deviceId", nickname = "updateDevice", notes = "", response = Device.class, tags={ "DeviceInternal", })
+    @ApiOperation(value = "Updates Device based on deviceId", nickname = "updateDevice", notes = "", response = Device.class, tags={ "Device", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "DeviceInternal created", response = Device.class),
-        @ApiResponse(code = 404, message = "DeviceInternal not found") })
+        @ApiResponse(code = 201, message = "Device created", response = Device.class),
+        @ApiResponse(code = 404, message = "Device not found") })
     @RequestMapping(value = "/devices/{deviceId}",
         produces = { "application/json" }, 
         method = RequestMethod.PUT)
-    default ResponseEntity<Device> updateDevice(@ApiParam(value = "DeviceInternal id to update",required=true) @PathVariable("deviceId") Long deviceId,@ApiParam(value = "DeviceInternal that needs to be updated" ,required=true )  @Valid @RequestBody Device body) {
+    default ResponseEntity<Device> updateDevice(@ApiParam(value = "Device id to update",required=true) @PathVariable("deviceId") Long deviceId,@ApiParam(value = "Device that needs to be updated" ,required=true )  @Valid @RequestBody Device body) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

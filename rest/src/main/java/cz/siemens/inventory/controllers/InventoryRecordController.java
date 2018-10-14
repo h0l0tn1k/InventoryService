@@ -1,6 +1,5 @@
 package cz.siemens.inventory.controllers;
 
-import cz.siemens.inventory.facade.DeviceFacade;
 import cz.siemens.inventory.facade.InventoryRecordFacade;
 import cz.siemens.inventory.gen.api.InventoryRecordsApi;
 import cz.siemens.inventory.gen.model.Device;
@@ -23,14 +22,12 @@ import java.util.Optional;
 @RequestMapping(ApiUris.ROOT_URI)
 public class InventoryRecordController extends BaseController implements InventoryRecordsApi {
 
-	private InventoryRecordFacade inventoryRecordFacade;
-	private DeviceFacade deviceFacade;
 	final static Logger logger = LoggerFactory.getLogger(InventoryRecordController.class);
+	private InventoryRecordFacade inventoryRecordFacade;
 
 	@Autowired
-	public InventoryRecordController(InventoryRecordFacade inventoryRecordFacade, DeviceFacade deviceFacade) {
+	public InventoryRecordController(InventoryRecordFacade inventoryRecordFacade) {
 		this.inventoryRecordFacade = inventoryRecordFacade;
-		this.deviceFacade = deviceFacade;
 	}
 
 	public ResponseEntity<InventoryRecord> getInventoryRecord(@ApiParam(required = true) @PathVariable("inventoryRecordId") Long inventoryRecordId) {

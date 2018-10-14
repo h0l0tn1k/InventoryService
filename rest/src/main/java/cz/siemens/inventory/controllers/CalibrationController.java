@@ -2,11 +2,8 @@ package cz.siemens.inventory.controllers;
 
 
 import cz.siemens.inventory.facade.DeviceCalibrationFacade;
-import cz.siemens.inventory.facade.DeviceRevisionFacade;
 import cz.siemens.inventory.gen.api.CalibrationsApi;
-import cz.siemens.inventory.gen.api.ElectricRevisionsApi;
 import cz.siemens.inventory.gen.model.DeviceCalibration;
-import cz.siemens.inventory.gen.model.DeviceRevision;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +41,7 @@ public class CalibrationController extends BaseController implements Calibration
 	}
 
 	@Override
-	public ResponseEntity<DeviceCalibration> getCalibration(@ApiParam(required=true) @PathVariable("calibrationId") Long calibrationId) {
+	public ResponseEntity<DeviceCalibration> getCalibration(@ApiParam(required = true) @PathVariable("calibrationId") Long calibrationId) {
 		logger.info("getCalibration({}) request received", calibrationId);
 
 		Optional<DeviceCalibration> deviceCalibration = deviceCalibrationFacade.getDeviceCalibration(calibrationId);
@@ -52,5 +49,17 @@ public class CalibrationController extends BaseController implements Calibration
 		logger.info("getCalibration({}) request finished", calibrationId);
 
 		return returnOptional(deviceCalibration);
+	}
+
+	@Override
+	public ResponseEntity<DeviceCalibration> updateCalibration(@ApiParam(required = true) @PathVariable("calibrationId") Long calibrationId,
+															   @ApiParam(required = true) @Valid @RequestBody DeviceCalibration body) {
+		logger.info("updateCalibration({}, {}) request received", calibrationId, body);
+
+		DeviceCalibration deviceCalibration = deviceCalibrationFacade.updateDeviceCalibration(body);
+
+		logger.info("updateCalibration({}, {}) request finished", calibrationId, deviceCalibration);
+
+		return ResponseEntity.ok(deviceCalibration);
 	}
 }

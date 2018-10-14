@@ -56,3 +56,30 @@ paths:
             $ref: './common-models.yaml#/definitions/DeviceCalibration'
         '404':
           description: Requested Calibration does not exist.
+    put:
+      tags:
+        - Calibration
+      summary: Updates an Calibration based on revisionId
+      operationId: updateCalibration
+      produces:
+        - application/json
+      parameters:
+        - name: calibrationId
+          in: path
+          description: Calibration id to update
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Calibration object that needs to be updated
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceCalibration'
+      responses:
+        '200':
+          description: Updated Calibration
+          schema:
+            $ref: './common-models.yaml#/definitions/DeviceCalibration'
+        '404':
+          description: Specified Calibration does not exist.
