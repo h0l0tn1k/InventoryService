@@ -1,7 +1,12 @@
 package cz.siemens.inventory.facade.impl;
 
+import cz.siemens.inventory.audit.AuditUtils.AuditUtil;
 import cz.siemens.inventory.dao.ApplianceRevisionDao;
 import cz.siemens.inventory.entity.ApplianceRevision;
+import cz.siemens.inventory.entity.AuditLog;
+import cz.siemens.inventory.entity.DeviceInternal;
+import cz.siemens.inventory.exception.NotFoundException;
+import cz.siemens.inventory.facade.AuditLogFacade;
 import cz.siemens.inventory.facade.DeviceRevisionFacade;
 import cz.siemens.inventory.gen.model.DeviceRevision;
 import cz.siemens.inventory.mapper.DeviceRevisionMapper;
@@ -10,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,11 +25,14 @@ public class DeviceRevisionFacadeImpl implements DeviceRevisionFacade {
 
 	private DeviceRevisionMapper deviceRevisionMapper;
 	private ApplianceRevisionDao applianceRevisionDao;
+	private AuditLogFacade auditLogFacade;
 
 	@Autowired
-	public DeviceRevisionFacadeImpl(ApplianceRevisionDao applianceRevisionDao, DeviceRevisionMapper deviceRevisionMapper) {
+	public DeviceRevisionFacadeImpl(ApplianceRevisionDao applianceRevisionDao, DeviceRevisionMapper deviceRevisionMapper,
+									AuditLogFacade auditLogFacade) {
 		this.applianceRevisionDao = applianceRevisionDao;
 		this.deviceRevisionMapper = deviceRevisionMapper;
+		this.auditLogFacade = auditLogFacade;
 	}
 
 	@Override
@@ -31,16 +41,17 @@ public class DeviceRevisionFacadeImpl implements DeviceRevisionFacade {
 	}
 
 	@Override
-	public DeviceRevision createDeviceRevision(DeviceRevision deviceRevision) {
-		//todo add audit log if saved successfully
-		ApplianceRevision applianceRevision = deviceRevisionMapper.mapToInternal(deviceRevision);
-		return deviceRevisionMapper.mapToExternal(applianceRevisionDao.save(applianceRevision));
-	}
-
-	@Override
 	public DeviceRevision updateDeviceRevision(DeviceRevision deviceRevision) {
-		//todo add audit log if saved successfully
-		ApplianceRevision applianceRevision = deviceRevisionMapper.mapToInternal(deviceRevision);
-		return deviceRevisionMapper.mapToExternal(applianceRevisionDao.save(applianceRevision));
+		Optional<ApplianceRevision> fromDbOptional = applianceRevisionDao.findById(deviceRevision.getId());
+		if(!fromDbOptional.isPresent()) {
+			throw new NotFoundException("Electric revision with id=" + deviceRevision.getId() + " not found.");
+		}
+		ApplianceRevision newApplianceRevision = deviceRevisionMapper.mapToInternal(deviceRevision);
+		List<String> revisionAuditEntries = AuditUtil.getRevisionAuditEntries(fromDbOptional.get(), newApplianceRevision);
+
+		ApplianceRevision createdRevision = applianceRevisionDao.save(newApplianceRevision);
+
+		auditLogFacade.saveAuditLogEntries(revisionAuditEntries, AuditLog.Category.REVISION, new DeviceInternal(createdRevision.getId()));
+		return deviceRevisionMapper.mapToExternal(createdRevision);
 	}
 }

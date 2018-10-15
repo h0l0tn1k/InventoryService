@@ -57,4 +57,8 @@ public class LoginUserScd implements Serializable {
 
 	@NotNull
 	private boolean flagAdmin;
+
+	public String getName() {
+		return firstName +  " " + lastName;
+	}
 }

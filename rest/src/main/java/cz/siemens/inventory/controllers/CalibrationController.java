@@ -29,16 +29,16 @@ public class CalibrationController extends BaseController implements Calibration
 		this.deviceCalibrationFacade = deviceCalibrationFacade;
 	}
 
-	@Override
-	public ResponseEntity<DeviceCalibration> createCalibration(@ApiParam(required = true) @Valid @RequestBody DeviceCalibration body) {
-		logger.info("createCalibration({}) request received", body);
-
-		DeviceCalibration deviceCalibration = deviceCalibrationFacade.createDeviceCalibration(body);
-
-		logger.info("createCalibration({}) request finished", deviceCalibration);
-
-		return ResponseEntity.ok(deviceCalibration);
-	}
+//	@Override
+//	public ResponseEntity<DeviceCalibration> createCalibration(@ApiParam(required = true) @Valid @RequestBody DeviceCalibration body) {
+//		logger.info("createCalibration({}) request received", body);
+//
+//		DeviceCalibration deviceCalibration = deviceCalibrationFacade.createDeviceCalibration(body);
+//
+//		logger.info("createCalibration({}) request finished", deviceCalibration);
+//
+//		return ResponseEntity.ok(deviceCalibration);
+//	}
 
 	@Override
 	public ResponseEntity<DeviceCalibration> getCalibration(@ApiParam(required = true) @PathVariable("calibrationId") Long calibrationId) {

@@ -1,12 +1,16 @@
 package cz.siemens.inventory.facade.impl;
 
+import cz.siemens.inventory.audit.AuditUtils.AuditUtil;
 import cz.siemens.inventory.dao.ApplianceCalibrationDao;
 import cz.siemens.inventory.dao.ApplianceRevisionDao;
 import cz.siemens.inventory.dao.DeviceDao;
 import cz.siemens.inventory.dao.InventoryRecordDao;
+import cz.siemens.inventory.entity.AuditLog;
 import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.entity.InventoryRecord;
 import cz.siemens.inventory.entity.custom.InventoryState;
+import cz.siemens.inventory.exception.NotFoundException;
+import cz.siemens.inventory.facade.AuditLogFacade;
 import cz.siemens.inventory.facade.DeviceFacade;
 import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.mapper.DeviceMapper;
@@ -27,15 +31,18 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	private InventoryRecordDao inventoryRecordDao;
 	private ApplianceCalibrationDao applianceCalibrationDao;
 	private ApplianceRevisionDao applianceRevisionDao;
+	private AuditLogFacade auditLogFacade;
 
 	@Autowired
 	public DeviceFacadeImpl(DeviceDao deviceDao, DeviceMapper deviceMapper, InventoryRecordDao inventoryRecordDao,
-							ApplianceCalibrationDao applianceCalibrationDao, ApplianceRevisionDao applianceRevisionDao) {
+							ApplianceCalibrationDao applianceCalibrationDao, ApplianceRevisionDao applianceRevisionDao,
+							AuditLogFacade auditLogFacade) {
 		this.deviceDao = deviceDao;
 		this.inventoryRecordDao = inventoryRecordDao;
 		this.applianceCalibrationDao = applianceCalibrationDao;
 		this.applianceRevisionDao = applianceRevisionDao;
 		this.deviceMapper = deviceMapper;
+		this.auditLogFacade = auditLogFacade;
 	}
 
 	@Override
@@ -50,7 +57,16 @@ public class DeviceFacadeImpl implements DeviceFacade {
 
 	@Override
 	public Device updateDevice(Device device) {
-		return deviceMapper.mapToExternal(deviceDao.save(deviceMapper.mapToInternal(device)));
+		DeviceInternal newDevice = deviceMapper.mapToInternal(device);
+		Optional<DeviceInternal> fromDbOptional = deviceDao.findById(newDevice.getId());
+		if (!fromDbOptional.isPresent()) {
+			throw new NotFoundException("Device with id=" + newDevice.getId() + " not found.");
+		}
+		List<String> deviceAuditEntries = AuditUtil.getDeviceAuditEntries(fromDbOptional.get(), newDevice);
+		DeviceInternal savedDevice = deviceDao.save(newDevice);
+		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, AuditLog.Category.GENERAL, savedDevice);
+
+		return deviceMapper.mapToExternal(savedDevice);
 	}
 
 	@Override
@@ -80,12 +96,15 @@ public class DeviceFacadeImpl implements DeviceFacade {
 		deviceInternal.setAddDate(OffsetDateTime.now());
 		deviceInternal.setInventoryRecord(getNewInventoryRecord());
 
-		DeviceInternal cratedDevice = deviceDao.save(deviceInternal);
-		inventoryRecordDao.save(cratedDevice.getInventoryRecord());
-		applianceCalibrationDao.save(cratedDevice.getDeviceCalibration());
-		applianceRevisionDao.save(cratedDevice.getLastRevision());
+		List<String> deviceAuditEntries = AuditUtil.getDeviceAuditEntries(null, deviceInternal);
+		DeviceInternal createdDevice = deviceDao.save(deviceInternal);
+		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, AuditLog.Category.GENERAL, createdDevice);
 
-		return deviceMapper.mapToExternal(cratedDevice);
+		inventoryRecordDao.save(createdDevice.getInventoryRecord());
+		applianceCalibrationDao.save(createdDevice.getDeviceCalibration());
+		applianceRevisionDao.save(createdDevice.getLastRevision());
+
+		return deviceMapper.mapToExternal(createdDevice);
 	}
 
 	@Override

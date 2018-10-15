@@ -1,6 +1,11 @@
 package cz.siemens.inventory.facade.impl;
 
+import cz.siemens.inventory.audit.AuditUtils.AuditUtil;
 import cz.siemens.inventory.dao.InventoryRecordDao;
+import cz.siemens.inventory.entity.AuditLog;
+import cz.siemens.inventory.entity.DeviceInternal;
+import cz.siemens.inventory.exception.NotFoundException;
+import cz.siemens.inventory.facade.AuditLogFacade;
 import cz.siemens.inventory.facade.InventoryRecordFacade;
 import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.gen.model.InventoryRecord;
@@ -21,14 +26,17 @@ public class InventoryRecordFacadeImpl implements InventoryRecordFacade {
 	private InventoryRecordDao inventoryRecordDao;
 	private InventoryRecordMapper inventoryRecordMapper;
 	private DeviceMapper deviceMapper;
+	private AuditLogFacade auditLogFacade;
 
 	@Autowired
 	public InventoryRecordFacadeImpl(InventoryRecordDao inventoryRecordDao,
 									 InventoryRecordMapper inventoryRecordMapper,
-									 DeviceMapper deviceMapper) {
+									 DeviceMapper deviceMapper,
+									 AuditLogFacade auditLogFacade) {
 		this.inventoryRecordDao = inventoryRecordDao;
 		this.inventoryRecordMapper = inventoryRecordMapper;
 		this.deviceMapper = deviceMapper;
+		this.auditLogFacade = auditLogFacade;
 	}
 
 	@Override
@@ -38,9 +46,16 @@ public class InventoryRecordFacadeImpl implements InventoryRecordFacade {
 
 	@Override
 	public InventoryRecord updateInventoryRecord(InventoryRecord inventoryRecord) {
-		//todo add audit log, is saving was successful
-		//todo add validation
-		return inventoryRecordMapper.mapToExternal(inventoryRecordDao.save(inventoryRecordMapper.mapToInternal(inventoryRecord)));
+		cz.siemens.inventory.entity.InventoryRecord newInventoryRecord = inventoryRecordMapper.mapToInternal(inventoryRecord);
+		Optional<cz.siemens.inventory.entity.InventoryRecord> fromDbOptional = inventoryRecordDao.findById(inventoryRecord.getId());
+		if (!fromDbOptional.isPresent()) {
+			throw new NotFoundException("Inventory record with id=" + inventoryRecord.getId() + " not found.");
+		}
+		List<String> inventoryRecordAuditEntries = AuditUtil.getInventoryRecordAuditEntries(fromDbOptional.get(), newInventoryRecord);
+		cz.siemens.inventory.entity.InventoryRecord savedInventoryRecord = inventoryRecordDao.save(newInventoryRecord);
+
+		auditLogFacade.saveAuditLogEntries(inventoryRecordAuditEntries, AuditLog.Category.INVENTORY, new DeviceInternal(inventoryRecord.getId()));
+		return inventoryRecordMapper.mapToExternal(savedInventoryRecord);
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import org.hibernate.annotations.NotFoundAction;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -101,6 +102,10 @@ public class DeviceInternal implements Serializable {
 		this.setDeviceCalibration(calibration);
 	}
 
+	public DeviceInternal(Long id ){
+		this.id = id;
+	}
+
 	public String getTypeAndVersionName() {
 		return objectType != null ? objectType.getTypeAndVersionName() : undefStr;
 	}
@@ -124,6 +129,43 @@ public class DeviceInternal implements Serializable {
 		if (deviceCalibration != null) {
 			deviceCalibration.setDeviceCalibration(this);
 		}
+	}
+
+	public String getOwnerName() {
+		return owner == null ? undefStr : owner.getName();
+	}
+
+	public String getCompanyOwnerName() {
+		return companyOwner == null ? undefStr : companyOwner.getName();
+	}
+
+	public String getDepartmentName() {
+		return department == null ? undefStr : department.getName();
+	}
+
+	public String getProjectName() {
+		return project == null ? undefStr : project.getName();
+	}
+
+	public String getDeviceStateName() {
+		return deviceState == null ? undefStr : deviceState.getName();
+	}
+
+	public String toAuditLogString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("qrcode='").append(barcodeNumber).append("'");
+		sb.append("deviceType='").append(getTypeAndVersionName()).append("'");
+		sb.append("serialNumber='").append(getSerialNumber()).append("'");
+		sb.append("ownerName='").append(getOwnerName()).append("'");
+		sb.append("defaultLocation='").append(getDefaultLocation()).append("'");
+		sb.append("department='").append(getDepartmentName()).append("'");
+		sb.append("companyOwner='").append(getCompanyOwnerName()).append("'");
+		sb.append("projectName='").append(getProjectName()).append("'");
+		sb.append("nstValue='").append(getNstValue()).append("'");
+		sb.append("addDate='").append(getAddDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).append("'");
+		sb.append("deviceState='").append(getDeviceStateName()).append("'");
+		sb.append("comment='").append(comment).append("'");
+		return sb.toString();
 	}
 
 }

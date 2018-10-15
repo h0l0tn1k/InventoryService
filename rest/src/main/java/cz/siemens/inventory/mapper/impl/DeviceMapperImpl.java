@@ -2,6 +2,7 @@ package cz.siemens.inventory.mapper.impl;
 
 import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.mapper.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,7 +94,7 @@ public class DeviceMapperImpl implements DeviceMapper {
 	}
 
 	private OffsetDateTime parseStringToDate(String dateString) {
-		if (dateString == null) {
+		if (StringUtils.isBlank(dateString)) {
 			return null;
 		}
 		try {
