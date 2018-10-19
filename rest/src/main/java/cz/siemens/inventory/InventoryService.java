@@ -28,7 +28,7 @@ public class InventoryService extends SpringBootServletInitializer {
 		PropertySourcesPlaceholderConfigurer pspc
 				= new PropertySourcesPlaceholderConfigurer();
 		Resource[] resources = new ClassPathResource[ ]
-				{ new ClassPathResource( "application.properties" ) }; //todo change to security.properties
+				{ new ClassPathResource( "application.properties" ) };
 		pspc.setLocations( resources );
 		pspc.setIgnoreUnresolvablePlaceholders( true );
 		return pspc;

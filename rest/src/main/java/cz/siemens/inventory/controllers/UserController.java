@@ -28,8 +28,6 @@ public class UserController extends BaseController implements UsersApi {
 	}
 
 	@Override
-	//todo just for test
-	@PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_READ')")
 	public ResponseEntity<List<User>> getUsers() {
 		logger.info("getUsers request received");
 

@@ -53,7 +53,8 @@ public class DeviceCalibration   {
    * Get calibrationInterval
    * @return calibrationInterval
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public Integer getCalibrationInterval() {
@@ -73,7 +74,8 @@ public class DeviceCalibration   {
    * Get lastCalibrationDateString
    * @return lastCalibrationDateString
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public String getLastCalibrationDateString() {

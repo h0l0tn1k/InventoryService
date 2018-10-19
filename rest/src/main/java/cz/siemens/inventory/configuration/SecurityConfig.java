@@ -1,5 +1,6 @@
 package cz.siemens.inventory.configuration;
 
+import cz.siemens.inventory.security.CustomBCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -52,8 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder(4);
+	public CustomBCryptPasswordEncoder passwordEncoder() {
+		return new CustomBCryptPasswordEncoder(
+				new BCryptPasswordEncoder(encodingStrength)
+		);
 	}
 
 	@Bean

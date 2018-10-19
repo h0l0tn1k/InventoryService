@@ -13,10 +13,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
+
+import static cz.siemens.inventory.security.ScopeConstants.*;
 
 @Service
 @Primary
@@ -38,37 +42,41 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("User with email " + email + " not found");
 		}
 
-		UserPassword password = loginPasswordScdDao.getPassword(user.getEmail());
+		Optional<UserPassword> passwordOptional = loginPasswordScdDao.getPassword(user.getEmail());
 		String passwordValue = "";
 
-		if (StringUtils.isNotBlank(password.getPasswordHash())) {
-			passwordValue = password.getPasswordHash();
+		if (passwordOptional.isPresent()) {
+			UserPassword userPassword = passwordOptional.get();
+			if (StringUtils.isNotBlank(userPassword.getPasswordHash())) {
+				passwordValue = userPassword.getPasswordHash();
+			}
 		} else {
+			//user has not set password yet
 			passwordValue = user.getGid();
 		}
 
-		return new User(user.getEmail(), passwordValue, getGrantedAuthorities(user));
+		return new User(user.getEmail(), new BCryptPasswordEncoder().encode(passwordValue), getGrantedAuthorities(user));
 	}
 
 	private Collection<GrantedAuthority> getGrantedAuthorities(LoginUserScd user) {
 		Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 		if (user.isFlagAdmin()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+			grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_ADMIN));
 		}
 		if (user.isFlagRead()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_READ"));
+			grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_READ));
 		}
 		if (user.isFlagWrite()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_WRITE"));
+			grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_WRITE));
 		}
 		if (user.isFlagBorrow()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_BORROW"));
+			grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_BORROW));
 		}
 		if (user.isFlagInventory()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_INVENTORY"));
+			grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_INVENTORY));
 		}
 		if (user.isFlagRevision()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_REVISION"));
+			grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_REVISION));
 		}
 		return grantedAuthorities;
 	}

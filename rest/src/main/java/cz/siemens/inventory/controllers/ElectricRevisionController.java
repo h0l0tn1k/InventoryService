@@ -29,17 +29,6 @@ public class ElectricRevisionController extends BaseController implements Electr
 		this.deviceRevisionFacade = deviceRevisionFacade;
 	}
 
-//	@Override
-//	public ResponseEntity<DeviceRevision> createElectricRevision(@ApiParam(required = true) @Valid @RequestBody DeviceRevision body) {
-//		logger.info("createElectricRevision({}) request received", body);
-//
-//		DeviceRevision deviceRevision = deviceRevisionFacade.createDeviceRevision(body);
-//
-//		logger.info("createElectricRevision({}) request finished", deviceRevision);
-//
-//		return ResponseEntity.ok(deviceRevision);
-//	}
-
 	@Override
 	public ResponseEntity<DeviceRevision> getElectricRevision(@ApiParam(required = true) @PathVariable("revisionId") Long revisionId) {
 		logger.info("getElectricRevision({}) request received", revisionId);

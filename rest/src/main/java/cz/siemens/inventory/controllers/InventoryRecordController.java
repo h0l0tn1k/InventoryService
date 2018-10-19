@@ -2,7 +2,6 @@ package cz.siemens.inventory.controllers;
 
 import cz.siemens.inventory.facade.InventoryRecordFacade;
 import cz.siemens.inventory.gen.api.InventoryRecordsApi;
-import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.gen.model.InventoryRecord;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -30,6 +29,7 @@ public class InventoryRecordController extends BaseController implements Invento
 		this.inventoryRecordFacade = inventoryRecordFacade;
 	}
 
+	@Override
 	public ResponseEntity<InventoryRecord> getInventoryRecord(@ApiParam(required = true) @PathVariable("inventoryRecordId") Long inventoryRecordId) {
 		logger.info("getInventoryRecord({}) request received", inventoryRecordId);
 
@@ -40,6 +40,7 @@ public class InventoryRecordController extends BaseController implements Invento
 		return returnOptional(inventoryRecord);
 	}
 
+	@Override
 	public ResponseEntity<List<InventoryRecord>> getInventoryRecords() {
 		logger.info("getInventoryRecords() request received");
 
@@ -50,6 +51,7 @@ public class InventoryRecordController extends BaseController implements Invento
 		return ResponseEntity.ok(inventoryRecords);
 	}
 
+	@Override
 	public ResponseEntity<InventoryRecord> updateInventoryRecord(@ApiParam(required = true) @PathVariable("inventoryRecordId") Long inventoryRecordId,
 																 @ApiParam(required = true) @Valid @RequestBody InventoryRecord body) {
 		logger.info("updateInventoryRecord({}, {}) request received", inventoryRecordId, body.toString());
@@ -59,25 +61,5 @@ public class InventoryRecordController extends BaseController implements Invento
 		logger.info("updateInventoryRecord({}) request finished", inventoryRecordId);
 
 		return ResponseEntity.ok(inventoryRecord);
-	}
-
-	public ResponseEntity<List<Device>> getCheckedDevices() {
-		logger.info("getCheckedInventoryRecords() request received");
-
-		List<Device> devices = inventoryRecordFacade.getAllCheckedDevices();
-
-		logger.info("getCheckedInventoryRecords() request finished");
-
-		return ResponseEntity.ok(devices);
-	}
-
-	public ResponseEntity<List<Device>> getUncheckedDevices() {
-		logger.info("getUncheckedInventoryRecords() request received");
-
-		List<Device> devices = inventoryRecordFacade.getAllUncheckedDevices();
-
-		logger.info("getUncheckedInventoryRecords() request finished");
-
-		return ResponseEntity.ok(devices);
 	}
 }

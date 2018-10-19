@@ -69,7 +69,8 @@ public class DeviceType   {
    * Get objectTypeName
    * @return objectTypeName
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public String getObjectTypeName() {
@@ -149,7 +150,8 @@ public class DeviceType   {
    * Get version
    * @return version
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public String getVersion() {

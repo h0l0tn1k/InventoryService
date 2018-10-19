@@ -25,59 +25,6 @@ paths:
             type: array
             items:
               $ref: './common-models.yaml#/definitions/InventoryRecord'
-  /inventory-records/checked:
-    get:
-      tags:
-        - InventoryRecord
-      summary: Gets all Checked Devices
-      operationId: getCheckedDevices
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: All Checked Devices
-          schema:
-            type: array
-            items:
-              $ref: './common-models.yaml#/definitions/Device'
-  /inventory-records/unchecked:
-    get:
-      tags:
-        - InventoryRecord
-      summary: Gets all Unchecked Devices
-      operationId: getUncheckedDevices
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: All Unchecked Devices
-          schema:
-            type: array
-            items:
-              $ref: './common-models.yaml#/definitions/Device'
-#    post:
-#      tags:
-#        - InventoryRecord
-#      summary: Creates new Inventory Record
-#      operationId: createInventoryRecord
-#      consumes:
-#        - application/json
-#      produces:
-#        - application/json
-#      parameters:
-#        - in: body
-#          name: body
-#          description: Inventory Record object that needs to be created
-#          required: true
-#          schema:
-#            $ref: './common-models.yaml#/definitions/InventoryRecord'
-#      responses:
-#        '201':
-#          description: Inventory Record created
-#          schema:
-#            $ref: './common-models.yaml#/definitions/InventoryRecord'
-#        '405':
-#          description: Invalid input
   /inventory-records/{inventoryRecordId}:
     get:
       tags:

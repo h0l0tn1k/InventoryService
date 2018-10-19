@@ -53,7 +53,8 @@ public class DeviceRevision   {
    * Get revisionInterval
    * @return revisionInterval
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public Integer getRevisionInterval() {
@@ -73,7 +74,8 @@ public class DeviceRevision   {
    * Get lastRevisionDateString
    * @return lastRevisionDateString
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public String getLastRevisionDateString() {

@@ -107,7 +107,8 @@ public class Device   {
    * Get addDateString
    * @return addDateString
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
   public String getAddDateString() {
@@ -250,7 +251,8 @@ public class Device   {
    * Get deviceState
    * @return deviceState
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
   @Valid
 

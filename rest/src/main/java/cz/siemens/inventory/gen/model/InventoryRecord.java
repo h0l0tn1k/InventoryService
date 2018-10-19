@@ -54,7 +54,8 @@ public class InventoryRecord   {
    * Get inventoryState
    * @return inventoryState
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
   @Valid
 

@@ -18,6 +18,8 @@ definitions:
         format: int64
       name:
         type: string
+    required:
+      - name
   BorrowReturn:
     type: object
     properties:
@@ -35,6 +37,8 @@ definitions:
         format: int64
       name:
         type: string
+    required:
+      - name
   Department:
     type: object
     properties:
@@ -43,6 +47,8 @@ definitions:
         format: int64
       name:
         type: string
+    required:
+      - name
   Project:
     type: object
     properties:
@@ -51,6 +57,8 @@ definitions:
         format: int64
       name:
         type: string
+    required:
+      - name
   DeviceState:
     type: object
     properties:
@@ -80,6 +88,9 @@ definitions:
       price:
         type: number
         format: double
+    required:
+      - objectTypeName
+      - version
   User:
     type: object
     properties:
@@ -118,6 +129,9 @@ definitions:
         type: integer
       lastRevisionDateString:
         type: string
+    required:
+      - revisionInterval
+      - lastRevisionDateString
   DeviceCalibration:
     type: object
     properties:
@@ -128,6 +142,9 @@ definitions:
         type: integer
       lastCalibrationDateString:
         type: string
+    required:
+      - calibrationInterval
+      - lastCalibrationDateString
   Device:
     type: object
     properties:
@@ -168,6 +185,9 @@ definitions:
         $ref: '#/definitions/User'
       owner:
         $ref: '#/definitions/User'
+    required:
+      - addDateString
+      - deviceState
   InventoryRecord:
     type: object
     properties:
@@ -178,6 +198,8 @@ definitions:
         $ref: '#/definitions/InventoryState'
       comment:
         type: string
+    required:
+      - inventoryState
   InventoryState:
     type: string
     enum:
