@@ -229,6 +229,29 @@ public interface DevicesApi {
     }
 
 
+    @ApiOperation(value = "Gets Devices based on serialNumber like", nickname = "getDevicesWithSerialOrBarcodeNumberLike", notes = "", response = Device.class, responseContainer = "List", tags={ "Device", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Devices with serial or barcode number like", response = Device.class, responseContainer = "List") })
+    @RequestMapping(value = "/devices/serialOrBarcodeNumber/like/{serialBarcodeNumber}",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    default ResponseEntity<List<Device>> getDevicesWithSerialOrBarcodeNumberLike(@ApiParam(value = "serial or barcode number of device",required=true) @PathVariable("serialBarcodeNumber") String serialBarcodeNumber) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"deviceType\" : {    \"orderNumber\" : \"orderNumber\",    \"price\" : 2.027123023002322,    \"supplier\" : {      \"name\" : \"name\",      \"id\" : 3    },    \"objectTypeName\" : \"objectTypeName\",    \"id\" : 7,    \"classification\" : 9,    \"version\" : \"version\",    \"manufacturer\" : \"manufacturer\"  },  \"owner\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"barcodeNumber\" : \"barcodeNumber\",  \"serialNumber\" : \"serialNumber\",  \"addDateString\" : \"addDateString\",  \"project\" : {    \"name\" : \"name\",    \"id\" : 4  },  \"holder\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"companyOwner\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"nstValue\" : \"nstValue\",  \"inventoryRecord\" : {    \"inventoryState\" : { },    \"comment\" : \"comment\",    \"id\" : 1  },  \"revision\" : {    \"revisionInterval\" : 1,    \"lastRevisionDateString\" : \"lastRevisionDateString\",    \"id\" : 7  },  \"inventoryNumber\" : \"inventoryNumber\",  \"comment\" : \"comment\",  \"id\" : 0,  \"deviceState\" : {    \"name\" : \"name\",    \"id\" : 2  },  \"department\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"calibration\" : {    \"calibrationInterval\" : 1,    \"lastCalibrationDateString\" : \"lastCalibrationDateString\",    \"id\" : 6  },  \"defaultLocation\" : \"defaultLocation\"}, {  \"deviceType\" : {    \"orderNumber\" : \"orderNumber\",    \"price\" : 2.027123023002322,    \"supplier\" : {      \"name\" : \"name\",      \"id\" : 3    },    \"objectTypeName\" : \"objectTypeName\",    \"id\" : 7,    \"classification\" : 9,    \"version\" : \"version\",    \"manufacturer\" : \"manufacturer\"  },  \"owner\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"barcodeNumber\" : \"barcodeNumber\",  \"serialNumber\" : \"serialNumber\",  \"addDateString\" : \"addDateString\",  \"project\" : {    \"name\" : \"name\",    \"id\" : 4  },  \"holder\" : {    \"firstName\" : \"firstName\",    \"lastName\" : \"lastName\",    \"flagWrite\" : true,    \"superiorFirstName\" : \"superiorFirstName\",    \"flagRead\" : true,    \"flagBorrow\" : true,    \"flagAdmin\" : true,    \"flagRevision\" : true,    \"id\" : 1,    \"flagInventory\" : true,    \"email\" : \"email\",    \"superiorLastName\" : \"superiorLastName\"  },  \"companyOwner\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"nstValue\" : \"nstValue\",  \"inventoryRecord\" : {    \"inventoryState\" : { },    \"comment\" : \"comment\",    \"id\" : 1  },  \"revision\" : {    \"revisionInterval\" : 1,    \"lastRevisionDateString\" : \"lastRevisionDateString\",    \"id\" : 7  },  \"inventoryNumber\" : \"inventoryNumber\",  \"comment\" : \"comment\",  \"id\" : 0,  \"deviceState\" : {    \"name\" : \"name\",    \"id\" : 2  },  \"department\" : {    \"name\" : \"name\",    \"id\" : 5  },  \"calibration\" : {    \"calibrationInterval\" : 1,    \"lastCalibrationDateString\" : \"lastCalibrationDateString\",    \"id\" : 6  },  \"defaultLocation\" : \"defaultLocation\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default DevicesApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
     @ApiOperation(value = "Updates Device based on deviceId", nickname = "updateDevice", notes = "", response = Device.class, tags={ "Device", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Device created", response = Device.class),

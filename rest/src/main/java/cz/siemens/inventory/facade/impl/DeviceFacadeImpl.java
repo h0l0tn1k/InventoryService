@@ -85,6 +85,11 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	}
 
 	@Override
+	public List<Device> getDevicesBySerialOrBarcodeNumberLike(String serialOrBarcodeNumber) {
+		return deviceMapper.mapToExternal(deviceDao.getDevicesByQrCodeOrSerialNumber(serialOrBarcodeNumber));
+	}
+
+	@Override
 	public List<Device> getDevicesBorrowedByUser(Long userId) {
 		return deviceMapper.mapToExternal(deviceDao.getDevicesBorrowedByUser(userId));
 	}

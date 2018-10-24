@@ -19,6 +19,8 @@ public interface DeviceFacade {
 
 	List<Device> getDevicesBySerialNumberLike(String serialNumber);
 
+	List<Device> getDevicesBySerialOrBarcodeNumberLike(String serialOrBarcodeNumber);
+
 	List<Device> getDevicesBorrowedByUser(Long userId);
 
 	Device createDevice(Device device);

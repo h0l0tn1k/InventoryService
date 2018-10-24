@@ -134,6 +134,29 @@ public interface DeviceTypesApi {
     }
 
 
+    @ApiOperation(value = "Gets Device Types based on deviceTypeName", nickname = "getDeviceTypesByName", notes = "", response = DeviceType.class, responseContainer = "List", tags={ "Device", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "All Device Types filtered out by", response = DeviceType.class, responseContainer = "List") })
+    @RequestMapping(value = "/device-types/name/like/{deviceTypeName}",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    default ResponseEntity<List<DeviceType>> getDeviceTypesByName(@ApiParam(value = "Name of device type",required=true) @PathVariable("deviceTypeName") String deviceTypeName) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"orderNumber\" : \"orderNumber\",  \"price\" : 5.962133916683182,  \"supplier\" : {    \"name\" : \"name\",    \"id\" : 1  },  \"objectTypeName\" : \"objectTypeName\",  \"id\" : 0,  \"classification\" : 6,  \"version\" : \"version\",  \"manufacturer\" : \"manufacturer\"}, {  \"orderNumber\" : \"orderNumber\",  \"price\" : 5.962133916683182,  \"supplier\" : {    \"name\" : \"name\",    \"id\" : 1  },  \"objectTypeName\" : \"objectTypeName\",  \"id\" : 0,  \"classification\" : 6,  \"version\" : \"version\",  \"manufacturer\" : \"manufacturer\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default DeviceTypesApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
     @ApiOperation(value = "Updates Device Type based on deviceTypeId", nickname = "updateDeviceType", notes = "", response = DeviceType.class, tags={ "DeviceType", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The Device Type", response = DeviceType.class),

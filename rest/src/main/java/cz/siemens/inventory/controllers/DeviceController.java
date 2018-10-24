@@ -106,6 +106,18 @@ public class DeviceController extends BaseController implements DevicesApi {
 	}
 
 	@Override
+	public ResponseEntity<List<Device>> getDevicesWithSerialOrBarcodeNumberLike(
+			@ApiParam(required=true) @PathVariable("serialBarcodeNumber") String serialBarcodeNumber) {
+		logger.info("getDevicesWithSerialOrBarcodeNumberLike({}) request received", serialBarcodeNumber);
+
+		List<Device> devicesWithSerialOrBarcodeNumberLike = deviceFacade.getDevicesBySerialOrBarcodeNumberLike(serialBarcodeNumber);
+
+		logger.info("getDevicesWithSerialOrBarcodeNumberLike({}) request finished", serialBarcodeNumber);
+
+		return ResponseEntity.ok(devicesWithSerialOrBarcodeNumberLike);
+	}
+
+	@Override
 	public ResponseEntity<List<Device>> getDevicesBorrowedBy(@ApiParam(required = true) @PathVariable("userScdId") Long userScdId) {
 		logger.info("getDevicesBorrowedBy({}) request received", userScdId);
 

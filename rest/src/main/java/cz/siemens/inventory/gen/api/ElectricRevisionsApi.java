@@ -46,31 +46,6 @@ public interface ElectricRevisionsApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates new Electric revision", nickname = "createElectricRevision", notes = "", response = DeviceRevision.class, tags={ "ElectricRevision", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Electric revision created", response = DeviceRevision.class),
-        @ApiResponse(code = 405, message = "Invalid input") })
-    @RequestMapping(value = "/electric-revisions",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    default ResponseEntity<DeviceRevision> createElectricRevision(@ApiParam(value = "Electric revision object that needs to be created" ,required=true )  @Valid @RequestBody DeviceRevision body) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"revisionInterval\" : 6,  \"lastRevisionDateString\" : \"lastRevisionDateString\",  \"id\" : 0}", DeviceRevision.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ElectricRevisionsApi interface so no example is generated");
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-
     @ApiOperation(value = "Gets Electric revision based on revisionId", nickname = "getElectricRevision", notes = "", response = DeviceRevision.class, tags={ "ElectricRevision", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The Electric revision", response = DeviceRevision.class),

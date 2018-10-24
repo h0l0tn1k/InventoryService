@@ -151,6 +151,8 @@ public class DeviceInternal implements Serializable {
 		return deviceState == null ? undefStr : deviceState.getName();
 	}
 
+	public String getObjectTypeName() { return objectType == null ? undefStr : objectType.getObjectTypeName(); }
+
 	public String toAuditLogString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("qrcode='").append(barcodeNumber).append("'");

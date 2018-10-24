@@ -16,6 +16,14 @@ public interface DeviceDao extends JpaRepository<DeviceInternal, Long> {
 
 	List<DeviceInternal> getDevicesBySerialNumberContainingIgnoreCase(String serialNumber);
 
+	/**
+	 * Returns devices where barcodeNumber or serialNumber is like '%qrCodeOrSerialNumber%'
+	 * @param qrCodeOrSerialNumber barcode or serial number substring
+	 * @return devices where it's barcode or serial number equals qrCodeSerialNumber
+	 */
+	@Query("SELECT dev FROM DeviceInternal  dev where dev.serialNumber LIKE CONCAT('%',:number,'%') OR dev.barcodeNumber LIKE CONCAT('%',:number,'%')")
+	List<DeviceInternal> getDevicesByQrCodeOrSerialNumber(@Param("number") String qrCodeOrSerialNumber);
+
 	@Query("SELECT dev FROM DeviceInternal dev WHERE dev.holder.id=:userId")
 	List<DeviceInternal> getDevicesBorrowedByUser(@Param("userId") Long userId);
 }

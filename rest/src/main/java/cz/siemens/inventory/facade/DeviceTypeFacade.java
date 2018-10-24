@@ -11,6 +11,8 @@ public interface DeviceTypeFacade {
 
 	Optional<DeviceType> getDeviceType(long deviceTypeId);
 
+	List<DeviceType> getDeviceTypesByName(String deviceTypeName);
+
 	DeviceType createDeviceType(DeviceType deviceType);
 
 	DeviceType updateDeviceType(DeviceType deviceType);

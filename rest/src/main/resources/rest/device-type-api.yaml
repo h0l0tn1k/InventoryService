@@ -119,3 +119,24 @@ paths:
           description: Device Type was deleted.
         '404':
           description: Specified Device Type does not exist.
+  /device-types/name/like/{deviceTypeName}:
+    get:
+      tags:
+        - Device
+      summary: Gets Device Types based on deviceTypeName
+      operationId: getDeviceTypesByName
+      produces:
+        - application/json
+      parameters:
+        - name: deviceTypeName
+          in: path
+          description: Name of device type
+          required: true
+          type: string
+      responses:
+        '200':
+          description: All Device Types filtered out by
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/DeviceType'

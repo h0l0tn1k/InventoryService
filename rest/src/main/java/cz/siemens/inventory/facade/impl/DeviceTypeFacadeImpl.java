@@ -35,6 +35,11 @@ public class DeviceTypeFacadeImpl implements DeviceTypeFacade {
 	}
 
 	@Override
+	public List<DeviceType> getDeviceTypesByName(String deviceTypeName) {
+		return deviceTypeMapper.mapToExternal(deviceTypeDao.getDeviceTypesByObjectTypeNameContaining(deviceTypeName));
+	}
+
+	@Override
 	public DeviceType createDeviceType(DeviceType deviceType) {
 		//todo: add validations
 		return deviceTypeMapper.mapToExternal(deviceTypeDao.save(deviceTypeMapper.mapToInternal(deviceType)));

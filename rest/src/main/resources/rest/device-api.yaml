@@ -161,6 +161,27 @@ paths:
             $ref: './common-models.yaml#/definitions/Device'
         '404':
           description: Requested device does not exist.
+  /devices/serialOrBarcodeNumber/like/{serialBarcodeNumber}:
+    get:
+      tags:
+        - Device
+      summary: Gets Devices based on serialNumber like
+      operationId: getDevicesWithSerialOrBarcodeNumberLike
+      produces:
+        - application/json
+      parameters:
+        - name: serialBarcodeNumber
+          in: path
+          description: serial or barcode number of device
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Devices with serial or barcode number like
+          schema:
+            type: array
+            items:
+              $ref: './common-models.yaml#/definitions/Device'
   /devices/serialNumber/like/{serialNumber}:
     get:
       tags:

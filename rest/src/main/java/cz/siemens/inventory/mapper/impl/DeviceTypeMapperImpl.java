@@ -18,6 +18,9 @@ public class DeviceTypeMapperImpl implements DeviceTypeMapper {
 
 	@Override
 	public DeviceType mapToInternal(cz.siemens.inventory.gen.model.DeviceType object) {
+		if (object == null) {
+			return null;
+		}
 		DeviceType deviceType = new DeviceType();
 		deviceType.setId(object.getId());
 		deviceType.setClassification(object.getClassification());
@@ -32,6 +35,9 @@ public class DeviceTypeMapperImpl implements DeviceTypeMapper {
 
 	@Override
 	public cz.siemens.inventory.gen.model.DeviceType mapToExternal(DeviceType object) {
+		if (object == null) {
+			return null;
+		}
 		cz.siemens.inventory.gen.model.DeviceType deviceType = new cz.siemens.inventory.gen.model.DeviceType();
 		return deviceType.id(object.getId()).classification(object.getClassification()).manufacturer(object.getManufacturer())
 				.objectTypeName(object.getObjectTypeName()).orderNumber(object.getOrderNumber()).price(object.getPrice())
