@@ -9,6 +9,7 @@ import cz.siemens.inventory.entity.AuditLog;
 import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.entity.InventoryRecord;
 import cz.siemens.inventory.entity.custom.InventoryState;
+import cz.siemens.inventory.exception.ConflictException;
 import cz.siemens.inventory.exception.NotFoundException;
 import cz.siemens.inventory.facade.AuditLogFacade;
 import cz.siemens.inventory.facade.DeviceFacade;
@@ -62,6 +63,10 @@ public class DeviceFacadeImpl implements DeviceFacade {
 		if (!fromDbOptional.isPresent()) {
 			throw new NotFoundException("Device with id=" + newDevice.getId() + " not found.");
 		}
+
+		checkBarcodeIsUnique(newDevice);
+		checkSerialNumberIsUnique(newDevice);
+
 		List<String> deviceAuditEntries = AuditUtil.getDeviceAuditEntries(fromDbOptional.get(), newDevice);
 		DeviceInternal savedDevice = deviceDao.save(newDevice);
 		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, AuditLog.Category.GENERAL, savedDevice);
@@ -101,6 +106,9 @@ public class DeviceFacadeImpl implements DeviceFacade {
 		deviceInternal.setAddDate(OffsetDateTime.now());
 		deviceInternal.setInventoryRecord(getNewInventoryRecord());
 
+		checkBarcodeIsUnique(deviceInternal);
+		checkSerialNumberIsUnique(deviceInternal);
+
 		List<String> deviceAuditEntries = AuditUtil.getDeviceAuditEntries(null, deviceInternal);
 		DeviceInternal createdDevice = deviceDao.save(deviceInternal);
 		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, AuditLog.Category.GENERAL, createdDevice);
@@ -119,5 +127,23 @@ public class DeviceFacadeImpl implements DeviceFacade {
 
 	private InventoryRecord getNewInventoryRecord() {
 		return new InventoryRecord(null, InventoryState.False, "", null);
+	}
+
+	private void checkBarcodeIsUnique(DeviceInternal deviceInternal) {
+		Optional<DeviceInternal> deviceByBarcodeNumber = deviceDao.getDeviceByBarcodeNumber(deviceInternal.getBarcodeNumber());
+		if (deviceByBarcodeNumber.isPresent()) {
+			if (!deviceByBarcodeNumber.get().getId().equals(deviceInternal.getId())) {
+				throw new ConflictException("Device with barcode number " + deviceInternal.getBarcodeNumber() + " already exists.");
+			}
+		}
+	}
+
+	private void checkSerialNumberIsUnique(DeviceInternal deviceInternal) {
+		Optional<DeviceInternal> deviceBySerialNumber = deviceDao.getDeviceBySerialNumber(deviceInternal.getSerialNumber());
+		if (deviceBySerialNumber.isPresent()) {
+			if (!deviceBySerialNumber.get().getId().equals(deviceInternal.getId())) {
+				throw new ConflictException("Device with serial number " + deviceInternal.getSerialNumber() + " already exists.");
+			}
+		}
 	}
 }
