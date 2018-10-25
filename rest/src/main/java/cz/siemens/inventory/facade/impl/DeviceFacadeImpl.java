@@ -5,10 +5,9 @@ import cz.siemens.inventory.dao.ApplianceCalibrationDao;
 import cz.siemens.inventory.dao.ApplianceRevisionDao;
 import cz.siemens.inventory.dao.DeviceDao;
 import cz.siemens.inventory.dao.InventoryRecordDao;
-import cz.siemens.inventory.entity.AuditLog;
-import cz.siemens.inventory.entity.DeviceInternal;
-import cz.siemens.inventory.entity.InventoryRecord;
+import cz.siemens.inventory.entity.*;
 import cz.siemens.inventory.entity.custom.InventoryState;
+import cz.siemens.inventory.exception.BadRequestException;
 import cz.siemens.inventory.exception.ConflictException;
 import cz.siemens.inventory.exception.NotFoundException;
 import cz.siemens.inventory.facade.AuditLogFacade;
@@ -29,19 +28,11 @@ public class DeviceFacadeImpl implements DeviceFacade {
 
 	private DeviceMapper deviceMapper;
 	private DeviceDao deviceDao;
-	private InventoryRecordDao inventoryRecordDao;
-	private ApplianceCalibrationDao applianceCalibrationDao;
-	private ApplianceRevisionDao applianceRevisionDao;
 	private AuditLogFacade auditLogFacade;
 
 	@Autowired
-	public DeviceFacadeImpl(DeviceDao deviceDao, DeviceMapper deviceMapper, InventoryRecordDao inventoryRecordDao,
-							ApplianceCalibrationDao applianceCalibrationDao, ApplianceRevisionDao applianceRevisionDao,
-							AuditLogFacade auditLogFacade) {
+	public DeviceFacadeImpl(DeviceDao deviceDao, DeviceMapper deviceMapper, AuditLogFacade auditLogFacade) {
 		this.deviceDao = deviceDao;
-		this.inventoryRecordDao = inventoryRecordDao;
-		this.applianceCalibrationDao = applianceCalibrationDao;
-		this.applianceRevisionDao = applianceRevisionDao;
 		this.deviceMapper = deviceMapper;
 		this.auditLogFacade = auditLogFacade;
 	}
@@ -103,19 +94,15 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	public Device createDevice(Device device) {
 		DeviceInternal deviceInternal = deviceMapper.mapToInternal(device);
 		deviceInternal.setId(null);
-		deviceInternal.setAddDate(OffsetDateTime.now());
 		deviceInternal.setInventoryRecord(getNewInventoryRecord());
+		deviceInternal.setDeviceCalibration(getNewApplianceCalibration());
+		deviceInternal.setLastRevision(getNewApplianceRevision());
 
-		checkBarcodeIsUnique(deviceInternal);
-		checkSerialNumberIsUnique(deviceInternal);
+		validate(deviceInternal);
 
 		List<String> deviceAuditEntries = AuditUtil.getDeviceAuditEntries(null, deviceInternal);
 		DeviceInternal createdDevice = deviceDao.save(deviceInternal);
 		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, AuditLog.Category.GENERAL, createdDevice);
-
-		inventoryRecordDao.save(createdDevice.getInventoryRecord());
-		applianceCalibrationDao.save(createdDevice.getDeviceCalibration());
-		applianceRevisionDao.save(createdDevice.getLastRevision());
 
 		return deviceMapper.mapToExternal(createdDevice);
 	}
@@ -129,12 +116,41 @@ public class DeviceFacadeImpl implements DeviceFacade {
 		return new InventoryRecord(null, InventoryState.False, "", null);
 	}
 
+	private ApplianceRevision getNewApplianceRevision() {
+		return new ApplianceRevision(null, 0, null, null);
+	}
+
+	private ApplianceCalibration getNewApplianceCalibration() {
+		return new ApplianceCalibration(null, 0, null, null);
+	}
+
+	public void validate(DeviceInternal deviceInternal) {
+		checkAddDate(deviceInternal);
+		checkSerialNumberIsNotEmpty(deviceInternal);
+		checkSerialNumberIsUnique(deviceInternal);
+		checkBarcodeIsUnique(deviceInternal);
+	}
+
+	private void checkAddDate(DeviceInternal deviceInternal) {
+		if (deviceInternal.getAddDate() == null) {
+			deviceInternal.setAddDate(OffsetDateTime.now());
+		} else if (deviceInternal.getAddDate().isAfter(OffsetDateTime.now())) {
+			throw new BadRequestException("Add date cannot be in the future");
+		}
+	}
+
 	private void checkBarcodeIsUnique(DeviceInternal deviceInternal) {
 		Optional<DeviceInternal> deviceByBarcodeNumber = deviceDao.getDeviceByBarcodeNumber(deviceInternal.getBarcodeNumber());
 		if (deviceByBarcodeNumber.isPresent()) {
 			if (!deviceByBarcodeNumber.get().getId().equals(deviceInternal.getId())) {
 				throw new ConflictException("Device with barcode number " + deviceInternal.getBarcodeNumber() + " already exists.");
 			}
+		}
+	}
+
+	private void checkSerialNumberIsNotEmpty(DeviceInternal deviceInternal) {
+		if (deviceInternal.getSerialNumber().isEmpty()) {
+			throw new BadRequestException("Device cannot have empty serial number.");
 		}
 	}
 
