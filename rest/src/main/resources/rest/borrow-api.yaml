@@ -1,0 +1,32 @@
+swagger: "2.0"
+info:
+  title: Inventory Service - Borrowing - REST API
+  description: |
+    REST API for Inventory Service
+  version: 1.0.0
+schemes:
+  - https
+basePath: /inventory-service/api/v1
+produces:
+  - application/json
+paths:
+  /borrow:
+    post:
+      tags:
+        - Borrow
+      summary: Handles borrowing or returning of a device
+      operationId: borrowReturnDevice
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Object that contains information about borrowing/returning of device
+          required: true
+          schema:
+            $ref: './common-models.yaml#/definitions/BorrowReturn'
+      responses:
+        '201':
+          description: Operation successful

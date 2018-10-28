@@ -18,6 +18,15 @@ definitions:
         format: int64
       name:
         type: string
+  BorrowReturn:
+    type: object
+    properties:
+      device:
+        $ref: '#/definitions/Device'
+      newHolder:
+        $ref: '#/definitions/User'
+      comment:
+        type: string
   CompanyOwner:
     type: object
     properties:

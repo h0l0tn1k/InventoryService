@@ -60,23 +60,6 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.boot</groupId>-->
-		<!--<artifactId>spring-boot-starter-data-security</artifactId>-->
-		<!--<version>2.0.3.RELEASE</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.security</groupId>-->
-		<!--<artifactId>spring-security-config</artifactId>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.security</groupId>-->
-		<!--<artifactId>spring-security-web</artifactId>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.security</groupId>-->
-		<!--<artifactId>spring-security-core</artifactId>-->
-		<!--</dependency>-->
 	</dependencies>
 
 	<build>
@@ -214,6 +197,32 @@
 								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 								<interfaceOnly>true</interfaceOnly>
 								<invokerPackage>cz.siemens.inventory.gen.department</invokerPackage>
+								<java8>true</java8>
+								<library>spring-boot</library>
+								<sourceFolder>main/java</sourceFolder>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-borrow-source-code</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+							<generateApiTests>false</generateApiTests>
+							<generateModelTests>false</generateModelTests>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<inputSpec>${project.basedir}/src/main/resources/rest/borrow-api.yaml</inputSpec>
+							<language>spring</language>
+							<modelPackage>cz.siemens.inventory.gen.model</modelPackage>
+							<output>src</output>
+							<configOptions>
+								<basePackage>cz.siemens.inventory.gen.borrow</basePackage>
+								<configPackage>cz.siemens.inventory.gen.borrow.config</configPackage>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<interfaceOnly>true</interfaceOnly>
+								<invokerPackage>cz.siemens.inventory.gen.borrow</invokerPackage>
 								<java8>true</java8>
 								<library>spring-boot</library>
 								<sourceFolder>main/java</sourceFolder>
@@ -457,6 +466,22 @@
 							<inputSpec>${project.basedir}/src/main/resources/rest/device-type-api.yaml</inputSpec>
 							<language>html2</language>
 							<output>src/main/resources/static/documentation/device-type</output>
+							<configOptions>
+								<sourceFolder>main/java</sourceFolder>
+							</configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-borrow-documentation</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<apiPackage>cz.siemens.inventory.gen.api</apiPackage>
+							<generateApiDocumentation>true</generateApiDocumentation>
+							<inputSpec>${project.basedir}/src/main/resources/rest/borrow-api.yaml</inputSpec>
+							<language>html2</language>
+							<output>src/main/resources/static/documentation/borrow</output>
 							<configOptions>
 								<sourceFolder>main/java</sourceFolder>
 							</configOptions>

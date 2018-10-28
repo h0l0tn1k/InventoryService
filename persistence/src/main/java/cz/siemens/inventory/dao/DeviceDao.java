@@ -1,7 +1,9 @@
 package cz.siemens.inventory.dao;
 
 import cz.siemens.inventory.entity.DeviceInternal;
+import cz.siemens.inventory.entity.LoginUserScd;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -26,4 +28,8 @@ public interface DeviceDao extends JpaRepository<DeviceInternal, Long> {
 
 	@Query("SELECT dev FROM DeviceInternal dev WHERE dev.holder.id=:userId")
 	List<DeviceInternal> getDevicesBorrowedByUser(@Param("userId") Long userId);
+
+	@Modifying(clearAutomatically = true)
+	@Query("UPDATE DeviceInternal dev SET dev.holder=:holder WHERE dev.id=:deviceId")
+	void updateHolder(@Param("holder") LoginUserScd holder, @Param("deviceId") Long deviceId);
 }

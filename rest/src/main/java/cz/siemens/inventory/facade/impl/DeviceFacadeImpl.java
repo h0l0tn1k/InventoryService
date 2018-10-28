@@ -1,10 +1,7 @@
 package cz.siemens.inventory.facade.impl;
 
 import cz.siemens.inventory.audit.AuditUtils.AuditUtil;
-import cz.siemens.inventory.dao.ApplianceCalibrationDao;
-import cz.siemens.inventory.dao.ApplianceRevisionDao;
 import cz.siemens.inventory.dao.DeviceDao;
-import cz.siemens.inventory.dao.InventoryRecordDao;
 import cz.siemens.inventory.entity.*;
 import cz.siemens.inventory.entity.custom.InventoryState;
 import cz.siemens.inventory.exception.BadRequestException;
