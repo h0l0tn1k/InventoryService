@@ -10,4 +10,6 @@ public interface UserFacade {
 	List<User> getUsers();
 
 	Optional<User> getUser(long userId);
+
+	Optional<User> getUserByEmail(String email);
 }

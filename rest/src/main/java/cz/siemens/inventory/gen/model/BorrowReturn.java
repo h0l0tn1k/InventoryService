@@ -20,9 +20,6 @@ public class BorrowReturn   {
   @JsonProperty("device")
   private Device device = null;
 
-  @JsonProperty("oldHolder")
-  private User oldHolder = null;
-
   @JsonProperty("newHolder")
   private User newHolder = null;
 
@@ -48,27 +45,6 @@ public class BorrowReturn   {
 
   public void setDevice(Device device) {
     this.device = device;
-  }
-
-  public BorrowReturn oldHolder(User oldHolder) {
-    this.oldHolder = oldHolder;
-    return this;
-  }
-
-  /**
-   * Get oldHolder
-   * @return oldHolder
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public User getOldHolder() {
-    return oldHolder;
-  }
-
-  public void setOldHolder(User oldHolder) {
-    this.oldHolder = oldHolder;
   }
 
   public BorrowReturn newHolder(User newHolder) {
@@ -123,14 +99,13 @@ public class BorrowReturn   {
     }
     BorrowReturn borrowReturn = (BorrowReturn) o;
     return Objects.equals(this.device, borrowReturn.device) &&
-        Objects.equals(this.oldHolder, borrowReturn.oldHolder) &&
         Objects.equals(this.newHolder, borrowReturn.newHolder) &&
         Objects.equals(this.comment, borrowReturn.comment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(device, oldHolder, newHolder, comment);
+    return Objects.hash(device, newHolder, comment);
   }
 
   @Override
@@ -139,7 +114,6 @@ public class BorrowReturn   {
     sb.append("class BorrowReturn {\n");
     
     sb.append("    device: ").append(toIndentedString(device)).append("\n");
-    sb.append("    oldHolder: ").append(toIndentedString(oldHolder)).append("\n");
     sb.append("    newHolder: ").append(toIndentedString(newHolder)).append("\n");
     sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
     sb.append("}");

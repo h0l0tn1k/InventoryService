@@ -46,6 +46,29 @@ public interface UsersApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
+    @ApiOperation(value = "Gets currentl logged in user based on authentication", nickname = "getCurrentUser", notes = "", response = User.class, tags={ "User", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Current User", response = User.class) })
+    @RequestMapping(value = "/users/me",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    default ResponseEntity<User> getCurrentUser() {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"firstName\" : \"firstName\",  \"lastName\" : \"lastName\",  \"flagWrite\" : true,  \"superiorFirstName\" : \"superiorFirstName\",  \"flagRead\" : true,  \"flagBorrow\" : true,  \"flagAdmin\" : true,  \"flagRevision\" : true,  \"id\" : 0,  \"flagInventory\" : true,  \"email\" : \"email\",  \"superiorLastName\" : \"superiorLastName\"}", User.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default UsersApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
     @ApiOperation(value = "Gets User based on userId", nickname = "getUser", notes = "", response = User.class, tags={ "User", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "The User", response = User.class),

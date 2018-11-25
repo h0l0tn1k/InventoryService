@@ -113,7 +113,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 				.mvcMatchers(PUT, ApiUris.EL_REVISION_URI + "/**").hasRole("REVISION")
 
 				//Borrow
-				//todo - needs its own controller
+				.mvcMatchers(POST, ApiUris.BORROW_URI + "/**").hasRole("BORROW")
 
 				.anyRequest().denyAll();
 	}

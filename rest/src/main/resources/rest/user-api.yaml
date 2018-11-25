@@ -47,10 +47,16 @@ paths:
             $ref: './common-models.yaml#/definitions/User'
         '404':
           description: Requested User does not exist.
+  /users/me:
+    get:
+      tags:
+        - User
+      summary: Gets currentl logged in user based on authentication
+      operationId: getCurrentUser
+      produces:
+        - application/json
       responses:
         '200':
-          description: The User
+          description: Current User
           schema:
             $ref: './common-models.yaml#/definitions/User'
-        '404':
-          description: Requested User does not exist.

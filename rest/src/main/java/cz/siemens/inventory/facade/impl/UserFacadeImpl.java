@@ -33,4 +33,9 @@ public class UserFacadeImpl implements UserFacade {
 	public Optional<User> getUser(long userId) {
 		return userMapper.mapToExternal(loginUserScdDao.findById(userId));
 	}
+
+	@Override
+	public Optional<User> getUserByEmail(String email) {
+		return Optional.of(userMapper.mapToExternal(loginUserScdDao.getByEmail(email)));
+	}
 }
