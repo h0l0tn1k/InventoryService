@@ -46,6 +46,9 @@ public class DeviceMapperImpl implements DeviceMapper {
 
 	@Override
 	public DeviceInternal mapToInternal(cz.siemens.inventory.gen.model.Device object) {
+		if(object == null) {
+			return null;
+		}
 		DeviceInternal result = new DeviceInternal();
 		result.setId(object.getId());
 		result.setBarcodeNumber(object.getBarcodeNumber());
@@ -70,6 +73,9 @@ public class DeviceMapperImpl implements DeviceMapper {
 
 	@Override
 	public cz.siemens.inventory.gen.model.Device mapToExternal(DeviceInternal object) {
+		if(object == null) {
+			return null;
+		}
 		String addDateString = (object.getAddDate() == null)
 				? "" : object.getAddDate().format(DateTimeFormatter.ofPattern(YYYY_MM_DD));
 		return new cz.siemens.inventory.gen.model.Device()

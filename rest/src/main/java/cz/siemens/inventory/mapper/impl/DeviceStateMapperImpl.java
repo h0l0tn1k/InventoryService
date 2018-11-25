@@ -11,6 +11,9 @@ public class DeviceStateMapperImpl implements DeviceStateMapper {
 
 	@Override
 	public DeviceState mapToInternal(cz.siemens.inventory.gen.model.DeviceState object) {
+		if(object == null) {
+			return null;
+		}
 		DeviceState deviceState = new DeviceState();
 		deviceState.setId(object.getId());
 		deviceState.setName(object.getName());
@@ -19,6 +22,9 @@ public class DeviceStateMapperImpl implements DeviceStateMapper {
 
 	@Override
 	public cz.siemens.inventory.gen.model.DeviceState mapToExternal(DeviceState object) {
+		if(object == null) {
+			return null;
+		}
 		cz.siemens.inventory.gen.model.DeviceState deviceState = new cz.siemens.inventory.gen.model.DeviceState();
 		return deviceState.id(object.getId()).name(object.getName());
 	}
