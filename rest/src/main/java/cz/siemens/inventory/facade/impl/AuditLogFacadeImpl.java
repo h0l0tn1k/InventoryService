@@ -1,11 +1,14 @@
 package cz.siemens.inventory.facade.impl;
 
 import cz.siemens.inventory.dao.AuditLogDao;
+import cz.siemens.inventory.dao.LoginUserScdDao;
 import cz.siemens.inventory.entity.AuditLog;
 import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.entity.LoginUserScd;
 import cz.siemens.inventory.facade.AuditLogFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +21,12 @@ import java.util.stream.Collectors;
 public class AuditLogFacadeImpl implements AuditLogFacade {
 
     private AuditLogDao auditLogDao;
+    private LoginUserScdDao loginUserScdDao;
 
     @Autowired
-    public AuditLogFacadeImpl(AuditLogDao auditLogDao) {
+    public AuditLogFacadeImpl(AuditLogDao auditLogDao, LoginUserScdDao loginUserScdDao) {
         this.auditLogDao = auditLogDao;
+        this.loginUserScdDao = loginUserScdDao;
     }
 
     @Override
@@ -45,11 +50,13 @@ public class AuditLogFacadeImpl implements AuditLogFacade {
         auditLog.setCategory(category);
         auditLog.setDescription(description);
         auditLog.setDevice(device);
-        //todo add auditLog.setEditingUser();
-        LoginUserScd loginUserScd = new LoginUserScd();
-        loginUserScd.setId(447L);
+        LoginUserScd loginUserScd = loginUserScdDao.getByEmail(getCurrentUsersEmail());
         auditLog.setEditingUser(loginUserScd);
 
         return auditLog;
+    }
+
+    private String getCurrentUsersEmail() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

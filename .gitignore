@@ -3,4 +3,5 @@ Persistence/target/
 rest/target
 *.iml
 .idea/
+**/gen/
 rest/src/main/resources/static/documentation/*/*

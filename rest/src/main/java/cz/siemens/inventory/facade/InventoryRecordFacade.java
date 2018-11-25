@@ -9,16 +9,10 @@ import java.util.Optional;
 
 public interface InventoryRecordFacade {
 
-	InventoryRecord createInventoryRecord(InventoryRecord inventoryRecord);
-
 	InventoryRecord updateInventoryRecord(InventoryRecord inventoryRecord);
 
 	Optional<InventoryRecord> getInventoryRecord(Long inventoryRecordId);
 
 	List<InventoryRecord> getInventoryRecords();
-
-	List<Device> getAllCheckedDevices();
-
-	List<Device> getAllUncheckedDevices();
 
 }

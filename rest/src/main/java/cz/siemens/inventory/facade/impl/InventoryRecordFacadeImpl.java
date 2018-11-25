@@ -25,23 +25,15 @@ public class InventoryRecordFacadeImpl implements InventoryRecordFacade {
 
 	private InventoryRecordDao inventoryRecordDao;
 	private InventoryRecordMapper inventoryRecordMapper;
-	private DeviceMapper deviceMapper;
 	private AuditLogFacade auditLogFacade;
 
 	@Autowired
 	public InventoryRecordFacadeImpl(InventoryRecordDao inventoryRecordDao,
 									 InventoryRecordMapper inventoryRecordMapper,
-									 DeviceMapper deviceMapper,
 									 AuditLogFacade auditLogFacade) {
 		this.inventoryRecordDao = inventoryRecordDao;
 		this.inventoryRecordMapper = inventoryRecordMapper;
-		this.deviceMapper = deviceMapper;
 		this.auditLogFacade = auditLogFacade;
-	}
-
-	@Override
-	public InventoryRecord createInventoryRecord(InventoryRecord inventoryRecord) {
-		return inventoryRecordMapper.mapToExternal(inventoryRecordDao.saveAndFlush(inventoryRecordMapper.mapToInternal(inventoryRecord)));
 	}
 
 	@Override
@@ -66,15 +58,5 @@ public class InventoryRecordFacadeImpl implements InventoryRecordFacade {
 	@Override
 	public List<InventoryRecord> getInventoryRecords() {
 		return inventoryRecordMapper.mapToExternal(inventoryRecordDao.findAll());
-	}
-
-	@Override
-	public List<Device> getAllCheckedDevices() {
-		return deviceMapper.mapToExternal(inventoryRecordDao.findAllChecked().stream().map(x -> x.getDeviceInventory()).collect(Collectors.toList()));
-	}
-
-	@Override
-	public List<Device> getAllUncheckedDevices() {
-		return deviceMapper.mapToExternal(inventoryRecordDao.findAllUnChecked().stream().map(x -> x.getDeviceInventory()).collect(Collectors.toList()));
 	}
 }

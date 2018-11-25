@@ -24,8 +24,8 @@ public class AuditUtil {
 			return auditEntries;
 		}
 
-		addAuditEntryIfChanged(previousVersion.getObjectTypeName(), newVersion.getObjectTypeName(), "Device type", auditEntries);
 		addAuditEntryIfChanged(previousVersion.getBarcodeNumber(), newVersion.getBarcodeNumber(), "Device QR code", auditEntries);
+		addAuditEntryIfChanged(previousVersion.getObjectType().getObjectTypeName(), newVersion.getObjectType().getObjectTypeName(), "Device type", auditEntries);
 		addAuditEntryIfChanged(previousVersion.getSerialNumber(), newVersion.getSerialNumber(), "Device serial number", auditEntries);
 		addAuditEntryIfChanged(previousVersion.getInventoryNumber(), newVersion.getInventoryNumber(), "Device inventory number", auditEntries);
 		addAuditEntryIfChanged(previousVersion.getOwnerName(), newVersion.getOwnerName(), "Device owner name", auditEntries);
@@ -100,7 +100,7 @@ public class AuditUtil {
 
 	private static String getLogItemDescription(String propertyText, String comment) {
 		if (StringUtils.isNotBlank(comment)) {
-			return propertyText + " changed to '" + comment + "'";
+			return propertyText + " changed to " + comment;
 		} else {
 			return propertyText + " removed";
 		}
