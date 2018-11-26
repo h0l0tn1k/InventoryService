@@ -8,13 +8,17 @@ import cz.siemens.inventory.service.impl.UserDetailsServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Iterator;
 import java.util.Optional;
 
+import static cz.siemens.inventory.security.ScopeConstants.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -46,6 +50,9 @@ public class UserDetailsServiceImplTest {
 		user.setFlagRead(true);
 		user.setFlagWrite(true);
 		user.setFlagRevision(true);
+		user.setFlagAdmin(true);
+		user.setFlagInventory(true);
+		user.setFlagBorrow(true);
 		user.setEmail("test@email.com");
 		user.setGid("123");
 		doReturn(user).when(userDao).getByEmail(user.getEmail());
@@ -55,10 +62,14 @@ public class UserDetailsServiceImplTest {
 
 		assertThat(userDetails.getUsername()).isEqualTo(user.getEmail());
 		assertThat(encoder.matches(user.getGid(), userDetails.getPassword())).isTrue();
-		assertThat(userDetails.getAuthorities()).hasSize(3);
-//		assertThat(userDetails.getAuthorities()).contains(new SimpleGrantedAuthority(ROLE_READ), new SimpleGrantedAuthority(ROLE_WRITE));
-//		assertThat(userDetails.getAuthorities()).contains(new SimpleGrantedAuthority(ROLE_WRITE));
-//		assertThat(userDetails.getAuthorities()).contains(new SimpleGrantedAuthority(ROLE_REVISION));
+
+		assertThat(userDetails.getAuthorities()).hasSize(6);
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_READ))).isTrue();
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_WRITE))).isTrue();
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_REVISION))).isTrue();
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_ADMIN))).isTrue();
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_INVENTORY))).isTrue();
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_BORROW))).isTrue();
 	}
 
 	@Test
@@ -66,7 +77,8 @@ public class UserDetailsServiceImplTest {
 		LoginUserScd user = new LoginUserScd();
 		user.setFlagRead(true);
 		user.setFlagWrite(true);
-		user.setFlagRevision(true);
+		user.setFlagInventory(true);
+		user.setFlagBorrow(true);
 		user.setEmail("test@email.com");
 		user.setGid("123");
 
@@ -81,9 +93,10 @@ public class UserDetailsServiceImplTest {
 
 		assertThat(userDetails.getUsername()).isEqualTo(user.getEmail());
 		assertThat(encoder.matches(userPassword.getPasswordHash(), userDetails.getPassword())).isTrue();
-		assertThat(userDetails.getAuthorities()).hasSize(3);
-//		assertThat(userDetails.getAuthorities()).contains(new SimpleGrantedAuthority(ROLE_READ), new SimpleGrantedAuthority(ROLE_WRITE));
-//		assertThat(userDetails.getAuthorities()).contains(new SimpleGrantedAuthority(ROLE_WRITE));
-//		assertThat(userDetails.getAuthorities()).contains(new SimpleGrantedAuthority(ROLE_REVISION));
+		assertThat(userDetails.getAuthorities()).hasSize(4);
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_READ))).isTrue();
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_WRITE))).isTrue();
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_INVENTORY))).isTrue();
+		assertThat(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(ROLE_BORROW))).isTrue();
 	}
 }
