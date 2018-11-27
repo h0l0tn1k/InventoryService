@@ -1,12 +1,9 @@
-package cz.siemens.inventory.controllers.mapper;
+package cz.siemens.inventory.mapper;
 
 import cz.siemens.inventory.entity.DeviceType;
 import cz.siemens.inventory.entity.Supplier;
-import cz.siemens.inventory.mapper.DeviceTypeMapper;
-import cz.siemens.inventory.mapper.DeviceTypeMapper;
 import cz.siemens.inventory.mapper.impl.DeviceTypeMapperImpl;
 import cz.siemens.inventory.mapper.impl.SupplierMapperImpl;
-import cz.siemens.inventory.mapper.impl.DeviceTypeMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 

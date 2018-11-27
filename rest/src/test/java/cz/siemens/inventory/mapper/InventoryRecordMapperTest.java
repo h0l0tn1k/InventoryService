@@ -1,8 +1,7 @@
-package cz.siemens.inventory.controllers.mapper;
+package cz.siemens.inventory.mapper;
 
 import cz.siemens.inventory.entity.InventoryRecord;
 import cz.siemens.inventory.gen.model.InventoryState;
-import cz.siemens.inventory.mapper.InventoryRecordMapper;
 import cz.siemens.inventory.mapper.impl.InventoryRecordMapperImpl;
 import org.junit.Before;
 import org.junit.Test;

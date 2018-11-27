@@ -1,12 +1,8 @@
-package cz.siemens.inventory.controllers.mapper;
+package cz.siemens.inventory.mapper;
 
 import cz.siemens.inventory.entity.ApplianceCalibration;
-import cz.siemens.inventory.entity.ApplianceRevision;
 import cz.siemens.inventory.gen.model.DeviceCalibration;
-import cz.siemens.inventory.gen.model.DeviceRevision;
-import cz.siemens.inventory.mapper.DeviceCalibrationMapper;
 import cz.siemens.inventory.mapper.impl.DeviceCalibrationMapperImpl;
-import org.apache.tomcat.jni.Local;
 import org.junit.Before;
 import org.junit.Test;
 

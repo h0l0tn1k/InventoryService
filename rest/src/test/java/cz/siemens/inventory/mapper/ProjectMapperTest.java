@@ -1,7 +1,6 @@
-package cz.siemens.inventory.controllers.mapper;
+package cz.siemens.inventory.mapper;
 
 import cz.siemens.inventory.entity.Project;
-import cz.siemens.inventory.mapper.ProjectMapper;
 import cz.siemens.inventory.mapper.impl.ProjectMapperImpl;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,9 +1,7 @@
-package cz.siemens.inventory.controllers.mapper;
+package cz.siemens.inventory.mapper;
 
 import cz.siemens.inventory.entity.ApplianceRevision;
-import cz.siemens.inventory.entity.ApplianceRevision;
 import cz.siemens.inventory.gen.model.DeviceRevision;
-import cz.siemens.inventory.mapper.DeviceRevisionMapper;
 import cz.siemens.inventory.mapper.impl.DeviceRevisionMapperImpl;
 import org.junit.Before;
 import org.junit.Test;

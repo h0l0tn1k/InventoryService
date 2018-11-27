@@ -1,7 +1,6 @@
-package cz.siemens.inventory.controllers.mapper;
+package cz.siemens.inventory.mapper;
 
 import cz.siemens.inventory.entity.CompanyOwner;
-import cz.siemens.inventory.mapper.CompanyOwnerMapper;
 import cz.siemens.inventory.mapper.impl.CompanyOwnerMapperImpl;
 import org.junit.Before;
 import org.junit.Test;

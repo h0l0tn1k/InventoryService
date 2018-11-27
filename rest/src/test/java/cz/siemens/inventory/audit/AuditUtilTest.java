@@ -1,4 +1,4 @@
-package cz.siemens.inventory.controllers.audit;
+package cz.siemens.inventory.audit;
 
 import cz.siemens.inventory.audit.AuditUtils.AuditUtil;
 import cz.siemens.inventory.entity.*;

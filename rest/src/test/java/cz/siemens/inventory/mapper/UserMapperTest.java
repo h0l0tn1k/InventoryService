@@ -1,8 +1,7 @@
-package cz.siemens.inventory.controllers.mapper;
+package cz.siemens.inventory.mapper;
 
 import cz.siemens.inventory.entity.LoginUserScd;
 import cz.siemens.inventory.gen.model.User;
-import cz.siemens.inventory.mapper.UserMapper;
 import cz.siemens.inventory.mapper.impl.UserMapperImpl;
 import org.junit.Before;
 import org.junit.Test;

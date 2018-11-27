@@ -1,8 +1,7 @@
-package cz.siemens.inventory.controllers.facade;
+package cz.siemens.inventory.facade;
 
 import cz.siemens.inventory.dao.CompanyOwnerDao;
 import cz.siemens.inventory.entity.CompanyOwner;
-import cz.siemens.inventory.facade.CompanyOwnerFacade;
 import cz.siemens.inventory.facade.impl.CompanyOwnerFacadeImpl;
 import cz.siemens.inventory.mapper.CompanyOwnerMapper;
 import cz.siemens.inventory.mapper.impl.CompanyOwnerMapperImpl;

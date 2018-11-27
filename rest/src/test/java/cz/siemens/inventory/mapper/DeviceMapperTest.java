@@ -1,4 +1,4 @@
-package cz.siemens.inventory.controllers.mapper;
+package cz.siemens.inventory.mapper;
 
 import cz.siemens.inventory.entity.*;
 import cz.siemens.inventory.entity.CompanyOwner;
@@ -8,9 +8,7 @@ import cz.siemens.inventory.entity.DeviceType;
 import cz.siemens.inventory.entity.InventoryRecord;
 import cz.siemens.inventory.entity.Supplier;
 import cz.siemens.inventory.gen.model.*;
-import cz.siemens.inventory.mapper.DeviceMapper;
 import cz.siemens.inventory.mapper.impl.*;
-import javafx.util.converter.DateStringConverter;
 import org.junit.Before;
 import org.junit.Test;
 

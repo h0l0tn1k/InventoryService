@@ -1,4 +1,4 @@
-package cz.siemens.inventory.controllers.service;
+package cz.siemens.inventory.service;
 
 import cz.siemens.inventory.dao.LoginPasswordScdDao;
 import cz.siemens.inventory.dao.LoginUserScdDao;
@@ -8,14 +8,12 @@ import cz.siemens.inventory.service.impl.UserDetailsServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 import static cz.siemens.inventory.security.ScopeConstants.*;
