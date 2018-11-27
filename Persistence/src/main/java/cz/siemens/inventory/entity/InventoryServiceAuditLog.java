@@ -23,7 +23,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name = "audit_log")
 @ToString
-public class AuditLog implements Serializable {
+public class InventoryServiceAuditLog implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public enum Category {GENERAL, INVENTORY, REVISION, CALIBRATION}

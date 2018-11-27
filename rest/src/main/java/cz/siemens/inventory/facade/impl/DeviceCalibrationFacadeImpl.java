@@ -3,8 +3,7 @@ package cz.siemens.inventory.facade.impl;
 import cz.siemens.inventory.audit.AuditUtils.AuditUtil;
 import cz.siemens.inventory.dao.ApplianceCalibrationDao;
 import cz.siemens.inventory.entity.ApplianceCalibration;
-import cz.siemens.inventory.entity.ApplianceRevision;
-import cz.siemens.inventory.entity.AuditLog;
+import cz.siemens.inventory.entity.InventoryServiceAuditLog;
 import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.exception.NotFoundException;
 import cz.siemens.inventory.facade.AuditLogFacade;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +49,7 @@ public class DeviceCalibrationFacadeImpl implements DeviceCalibrationFacade {
 
 		ApplianceCalibration createdCalibration = applianceCalibrationDao.save(newApplianceCalibration);
 
-		auditLogFacade.saveAuditLogEntries(revisionAuditEntries, AuditLog.Category.CALIBRATION, new DeviceInternal(createdCalibration.getId()));
+		auditLogFacade.saveAuditLogEntries(revisionAuditEntries, InventoryServiceAuditLog.Category.CALIBRATION, new DeviceInternal(createdCalibration.getId()));
 		return deviceCalibrationMapper.mapToExternal(createdCalibration);
 	}
 }

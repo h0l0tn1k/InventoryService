@@ -57,7 +57,7 @@ public class DeviceFacadeImpl implements DeviceFacade {
 
 		List<String> deviceAuditEntries = AuditUtil.getDeviceAuditEntries(fromDbOptional.get(), newDevice);
 		DeviceInternal savedDevice = deviceDao.save(newDevice);
-		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, AuditLog.Category.GENERAL, savedDevice);
+		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, InventoryServiceAuditLog.Category.GENERAL, savedDevice);
 
 		return deviceMapper.mapToExternal(savedDevice);
 	}
@@ -99,7 +99,7 @@ public class DeviceFacadeImpl implements DeviceFacade {
 
 		List<String> deviceAuditEntries = AuditUtil.getDeviceAuditEntries(null, deviceInternal);
 		DeviceInternal createdDevice = deviceDao.save(deviceInternal);
-		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, AuditLog.Category.GENERAL, createdDevice);
+		auditLogFacade.saveAuditLogEntries(deviceAuditEntries, InventoryServiceAuditLog.Category.GENERAL, createdDevice);
 
 		return deviceMapper.mapToExternal(createdDevice);
 	}

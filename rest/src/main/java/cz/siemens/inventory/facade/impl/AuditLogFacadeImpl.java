@@ -1,18 +1,16 @@
 package cz.siemens.inventory.facade.impl;
 
-import cz.siemens.inventory.dao.AuditLogDao;
+import cz.siemens.inventory.dao.InventoryServiceAuditLogDao;
 import cz.siemens.inventory.dao.LoginUserScdDao;
-import cz.siemens.inventory.entity.AuditLog;
+import cz.siemens.inventory.entity.InventoryServiceAuditLog;
 import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.entity.LoginUserScd;
 import cz.siemens.inventory.facade.AuditLogFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,40 +18,40 @@ import java.util.stream.Collectors;
 @Transactional
 public class AuditLogFacadeImpl implements AuditLogFacade {
 
-    private AuditLogDao auditLogDao;
+    private InventoryServiceAuditLogDao inventoryServiceAuditLogDao;
     private LoginUserScdDao loginUserScdDao;
 
     @Autowired
-    public AuditLogFacadeImpl(AuditLogDao auditLogDao, LoginUserScdDao loginUserScdDao) {
-        this.auditLogDao = auditLogDao;
+    public AuditLogFacadeImpl(InventoryServiceAuditLogDao inventoryServiceAuditLogDao, LoginUserScdDao loginUserScdDao) {
+        this.inventoryServiceAuditLogDao = inventoryServiceAuditLogDao;
         this.loginUserScdDao = loginUserScdDao;
     }
 
     @Override
-    public AuditLog createAuditLog(AuditLog auditLog) {
-        return auditLogDao.save(auditLog);
+    public InventoryServiceAuditLog createAuditLog(InventoryServiceAuditLog inventoryServiceAuditLog) {
+        return inventoryServiceAuditLogDao.save(inventoryServiceAuditLog);
     }
 
     @Override
-    public List<AuditLog> createAuditLogs(List<AuditLog> auditLogs) {
-        return auditLogDao.saveAll(auditLogs);
+    public List<InventoryServiceAuditLog> createAuditLogs(List<InventoryServiceAuditLog> inventoryServiceAuditLogs) {
+        return inventoryServiceAuditLogDao.saveAll(inventoryServiceAuditLogs);
     }
 
     @Override
-    public void saveAuditLogEntries(List<String> descriptions, AuditLog.Category category, DeviceInternal device) {
-        List<AuditLog> auditLogs = descriptions.stream().map(x -> initAuditLog(x, category, device)).collect(Collectors.toList());
-        auditLogDao.saveAll(auditLogs);
+    public void saveAuditLogEntries(List<String> descriptions, InventoryServiceAuditLog.Category category, DeviceInternal device) {
+        List<InventoryServiceAuditLog> inventoryServiceAuditLogs = descriptions.stream().map(x -> initAuditLog(x, category, device)).collect(Collectors.toList());
+        inventoryServiceAuditLogDao.saveAll(inventoryServiceAuditLogs);
     }
 
-    private AuditLog initAuditLog(String description, AuditLog.Category category, DeviceInternal device) {
-        AuditLog auditLog = new AuditLog();
-        auditLog.setCategory(category);
-        auditLog.setDescription(description);
-        auditLog.setDevice(device);
+    private InventoryServiceAuditLog initAuditLog(String description, InventoryServiceAuditLog.Category category, DeviceInternal device) {
+        InventoryServiceAuditLog inventoryServiceAuditLog = new InventoryServiceAuditLog();
+        inventoryServiceAuditLog.setCategory(category);
+        inventoryServiceAuditLog.setDescription(description);
+        inventoryServiceAuditLog.setDevice(device);
         LoginUserScd loginUserScd = loginUserScdDao.getByEmail(getCurrentUsersEmail());
-        auditLog.setEditingUser(loginUserScd);
+        inventoryServiceAuditLog.setEditingUser(loginUserScd);
 
-        return auditLog;
+        return inventoryServiceAuditLog;
     }
 
     private String getCurrentUsersEmail() {

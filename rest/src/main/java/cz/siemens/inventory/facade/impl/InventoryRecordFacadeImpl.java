@@ -2,14 +2,12 @@ package cz.siemens.inventory.facade.impl;
 
 import cz.siemens.inventory.audit.AuditUtils.AuditUtil;
 import cz.siemens.inventory.dao.InventoryRecordDao;
-import cz.siemens.inventory.entity.AuditLog;
+import cz.siemens.inventory.entity.InventoryServiceAuditLog;
 import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.exception.NotFoundException;
 import cz.siemens.inventory.facade.AuditLogFacade;
 import cz.siemens.inventory.facade.InventoryRecordFacade;
-import cz.siemens.inventory.gen.model.Device;
 import cz.siemens.inventory.gen.model.InventoryRecord;
-import cz.siemens.inventory.mapper.DeviceMapper;
 import cz.siemens.inventory.mapper.InventoryRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -46,7 +43,7 @@ public class InventoryRecordFacadeImpl implements InventoryRecordFacade {
 		List<String> inventoryRecordAuditEntries = AuditUtil.getInventoryRecordAuditEntries(fromDbOptional.get(), newInventoryRecord);
 		cz.siemens.inventory.entity.InventoryRecord savedInventoryRecord = inventoryRecordDao.save(newInventoryRecord);
 
-		auditLogFacade.saveAuditLogEntries(inventoryRecordAuditEntries, AuditLog.Category.INVENTORY, new DeviceInternal(inventoryRecord.getId()));
+		auditLogFacade.saveAuditLogEntries(inventoryRecordAuditEntries, InventoryServiceAuditLog.Category.INVENTORY, new DeviceInternal(inventoryRecord.getId()));
 		return inventoryRecordMapper.mapToExternal(savedInventoryRecord);
 	}
 

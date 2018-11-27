@@ -3,7 +3,7 @@ package cz.siemens.inventory.facade.impl;
 import cz.siemens.inventory.audit.AuditUtils.AuditUtil;
 import cz.siemens.inventory.dao.ApplianceRevisionDao;
 import cz.siemens.inventory.entity.ApplianceRevision;
-import cz.siemens.inventory.entity.AuditLog;
+import cz.siemens.inventory.entity.InventoryServiceAuditLog;
 import cz.siemens.inventory.entity.DeviceInternal;
 import cz.siemens.inventory.exception.NotFoundException;
 import cz.siemens.inventory.facade.AuditLogFacade;
@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +49,7 @@ public class DeviceRevisionFacadeImpl implements DeviceRevisionFacade {
 
 		ApplianceRevision createdRevision = applianceRevisionDao.save(newApplianceRevision);
 
-		auditLogFacade.saveAuditLogEntries(revisionAuditEntries, AuditLog.Category.REVISION, new DeviceInternal(createdRevision.getId()));
+		auditLogFacade.saveAuditLogEntries(revisionAuditEntries, InventoryServiceAuditLog.Category.REVISION, new DeviceInternal(createdRevision.getId()));
 		return deviceRevisionMapper.mapToExternal(createdRevision);
 	}
 }
