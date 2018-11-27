@@ -146,7 +146,7 @@ public class DeviceFacadeImpl implements DeviceFacade {
 	}
 
 	private void checkSerialNumberIsNotEmpty(DeviceInternal deviceInternal) {
-		if (deviceInternal.getSerialNumber().isEmpty()) {
+		if (deviceInternal.getSerialNumber().trim().isEmpty()) {
 			throw new BadRequestException("Device cannot have empty serial number.");
 		}
 	}

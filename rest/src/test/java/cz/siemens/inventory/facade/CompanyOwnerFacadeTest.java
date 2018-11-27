@@ -15,23 +15,26 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 public class CompanyOwnerFacadeTest {
 
 	private CompanyOwnerFacade cut;
+	private CompanyOwnerDao companyOwnerDao;
+	private CompanyOwnerMapper companyOwnerMapper;
 	private cz.siemens.inventory.gen.model.CompanyOwner expectedCompanyOwnerExternal = getExternalCompanyOwner(1L,"Company Owner");
 
 	@Before
 	public void setup() {
-		CompanyOwnerDao companyOwnerDaoMock = Mockito.mock(CompanyOwnerDao.class);
-		CompanyOwnerMapper companyOwnerMapperMock = new CompanyOwnerMapperImpl();
-		cut = new CompanyOwnerFacadeImpl(companyOwnerDaoMock, companyOwnerMapperMock);
+		companyOwnerDao = Mockito.mock(CompanyOwnerDao.class);
+		companyOwnerMapper = new CompanyOwnerMapperImpl();
+		cut = new CompanyOwnerFacadeImpl(companyOwnerDao, companyOwnerMapper);
 		CompanyOwner companyOwnerInternal = new CompanyOwner();
 		companyOwnerInternal.setId(expectedCompanyOwnerExternal.getId());
 		companyOwnerInternal.setName(expectedCompanyOwnerExternal.getName());
 
-		doReturn(Optional.of(companyOwnerInternal)).when(companyOwnerDaoMock).findById(1L);
-		doReturn(new ArrayList<CompanyOwner>()).when(companyOwnerDaoMock).findAll();
+		doReturn(Optional.of(companyOwnerInternal)).when(companyOwnerDao).findById(1L);
+		doReturn(new ArrayList<CompanyOwner>()).when(companyOwnerDao).findAll();
 	}
 
 	@Test
@@ -47,6 +50,43 @@ public class CompanyOwnerFacadeTest {
 
 		assertThat(optionalCompanyOwner.isPresent()).isTrue();
 		assertThat(optionalCompanyOwner).isEqualTo(Optional.of(expectedCompanyOwnerExternal));
+	}
+
+	@Test
+	public void createCompanyOwner_createsOwner() {
+		CompanyOwner expectedCompanyOwner = new CompanyOwner();
+		expectedCompanyOwner.setId(4L);
+		expectedCompanyOwner.setName("Company");
+
+		doReturn(expectedCompanyOwner).when(companyOwnerDao).save(expectedCompanyOwner);
+
+		cz.siemens.inventory.gen.model.CompanyOwner createdCompanyOwner = cut.createCompanyOwner(companyOwnerMapper.mapToExternal(expectedCompanyOwner));
+
+		assertThat(createdCompanyOwner).isNotNull();
+	}
+
+	@Test
+	public void updateCompanyOwner_updatesOwner() {
+		CompanyOwner expectedCompanyOwner = new CompanyOwner();
+		expectedCompanyOwner.setId(4L);
+		expectedCompanyOwner.setName("Company");
+
+		doReturn(expectedCompanyOwner).when(companyOwnerDao).save(expectedCompanyOwner);
+
+		cz.siemens.inventory.gen.model.CompanyOwner updatedCompanyOwner = cut.updateCompanyOwner(
+				companyOwnerMapper.mapToExternal(expectedCompanyOwner));
+
+		verify(companyOwnerDao).save(expectedCompanyOwner);
+
+		assertThat(updatedCompanyOwner).isEqualTo(companyOwnerMapper.mapToExternal(expectedCompanyOwner));
+	}
+
+	@Test
+	public void deleteCompanyOwner_deletesOwner() {
+		Long id = 3L;
+		cut.deleteCompanyOwner(id);
+
+		verify(companyOwnerDao).deleteById(id);
 	}
 
 	private cz.siemens.inventory.gen.model.CompanyOwner getExternalCompanyOwner(Long id, String name) {

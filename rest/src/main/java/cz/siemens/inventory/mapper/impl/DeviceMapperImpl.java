@@ -6,8 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -104,7 +103,8 @@ public class DeviceMapperImpl implements DeviceMapper {
 			return null;
 		}
 		try {
-			return OffsetDateTime.parse(dateString, formatter);
+			ZonedDateTime zonedDateTime = LocalDate.parse(dateString, formatter).atStartOfDay().atZone(ZoneId.of("Europe/Berlin"));
+			return zonedDateTime.toOffsetDateTime();
 		} catch (DateTimeParseException e) {
 			return null;
 		}

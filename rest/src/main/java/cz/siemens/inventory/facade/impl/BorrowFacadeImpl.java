@@ -62,7 +62,7 @@ public class BorrowFacadeImpl implements BorrowFacade {
 		LoginUserScd realOldHolder = (deviceFromDb.getHolder() == null) ? deviceFromDb.getOwner() : deviceFromDb.getHolder();
 		holderChangelog.setOldHolder(realOldHolder);
 		deviceFromDb.setDeviceState(deviceStateMapper.mapToInternal(borrowReturn.getDevice().getDeviceState()));
-		//todo below code is hell of a mess
+
 		//Business Logic is
 		//Device has Owner and Holder
 		//if holder is not specified == null => Owner is current holder but DB table for holder stays null
