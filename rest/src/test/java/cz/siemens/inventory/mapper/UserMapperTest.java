@@ -1,8 +1,8 @@
 package cz.siemens.inventory.mapper;
 
+import cz.siemens.inventory.api.gen.model.User;
+import cz.siemens.inventory.api.mapper.UserMapper;
 import cz.siemens.inventory.entity.LoginUserScd;
-import cz.siemens.inventory.gen.model.User;
-import cz.siemens.inventory.mapper.impl.UserMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +28,7 @@ public class UserMapperTest {
 
 	@Test
 	public void test_nullLoginUserScd_mapToInternal() {
-		cz.siemens.inventory.gen.model.User nullLoginUserScd = null;
+		cz.siemens.inventory.api.gen.model.User nullLoginUserScd = null;
 		LoginUserScd loginUserScd = cut.mapToInternal(nullLoginUserScd);
 		assertThat(loginUserScd).isNull();
 	}
@@ -50,7 +50,7 @@ public class UserMapperTest {
 	@Test
 	public void test_User_mapToExternal() {
 		LoginUserScd expectedLoginUserScd = getLoginUserScd(1L, "User 1", "t@c.com");
-		cz.siemens.inventory.gen.model.User actualUser = cut.mapToExternal(expectedLoginUserScd);
+		cz.siemens.inventory.api.gen.model.User actualUser = cut.mapToExternal(expectedLoginUserScd);
 		assertThatLoginUserScdsAreEqual(actualUser, expectedLoginUserScd);
 	}
 
@@ -64,7 +64,7 @@ public class UserMapperTest {
 		assertThatLoginUserScdsAreEqual(actualCompanyOwners.get(1), expectedLoginUserScds.get(1));
 	}
 
-	private cz.siemens.inventory.gen.model.User getUser(Long id, String name, String email) {
+	private cz.siemens.inventory.api.gen.model.User getUser(Long id, String name, String email) {
 		return new User().id(id).firstName(name).lastName(name).email(email)
 				.flagAdmin(true).flagBorrow(true).flagInventory(true).flagRead(true).flagWrite(true).flagRevision(true);
 	}

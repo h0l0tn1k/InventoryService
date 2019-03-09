@@ -1,8 +1,8 @@
 package cz.siemens.inventory.mapper;
 
+import cz.siemens.inventory.api.mapper.DeviceCalibrationMapper;
 import cz.siemens.inventory.entity.ApplianceCalibration;
-import cz.siemens.inventory.gen.model.DeviceCalibration;
-import cz.siemens.inventory.mapper.impl.DeviceCalibrationMapperImpl;
+import cz.siemens.inventory.api.gen.model.DeviceCalibration;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.api.mapper.DateFormat.YYYY_MM_DD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DeviceCalibrationMapperTest {

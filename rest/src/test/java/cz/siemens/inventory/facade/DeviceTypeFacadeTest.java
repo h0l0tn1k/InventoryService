@@ -1,13 +1,12 @@
 package cz.siemens.inventory.facade;
 
+import cz.siemens.inventory.api.facade.DeviceTypeFacade;
+import cz.siemens.inventory.api.mapper.DeviceTypeMapper;
 import cz.siemens.inventory.dao.DeviceTypeDao;
 import cz.siemens.inventory.entity.DeviceType;
 import cz.siemens.inventory.entity.Supplier;
-import cz.siemens.inventory.facade.impl.DeviceTypeFacadeImpl;
-import cz.siemens.inventory.gen.model.Device;
-import cz.siemens.inventory.mapper.DeviceTypeMapper;
-import cz.siemens.inventory.mapper.impl.DeviceTypeMapperImpl;
-import cz.siemens.inventory.mapper.impl.SupplierMapperImpl;
+import cz.siemens.inventory.mapper.DeviceTypeMapperImpl;
+import cz.siemens.inventory.mapper.SupplierMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -48,14 +47,14 @@ public class DeviceTypeFacadeTest {
 
 	@Test
 	public void getDeviceTypes_returnsList() {
-		List<cz.siemens.inventory.gen.model.DeviceType> DeviceTypes = cut.getDeviceTypes();
+		List<cz.siemens.inventory.api.gen.model.DeviceType> DeviceTypes = cut.getDeviceTypes();
 
 		assertThat(DeviceTypes).isEmpty();
 	}
 
 	@Test
 	public void getDeviceType_byId_returnsDeviceType() {
-		Optional<cz.siemens.inventory.gen.model.DeviceType> optionalDeviceType = cut.getDeviceType(1L);
+		Optional<cz.siemens.inventory.api.gen.model.DeviceType> optionalDeviceType = cut.getDeviceType(1L);
 
 		assertThat(optionalDeviceType.isPresent()).isTrue();
 		assertThat(optionalDeviceType).isEqualTo(Optional.of(deviceTypeMapper.mapToExternal(deviceTypeInternal)));
@@ -66,7 +65,7 @@ public class DeviceTypeFacadeTest {
 
 		doReturn(deviceTypeInternal).when(deviceTypeDao).save(deviceTypeInternal);
 
-		cz.siemens.inventory.gen.model.DeviceType createdDeviceType = cut.createDeviceType(deviceTypeMapper.mapToExternal(deviceTypeInternal));
+		cz.siemens.inventory.api.gen.model.DeviceType createdDeviceType = cut.createDeviceType(deviceTypeMapper.mapToExternal(deviceTypeInternal));
 
 		assertThat(createdDeviceType).isNotNull();
 	}
@@ -76,7 +75,7 @@ public class DeviceTypeFacadeTest {
 
 		doReturn(deviceTypeInternal).when(deviceTypeDao).save(deviceTypeInternal);
 
-		cz.siemens.inventory.gen.model.DeviceType updatedDeviceType = cut.updateDeviceType(
+		cz.siemens.inventory.api.gen.model.DeviceType updatedDeviceType = cut.updateDeviceType(
 				deviceTypeMapper.mapToExternal(deviceTypeInternal));
 
 		verify(deviceTypeDao).save(deviceTypeInternal);
@@ -101,7 +100,7 @@ public class DeviceTypeFacadeTest {
 
 		doReturn(deviceTypes).when(deviceTypeDao).getDeviceTypesByObjectTypeNameContaining("name");
 
-		List<cz.siemens.inventory.gen.model.DeviceType> deviceTypesByName = cut.getDeviceTypesByName("name");
+		List<cz.siemens.inventory.api.gen.model.DeviceType> deviceTypesByName = cut.getDeviceTypesByName("name");
 
 		assertThat(deviceTypesByName).hasSize(3);
 		assertThat(deviceTypesByName.get(0).getId()).isEqualTo(deviceTypeInternal.getId());

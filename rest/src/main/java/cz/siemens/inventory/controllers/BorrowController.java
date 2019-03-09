@@ -1,9 +1,8 @@
 package cz.siemens.inventory.controllers;
 
-
-import cz.siemens.inventory.facade.BorrowFacade;
-import cz.siemens.inventory.gen.api.BorrowApi;
-import cz.siemens.inventory.gen.model.BorrowReturn;
+import cz.siemens.inventory.api.facade.BorrowFacade;
+import cz.siemens.inventory.api.gen.BorrowApi;
+import cz.siemens.inventory.api.gen.model.BorrowReturn;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

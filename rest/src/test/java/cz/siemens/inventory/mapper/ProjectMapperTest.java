@@ -1,7 +1,7 @@
 package cz.siemens.inventory.mapper;
 
+import cz.siemens.inventory.api.mapper.ProjectMapper;
 import cz.siemens.inventory.entity.Project;
-import cz.siemens.inventory.mapper.impl.ProjectMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,14 +27,14 @@ public class ProjectMapperTest {
 
 	@Test
 	public void test_nullProject_mapToInternal() {
-		cz.siemens.inventory.gen.model.Project nullProject = null;
+		cz.siemens.inventory.api.gen.model.Project nullProject = null;
 		Project project = cut.mapToInternal(nullProject);
 		assertThat(project).isNull();
 	}
 
 	@Test
 	public void test_Project_mapToInternal() {
-		cz.siemens.inventory.gen.model.Project expectedProject = getProject(1L, "Company owner");
+		cz.siemens.inventory.api.gen.model.Project expectedProject = getProject(1L, "Company owner");
 		Project actualProject = cut.mapToInternal(expectedProject);
 		assertThatProjectsAreEqual(actualProject, expectedProject);
 	}
@@ -42,20 +42,20 @@ public class ProjectMapperTest {
 	@Test
 	public void test_nullProject_mapToExternal() {
 		Project nullProject = null;
-		cz.siemens.inventory.gen.model.Project project = cut.mapToExternal(nullProject);
+		cz.siemens.inventory.api.gen.model.Project project = cut.mapToExternal(nullProject);
 		assertThat(project).isNull();
 	}
 
 	@Test
 	public void test_Project_mapToExternal() {
 		Project expectedProject = getProjectInternal(1L, "Company owner");
-		cz.siemens.inventory.gen.model.Project actualProject = cut.mapToExternal(expectedProject);
+		cz.siemens.inventory.api.gen.model.Project actualProject = cut.mapToExternal(expectedProject);
 		assertThatProjectsAreEqual(actualProject, expectedProject);
 	}
 
 	@Test
 	public void test_ProjectList_mapToInternal() {
-		List<cz.siemens.inventory.gen.model.Project> expectedProjects = new ArrayList<>();
+		List<cz.siemens.inventory.api.gen.model.Project> expectedProjects = new ArrayList<>();
 		expectedProjects.add(getProject(1L, "Project 1"));
 		expectedProjects.add(getProject(2L, "Project 2"));
 		List<Project> actualCompanyOwners = cut.mapToInternal(expectedProjects);
@@ -63,8 +63,8 @@ public class ProjectMapperTest {
 		assertThatProjectsAreEqual(actualCompanyOwners.get(1), expectedProjects.get(1));
 	}
 
-	private cz.siemens.inventory.gen.model.Project getProject(Long id, String name) {
-		return new cz.siemens.inventory.gen.model.Project().id(id).name(name);
+	private cz.siemens.inventory.api.gen.model.Project getProject(Long id, String name) {
+		return new cz.siemens.inventory.api.gen.model.Project().id(id).name(name);
 	}
 
 	private Project getProjectInternal(Long id, String name) {
@@ -74,12 +74,12 @@ public class ProjectMapperTest {
 		return project;
 	}
 
-	private void assertThatProjectsAreEqual(Project actualProject, cz.siemens.inventory.gen.model.Project expectedProject) {
+	private void assertThatProjectsAreEqual(Project actualProject, cz.siemens.inventory.api.gen.model.Project expectedProject) {
 		assertThat(actualProject.getId()).isEqualTo(expectedProject.getId());
 		assertThat(actualProject.getName()).isEqualTo(expectedProject.getName());
 	}
 
-	private void assertThatProjectsAreEqual(cz.siemens.inventory.gen.model.Project actualProject, Project expectedProject) {
+	private void assertThatProjectsAreEqual(cz.siemens.inventory.api.gen.model.Project actualProject, Project expectedProject) {
 		assertThat(actualProject.getId()).isEqualTo(expectedProject.getId());
 		assertThat(actualProject.getName()).isEqualTo(expectedProject.getName());
 	}

@@ -4,7 +4,6 @@ import cz.siemens.inventory.dao.LoginPasswordScdDao;
 import cz.siemens.inventory.dao.LoginUserScdDao;
 import cz.siemens.inventory.entity.LoginUserScd;
 import cz.siemens.inventory.entity.UserPassword;
-import cz.siemens.inventory.service.impl.UserDetailsServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

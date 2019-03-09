@@ -1,9 +1,8 @@
 package cz.siemens.inventory.controllers;
 
-
-import cz.siemens.inventory.facade.DeviceStateFacade;
-import cz.siemens.inventory.gen.api.DeviceStatesApi;
-import cz.siemens.inventory.gen.model.DeviceState;
+import cz.siemens.inventory.api.facade.DeviceStateFacade;
+import cz.siemens.inventory.api.gen.DeviceStatesApi;
+import cz.siemens.inventory.api.gen.model.DeviceState;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

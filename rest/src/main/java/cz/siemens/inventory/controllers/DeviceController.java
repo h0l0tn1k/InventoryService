@@ -1,8 +1,8 @@
 package cz.siemens.inventory.controllers;
 
-import cz.siemens.inventory.facade.DeviceFacade;
-import cz.siemens.inventory.gen.api.DevicesApi;
-import cz.siemens.inventory.gen.model.Device;
+import cz.siemens.inventory.api.facade.DeviceFacade;
+import cz.siemens.inventory.api.gen.DevicesApi;
+import cz.siemens.inventory.api.gen.model.Device;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,7 +107,7 @@ public class DeviceController extends BaseController implements DevicesApi {
 
 	@Override
 	public ResponseEntity<List<Device>> getDevicesWithSerialOrBarcodeNumberLike(
-			@ApiParam(required=true) @PathVariable("serialBarcodeNumber") String serialBarcodeNumber) {
+			@ApiParam(required = true) @PathVariable("serialBarcodeNumber") String serialBarcodeNumber) {
 		logger.info("getDevicesWithSerialOrBarcodeNumberLike({}) request received", serialBarcodeNumber);
 
 		List<Device> devicesWithSerialOrBarcodeNumberLike = deviceFacade.getDevicesBySerialOrBarcodeNumberLike(serialBarcodeNumber);

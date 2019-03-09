@@ -1,14 +1,14 @@
 package cz.siemens.inventory.facade;
 
+import cz.siemens.inventory.api.facade.AuditLogFacade;
+import cz.siemens.inventory.api.facade.DeviceFacade;
+import cz.siemens.inventory.api.gen.model.Device;
+import cz.siemens.inventory.api.mapper.DeviceMapper;
 import cz.siemens.inventory.dao.DeviceDao;
 import cz.siemens.inventory.entity.DeviceInternal;
-import cz.siemens.inventory.entity.InventoryRecord;
 import cz.siemens.inventory.exception.BadRequestException;
 import cz.siemens.inventory.exception.ConflictException;
-import cz.siemens.inventory.facade.impl.DeviceFacadeImpl;
-import cz.siemens.inventory.gen.model.Device;
-import cz.siemens.inventory.mapper.DeviceMapper;
-import cz.siemens.inventory.mapper.impl.*;
+import cz.siemens.inventory.mapper.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.api.mapper.DateFormat.YYYY_MM_DD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -51,7 +51,7 @@ public class DeviceFacadeTest {
 
 	@Test
 	public void getDevices_returnsList() {
-		List<cz.siemens.inventory.gen.model.Device> Devices = cut.getDevices();
+		List<cz.siemens.inventory.api.gen.model.Device> Devices = cut.getDevices();
 
 		assertThat(Devices).isEmpty();
 	}

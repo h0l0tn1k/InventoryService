@@ -1,9 +1,8 @@
 package cz.siemens.inventory.controllers;
 
-
-import cz.siemens.inventory.facade.DeviceRevisionFacade;
-import cz.siemens.inventory.gen.api.ElectricRevisionsApi;
-import cz.siemens.inventory.gen.model.DeviceRevision;
+import cz.siemens.inventory.api.facade.DeviceRevisionFacade;
+import cz.siemens.inventory.api.gen.ElectricRevisionsApi;
+import cz.siemens.inventory.api.gen.model.DeviceRevision;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

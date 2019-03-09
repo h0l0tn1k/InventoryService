@@ -1,5 +1,7 @@
 package cz.siemens.inventory.mapper;
 
+import cz.siemens.inventory.api.gen.model.*;
+import cz.siemens.inventory.api.mapper.DeviceMapper;
 import cz.siemens.inventory.entity.*;
 import cz.siemens.inventory.entity.CompanyOwner;
 import cz.siemens.inventory.entity.Department;
@@ -7,8 +9,6 @@ import cz.siemens.inventory.entity.DeviceState;
 import cz.siemens.inventory.entity.DeviceType;
 import cz.siemens.inventory.entity.InventoryRecord;
 import cz.siemens.inventory.entity.Supplier;
-import cz.siemens.inventory.gen.model.*;
-import cz.siemens.inventory.mapper.impl.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.api.mapper.DateFormat.YYYY_MM_DD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DeviceMapperTest {
@@ -78,11 +78,11 @@ public class DeviceMapperTest {
 	private Device getDevice(Long id) {
 		User user = new User().flagAdmin(true).flagBorrow(true).flagInventory(true).flagRevision(true).flagWrite(true).flagRead(true);
 		return new Device().id(id).barcodeNumber("123").serialNumber("321").comment("test").defaultLocation("def")
-				.nstValue("111").inventoryNumber("3").deviceState(new cz.siemens.inventory.gen.model.DeviceState())
+				.nstValue("111").inventoryNumber("3").deviceState(new cz.siemens.inventory.api.gen.model.DeviceState())
 				.holder(user).addDateString(OffsetDateTime.now().format(DateTimeFormatter.ofPattern(YYYY_MM_DD)))
-				.revision(new DeviceRevision()).calibration(new DeviceCalibration()).inventoryRecord(new cz.siemens.inventory.gen.model.InventoryRecord().inventoryState(InventoryState.FALSE))
-				.companyOwner(new cz.siemens.inventory.gen.model.CompanyOwner()).department(new cz.siemens.inventory.gen.model.Department())
-				.owner(user).deviceType(new cz.siemens.inventory.gen.model.DeviceType());
+				.revision(new DeviceRevision()).calibration(new DeviceCalibration()).inventoryRecord(new cz.siemens.inventory.api.gen.model.InventoryRecord().inventoryState(InventoryState.FALSE))
+				.companyOwner(new cz.siemens.inventory.api.gen.model.CompanyOwner()).department(new cz.siemens.inventory.api.gen.model.Department())
+				.owner(user).deviceType(new cz.siemens.inventory.api.gen.model.DeviceType());
 	}
 
 	private DeviceInternal getDeviceInternal(Long id) {

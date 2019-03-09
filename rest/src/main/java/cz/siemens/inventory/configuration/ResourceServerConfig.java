@@ -39,13 +39,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	}
 
 	@Bean
-	public JwtAccessTokenConverter accessTokenConverter() {
-		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		converter.setSigningKey(signingKey);
-		return converter;
-	}
-
-	@Bean
 	protected OAuth2AccessDeniedHandler oauthAccessDeniedHandler() {
 		return new OAuth2AccessDeniedHandler();
 	}

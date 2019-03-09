@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.api.mapper.DateFormat.YYYY_MM_DD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AuditUtilTest {

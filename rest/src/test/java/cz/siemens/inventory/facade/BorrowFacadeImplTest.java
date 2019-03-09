@@ -1,5 +1,10 @@
 package cz.siemens.inventory.facade;
 
+import cz.siemens.inventory.api.facade.BorrowFacade;
+import cz.siemens.inventory.api.gen.model.BorrowReturn;
+import cz.siemens.inventory.api.gen.model.Device;
+import cz.siemens.inventory.api.gen.model.User;
+import cz.siemens.inventory.api.mapper.DeviceStateMapper;
 import cz.siemens.inventory.dao.DeviceDao;
 import cz.siemens.inventory.dao.HolderChangelogDao;
 import cz.siemens.inventory.dao.LoginUserScdDao;
@@ -8,12 +13,7 @@ import cz.siemens.inventory.entity.HolderChangelog;
 import cz.siemens.inventory.entity.LoginUserScd;
 import cz.siemens.inventory.exception.ConflictException;
 import cz.siemens.inventory.exception.NotFoundException;
-import cz.siemens.inventory.facade.impl.BorrowFacadeImpl;
-import cz.siemens.inventory.gen.model.BorrowReturn;
-import cz.siemens.inventory.gen.model.Device;
-import cz.siemens.inventory.gen.model.User;
-import cz.siemens.inventory.mapper.DeviceStateMapper;
-import cz.siemens.inventory.mapper.impl.DeviceStateMapperImpl;
+import cz.siemens.inventory.mapper.DeviceStateMapperImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

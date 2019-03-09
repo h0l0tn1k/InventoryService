@@ -1,9 +1,8 @@
 package cz.siemens.inventory.controllers;
 
-
-import cz.siemens.inventory.facade.CompanyOwnerFacade;
-import cz.siemens.inventory.gen.api.CompanyOwnersApi;
-import cz.siemens.inventory.gen.model.CompanyOwner;
+import cz.siemens.inventory.api.facade.CompanyOwnerFacade;
+import cz.siemens.inventory.api.gen.CompanyOwnersApi;
+import cz.siemens.inventory.api.gen.model.CompanyOwner;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -12,9 +12,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.api.mapper.DateFormat.YYYY_MM_DD;
 
 public class AuditUtil {
+
+	private AuditUtil() {
+	}
 
 	public static List<String> getDeviceAuditEntries(DeviceInternal previousVersion, DeviceInternal newVersion) {
 		List<String> auditEntries = new ArrayList<>();

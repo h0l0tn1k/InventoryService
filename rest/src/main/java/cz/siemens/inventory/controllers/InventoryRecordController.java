@@ -1,8 +1,8 @@
 package cz.siemens.inventory.controllers;
 
-import cz.siemens.inventory.facade.InventoryRecordFacade;
-import cz.siemens.inventory.gen.api.InventoryRecordsApi;
-import cz.siemens.inventory.gen.model.InventoryRecord;
+import cz.siemens.inventory.api.facade.InventoryRecordFacade;
+import cz.siemens.inventory.api.gen.InventoryRecordsApi;
+import cz.siemens.inventory.api.gen.model.InventoryRecord;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

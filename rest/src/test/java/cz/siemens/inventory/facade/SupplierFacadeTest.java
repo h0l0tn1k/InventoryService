@@ -1,10 +1,10 @@
 package cz.siemens.inventory.facade;
 
+import cz.siemens.inventory.api.facade.SupplierFacade;
+import cz.siemens.inventory.api.mapper.SupplierMapper;
 import cz.siemens.inventory.dao.SupplierDao;
 import cz.siemens.inventory.entity.Supplier;
-import cz.siemens.inventory.facade.impl.SupplierFacadeImpl;
-import cz.siemens.inventory.mapper.SupplierMapper;
-import cz.siemens.inventory.mapper.impl.SupplierMapperImpl;
+import cz.siemens.inventory.mapper.SupplierMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -39,14 +39,14 @@ public class SupplierFacadeTest {
 
 	@Test
 	public void getSuppliers_returnsList() {
-		List<cz.siemens.inventory.gen.model.Supplier> Suppliers = cut.getSuppliers();
+		List<cz.siemens.inventory.api.gen.model.Supplier> Suppliers = cut.getSuppliers();
 
 		assertThat(Suppliers).isEmpty();
 	}
 
 	@Test
 	public void getSupplier_byId_returnsSupplier() {
-		Optional<cz.siemens.inventory.gen.model.Supplier> optionalSupplier = cut.getSupplier(1L);
+		Optional<cz.siemens.inventory.api.gen.model.Supplier> optionalSupplier = cut.getSupplier(1L);
 
 		assertThat(optionalSupplier.isPresent()).isTrue();
 		assertThat(optionalSupplier).isEqualTo(Optional.of(supplierMapper.mapToExternal(supplierInternal)));
@@ -57,7 +57,7 @@ public class SupplierFacadeTest {
 
 		doReturn(supplierInternal).when(supplierDao).save(supplierInternal);
 
-		cz.siemens.inventory.gen.model.Supplier createdSupplier = cut.createSupplier(supplierMapper.mapToExternal(supplierInternal));
+		cz.siemens.inventory.api.gen.model.Supplier createdSupplier = cut.createSupplier(supplierMapper.mapToExternal(supplierInternal));
 
 		assertThat(createdSupplier).isNotNull();
 	}
@@ -67,7 +67,7 @@ public class SupplierFacadeTest {
 
 		doReturn(supplierInternal).when(supplierDao).save(supplierInternal);
 
-		cz.siemens.inventory.gen.model.Supplier updatedSupplier = cut.updateSupplier(
+		cz.siemens.inventory.api.gen.model.Supplier updatedSupplier = cut.updateSupplier(
 				supplierMapper.mapToExternal(supplierInternal));
 
 		verify(supplierDao).save(supplierInternal);

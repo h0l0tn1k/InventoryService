@@ -1,7 +1,6 @@
 out/
-Persistence/target/
-rest/target
+*/target/*
 *.iml
 .idea/
 **/gen/
-rest/src/main/resources/static/documentation/*/*
+*/resources/static/documentation/*

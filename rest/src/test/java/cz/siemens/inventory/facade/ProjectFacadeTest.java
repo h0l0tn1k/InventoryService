@@ -1,12 +1,10 @@
 package cz.siemens.inventory.facade;
 
+import cz.siemens.inventory.api.facade.ProjectFacade;
+import cz.siemens.inventory.api.mapper.ProjectMapper;
 import cz.siemens.inventory.dao.ProjectsDao;
 import cz.siemens.inventory.entity.Project;
-import cz.siemens.inventory.entity.Supplier;
-import cz.siemens.inventory.facade.impl.ProjectFacadeImpl;
-import cz.siemens.inventory.mapper.ProjectMapper;
-import cz.siemens.inventory.mapper.impl.ProjectMapperImpl;
-import cz.siemens.inventory.mapper.impl.SupplierMapperImpl;
+import cz.siemens.inventory.mapper.ProjectMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -41,14 +39,14 @@ public class ProjectFacadeTest {
 
 	@Test
 	public void getProjects_returnsList() {
-		List<cz.siemens.inventory.gen.model.Project> Projects = cut.getProjects();
+		List<cz.siemens.inventory.api.gen.model.Project> Projects = cut.getProjects();
 
 		assertThat(Projects).isEmpty();
 	}
 
 	@Test
 	public void getProject_byId_returnsProject() {
-		Optional<cz.siemens.inventory.gen.model.Project> optionalProject = cut.getProject(1L);
+		Optional<cz.siemens.inventory.api.gen.model.Project> optionalProject = cut.getProject(1L);
 
 		assertThat(optionalProject.isPresent()).isTrue();
 		assertThat(optionalProject).isEqualTo(Optional.of(projectMapper.mapToExternal(projectInternal)));
@@ -59,7 +57,7 @@ public class ProjectFacadeTest {
 
 		doReturn(projectInternal).when(projectDao).save(projectInternal);
 
-		cz.siemens.inventory.gen.model.Project createdProject = cut.createProject(projectMapper.mapToExternal(projectInternal));
+		cz.siemens.inventory.api.gen.model.Project createdProject = cut.createProject(projectMapper.mapToExternal(projectInternal));
 
 		assertThat(createdProject).isNotNull();
 	}
@@ -69,7 +67,7 @@ public class ProjectFacadeTest {
 
 		doReturn(projectInternal).when(projectDao).save(projectInternal);
 
-		cz.siemens.inventory.gen.model.Project updatedProject = cut.updateProject(
+		cz.siemens.inventory.api.gen.model.Project updatedProject = cut.updateProject(
 				projectMapper.mapToExternal(projectInternal));
 
 		verify(projectDao).save(projectInternal);

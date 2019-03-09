@@ -1,10 +1,10 @@
 package cz.siemens.inventory.facade;
 
+import cz.siemens.inventory.api.facade.DepartmentFacade;
 import cz.siemens.inventory.dao.DepartmentDao;
 import cz.siemens.inventory.entity.Department;
-import cz.siemens.inventory.facade.impl.DepartmentFacadeImpl;
-import cz.siemens.inventory.mapper.DepartmentMapper;
-import cz.siemens.inventory.mapper.impl.DepartmentMapperImpl;
+import cz.siemens.inventory.api.mapper.DepartmentMapper;
+import cz.siemens.inventory.mapper.DepartmentMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -22,7 +22,7 @@ public class DepartmentFacadeTest {
 	private DepartmentFacade cut;
 	private DepartmentDao departmentDao;
 	private DepartmentMapper departmentMapper;
-	private cz.siemens.inventory.gen.model.Department expectedDepartmentExternal = getExternalDepartment(1L,"Department D1");
+	private cz.siemens.inventory.api.gen.model.Department expectedDepartmentExternal = getExternalDepartment(1L,"Department D1");
 
 	@Before
 	public void setup() {
@@ -39,14 +39,14 @@ public class DepartmentFacadeTest {
 
 	@Test
 	public void getDepartments_returnsList() {
-		List<cz.siemens.inventory.gen.model.Department> departments = cut.getDepartments();
+		List<cz.siemens.inventory.api.gen.model.Department> departments = cut.getDepartments();
 
 		assertThat(departments).isEmpty();
 	}
 
 	@Test
 	public void getDepartment_byId_returnsOwner() {
-		Optional<cz.siemens.inventory.gen.model.Department> optionalDepartment = cut.getDepartment(1L);
+		Optional<cz.siemens.inventory.api.gen.model.Department> optionalDepartment = cut.getDepartment(1L);
 
 		assertThat(optionalDepartment.isPresent()).isTrue();
 		assertThat(optionalDepartment).isEqualTo(Optional.of(expectedDepartmentExternal));
@@ -60,7 +60,7 @@ public class DepartmentFacadeTest {
 
 		doReturn(expectedDepartment).when(departmentDao).save(expectedDepartment);
 
-		cz.siemens.inventory.gen.model.Department createdDepartment = cut.createDepartment(departmentMapper.mapToExternal(expectedDepartment));
+		cz.siemens.inventory.api.gen.model.Department createdDepartment = cut.createDepartment(departmentMapper.mapToExternal(expectedDepartment));
 
 		assertThat(createdDepartment).isNotNull();
 	}
@@ -73,7 +73,7 @@ public class DepartmentFacadeTest {
 
 		doReturn(expectedDepartment).when(departmentDao).save(expectedDepartment);
 
-		cz.siemens.inventory.gen.model.Department updatedDepartment = cut.updateDepartment(
+		cz.siemens.inventory.api.gen.model.Department updatedDepartment = cut.updateDepartment(
 				departmentMapper.mapToExternal(expectedDepartment));
 
 		verify(departmentDao).save(expectedDepartment);
@@ -89,7 +89,7 @@ public class DepartmentFacadeTest {
 		verify(departmentDao).deleteById(id);
 	}
 
-	private cz.siemens.inventory.gen.model.Department getExternalDepartment(Long id, String name) {
-		return new cz.siemens.inventory.gen.model.Department().id(id).name(name);
+	private cz.siemens.inventory.api.gen.model.Department getExternalDepartment(Long id, String name) {
+		return new cz.siemens.inventory.api.gen.model.Department().id(id).name(name);
 	}
 }

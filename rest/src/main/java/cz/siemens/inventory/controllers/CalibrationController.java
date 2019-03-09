@@ -1,9 +1,8 @@
 package cz.siemens.inventory.controllers;
 
-
-import cz.siemens.inventory.facade.DeviceCalibrationFacade;
-import cz.siemens.inventory.gen.api.CalibrationsApi;
-import cz.siemens.inventory.gen.model.DeviceCalibration;
+import cz.siemens.inventory.api.facade.DeviceCalibrationFacade;
+import cz.siemens.inventory.api.gen.CalibrationsApi;
+import cz.siemens.inventory.api.gen.model.DeviceCalibration;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

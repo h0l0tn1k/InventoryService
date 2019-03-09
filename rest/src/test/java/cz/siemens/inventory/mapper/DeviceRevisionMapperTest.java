@@ -1,8 +1,8 @@
 package cz.siemens.inventory.mapper;
 
+import cz.siemens.inventory.api.gen.model.DeviceRevision;
+import cz.siemens.inventory.api.mapper.DeviceRevisionMapper;
 import cz.siemens.inventory.entity.ApplianceRevision;
-import cz.siemens.inventory.gen.model.DeviceRevision;
-import cz.siemens.inventory.mapper.impl.DeviceRevisionMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cz.siemens.inventory.mapper.DateFormat.YYYY_MM_DD;
+import static cz.siemens.inventory.api.mapper.DateFormat.YYYY_MM_DD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DeviceRevisionMapperTest {

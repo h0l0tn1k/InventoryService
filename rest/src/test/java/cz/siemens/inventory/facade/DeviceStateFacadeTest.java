@@ -1,10 +1,10 @@
 package cz.siemens.inventory.facade;
 
+import cz.siemens.inventory.api.facade.DeviceStateFacade;
 import cz.siemens.inventory.dao.DeviceStateDao;
 import cz.siemens.inventory.entity.DeviceState;
-import cz.siemens.inventory.facade.impl.DeviceStateFacadeImpl;
-import cz.siemens.inventory.mapper.DeviceStateMapper;
-import cz.siemens.inventory.mapper.impl.DeviceStateMapperImpl;
+import cz.siemens.inventory.api.mapper.DeviceStateMapper;
+import cz.siemens.inventory.mapper.DeviceStateMapperImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -22,7 +22,7 @@ public class DeviceStateFacadeTest {
 	private DeviceStateFacade cut;
 	private DeviceStateDao deviceStateDao;
 	private DeviceStateMapper deviceStateMapper;
-	private cz.siemens.inventory.gen.model.DeviceState expectedDeviceStateExternal = getExternalDeviceState(1L,"DeviceState D1");
+	private cz.siemens.inventory.api.gen.model.DeviceState expectedDeviceStateExternal = getExternalDeviceState(1L,"DeviceState D1");
 
 	@Before
 	public void setup() {
@@ -39,14 +39,14 @@ public class DeviceStateFacadeTest {
 
 	@Test
 	public void getDeviceStates_returnsList() {
-		List<cz.siemens.inventory.gen.model.DeviceState> deviceStates = cut.getDeviceStates();
+		List<cz.siemens.inventory.api.gen.model.DeviceState> deviceStates = cut.getDeviceStates();
 
 		assertThat(deviceStates).isEmpty();
 	}
 
 	@Test
 	public void getDeviceState_byId_returnsOwner() {
-		Optional<cz.siemens.inventory.gen.model.DeviceState> optionalDeviceState = cut.getDeviceState(1L);
+		Optional<cz.siemens.inventory.api.gen.model.DeviceState> optionalDeviceState = cut.getDeviceState(1L);
 
 		assertThat(optionalDeviceState.isPresent()).isTrue();
 		assertThat(optionalDeviceState).isEqualTo(Optional.of(expectedDeviceStateExternal));
@@ -60,7 +60,7 @@ public class DeviceStateFacadeTest {
 
 		doReturn(expectedDeviceState).when(deviceStateDao).save(expectedDeviceState);
 
-		cz.siemens.inventory.gen.model.DeviceState createdDeviceState = cut.createDeviceState(deviceStateMapper.mapToExternal(expectedDeviceState));
+		cz.siemens.inventory.api.gen.model.DeviceState createdDeviceState = cut.createDeviceState(deviceStateMapper.mapToExternal(expectedDeviceState));
 
 		assertThat(createdDeviceState).isNotNull();
 	}
@@ -73,7 +73,7 @@ public class DeviceStateFacadeTest {
 		verify(deviceStateDao).deleteById(id);
 	}
 
-	private cz.siemens.inventory.gen.model.DeviceState getExternalDeviceState(Long id, String name) {
-		return new cz.siemens.inventory.gen.model.DeviceState().id(id).name(name);
+	private cz.siemens.inventory.api.gen.model.DeviceState getExternalDeviceState(Long id, String name) {
+		return new cz.siemens.inventory.api.gen.model.DeviceState().id(id).name(name);
 	}
 }

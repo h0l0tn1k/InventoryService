@@ -16,7 +16,7 @@ import java.util.Locale;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"cz.siemens.inventory"})
-public class RootWebContext extends WebMvcConfigurerAdapter {
+public class RootWebContext implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
