@@ -2,6 +2,7 @@ package cz.siemens.inventory.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @Entity
+@Accessors(chain = true)
 @Table(name = "login_user_scd")
 public class LoginUserScd implements Serializable {
 

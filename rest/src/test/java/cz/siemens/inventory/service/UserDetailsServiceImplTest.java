@@ -7,6 +7,7 @@ import cz.siemens.inventory.entity.UserPassword;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,6 +40,14 @@ public class UserDetailsServiceImplTest {
 	public void loadUserByUsername_nonExistingUser() {
 		doReturn(null).when(userDao).getByEmail(anyString());
 		cut.loadUserByUsername("nonexistinguser");
+	}
+
+	@Test(expected = CredentialsExpiredException.class)
+	public void loadUserByUsername_passwordIsEmpty() {
+		String email = "test@email.com";
+		doReturn(new LoginUserScd().setEmail(email)).when(userDao).getByEmail(email);
+		doReturn(Optional.of(new UserPassword().setPasswordHash(""))).when(passwordDao).getPassword(email);
+		cut.loadUserByUsername(email);
 	}
 
 	@Test

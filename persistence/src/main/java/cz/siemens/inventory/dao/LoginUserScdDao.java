@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface LoginUserScdDao extends JpaRepository<LoginUserScd, Long> {
 
-	@Query("SELECT user From LoginUserScd user where email=:email")
+	@Query("SELECT user From LoginUserScd user where lower(email)=:email")
 	LoginUserScd getByEmail(@Param("email") String email);
 }

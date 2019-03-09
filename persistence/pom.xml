@@ -5,12 +5,12 @@
     <parent>
         <artifactId>inventory-service</artifactId>
         <groupId>cz.siemens.inventory.service</groupId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>inventory-persistence</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
     <name>Persistence Layer</name>
     

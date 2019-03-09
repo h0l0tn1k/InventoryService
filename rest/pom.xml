@@ -4,14 +4,14 @@
     <parent>
         <artifactId>inventory-service</artifactId>
         <groupId>cz.siemens.inventory.service</groupId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>inventory-api</artifactId>
-    <version>1.0.0</version>
+    <artifactId>inventory-service-srv</artifactId>
+    <version>1.1.0</version>
     <packaging>war</packaging>
-    <name>Rest Layer</name>
+    <name>REST service</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -22,6 +22,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>inventory-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>inventory-service-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -81,12 +86,11 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
-            <groupId>cz.siemens.inventory.service</groupId>
-            <artifactId>inventory-service-api</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.4.1</version>
         </dependency>
-    </dependencies>
+	</dependencies>
 
 
     <pluginRepositories>

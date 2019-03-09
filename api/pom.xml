@@ -4,11 +4,12 @@
 	<parent>
 		<artifactId>inventory-service</artifactId>
 		<groupId>cz.siemens.inventory.service</groupId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>inventory-service-api</artifactId>
+	<name>API Layer</name>
 
 	<dependencies>
 		<dependency>
@@ -26,6 +27,25 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>clean-previously-generated-files</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>src/main/java/cz/siemens/inventory/api/gen</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-codegen-maven-plugin</artifactId>

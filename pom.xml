@@ -6,9 +6,9 @@
 	<groupId>cz.siemens.inventory.service</groupId>
 	<artifactId>inventory-service</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 
-	<name>Siemens Inventory Service</name>
+	<name>Inventory Service</name>
 
 	<modules>
 		<module>persistence</module>
